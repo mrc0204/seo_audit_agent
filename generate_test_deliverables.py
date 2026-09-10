@@ -193,15 +193,14 @@ def run_batch_tests(base_output_dir: str = "outputs") -> dict[str, Any]:
 
 def generate_excel_inputs(test_cases: list[TestCase], file_path: str) -> None:
     wb = openpyxl.Workbook()
-    ws = wb.active
-    ws.title = "Test Inputs Summary"
+    # Remove default sheet
+    wb.remove(wb.active)
 
-    # Styling
+    # Styling definitions
     header_fill = PatternFill(start_color="1F4E78", end_color="1F4E78", fill_type="solid")
     header_font = Font(name="Calibri", size=11, bold=True, color="FFFFFF")
     data_font = Font(name="Calibri", size=10)
-    title_font = Font(name="Calibri", size=14, bold=True, color="1F4E78")
-    subtitle_font = Font(name="Calibri", size=10, italic=True, color="595959")
+    title_font = Font(name="Calibri", size=13, bold=True, color="1F4E78")
     thin_border = Border(
         left=Side(style="thin", color="D9D9D9"),
         right=Side(style="thin", color="D9D9D9"),
@@ -209,15 +208,15 @@ def generate_excel_inputs(test_cases: list[TestCase], file_path: str) -> None:
         bottom=Side(style="thin", color="D9D9D9"),
     )
 
-    ws.append(["Evidence-Grounded SEO Audit Agent — Batch Test Inputs Matrix"])
-    ws.cell(1, 1).font = title_font
-    ws.append(["Independent inputs tested across Question 1 (SEO Findings), Question 2 (NAP Audit), and Question 3 (Grounded QA)"])
-    ws.cell(2, 1).font = subtitle_font
-    ws.append([])  # Empty row
+    categories = [
+        ("Q1 - SEO Audit Findings", "Q1", "Question 1: Technical & On-Page SEO Audit Findings Inputs"),
+        ("Q2 - NAP Audit", "Q2", "Question 2: Name, Address, Phone (NAP) Consistency Audit Inputs"),
+        ("Q3 - Grounded QA", "Q3", "Question 3: Evidence-Grounded Question Answering (QA) Inputs"),
+        ("All Inputs Overview", "ALL", "Complete Matrix of All Tested Inputs Across Questions"),
+    ]
 
     headers = [
         "Test ID",
-        "Category / Scope",
         "Target Website URL",
         "User Question (Q3)",
         "Max Pages",
@@ -225,48 +224,59 @@ def generate_excel_inputs(test_cases: list[TestCase], file_path: str) -> None:
         "LLM Provider",
         "Description & Objective",
     ]
-    ws.append(headers)
 
-    header_row_idx = 4
-    for col_num, header in enumerate(headers, 1):
-        cell = ws.cell(row=header_row_idx, column=col_num)
-        cell.fill = header_fill
-        cell.font = header_font
-        cell.alignment = Alignment(horizontal="center", vertical="center")
+    for sheet_title, filter_code, title_desc in categories:
+        ws = wb.create_sheet(title=sheet_title)
+        ws.append([title_desc])
+        ws.cell(1, 1).font = title_font
+        ws.append([])  # Spacer
 
-    for tc in test_cases:
-        row = [
-            tc.id,
-            tc.question_type,
-            tc.target_url,
-            tc.question or "N/A (Crawl/Audit Only)",
-            tc.max_pages,
-            tc.max_depth,
-            tc.llm_provider.upper(),
-            tc.description,
-        ]
-        ws.append(row)
-        curr_row = ws.max_row
+        ws.append(headers)
         for col_num in range(1, len(headers) + 1):
-            c = ws.cell(row=curr_row, column=col_num)
-            c.font = data_font
-            c.border = thin_border
-            if col_num in (1, 5, 6, 7):
-                c.alignment = Alignment(horizontal="center", vertical="center")
+            cell = ws.cell(row=3, column=col_num)
+            cell.fill = header_fill
+            cell.font = header_font
+            cell.alignment = Alignment(horizontal="center", vertical="center")
 
-    # Column widths
-    widths = [10, 24, 34, 45, 12, 12, 14, 55]
-    for i, col_letter in enumerate(["A", "B", "C", "D", "E", "F", "G", "H"]):
-        ws.column_dimensions[col_letter].width = widths[i]
+        filtered_tc = (
+            test_cases
+            if filter_code == "ALL"
+            else [tc for tc in test_cases if filter_code in tc.question_type]
+        )
+
+        for tc in filtered_tc:
+            row = [
+                tc.id,
+                tc.target_url,
+                tc.question or "N/A (Audit / NAP Only)",
+                tc.max_pages,
+                tc.max_depth,
+                tc.llm_provider.upper(),
+                tc.description,
+            ]
+            ws.append(row)
+            curr_row = ws.max_row
+            for col_num in range(1, len(headers) + 1):
+                c = ws.cell(row=curr_row, column=col_num)
+                c.font = data_font
+                c.border = thin_border
+                if col_num in (1, 4, 5, 6):
+                    c.alignment = Alignment(horizontal="center", vertical="center")
+
+        widths = [10, 34, 45, 12, 12, 14, 55]
+        for i, col_letter in enumerate(["A", "B", "C", "D", "E", "F", "G"]):
+            ws.column_dimensions[col_letter].width = widths[i]
 
     wb.save(file_path)
-    print(f"Generated Excel inputs file: {file_path}")
+    print(f"Generated Excel inputs file (with Q1, Q2, Q3 tabs): {file_path}")
 
 
 def generate_docx_inputs(test_cases: list[TestCase], file_path: str) -> None:
     doc = docx.Document()
+    from docx.oxml import parse_xml
+    from docx.oxml.ns import nsdecls
 
-    # Document Header
+    # Title Header
     p_title = doc.add_paragraph()
     run_title = p_title.add_run("Evidence-Grounded SEO Audit Agent")
     run_title.font.name = "Arial"
@@ -275,76 +285,99 @@ def generate_docx_inputs(test_cases: list[TestCase], file_path: str) -> None:
     run_title.font.color.rgb = RGBColor(31, 78, 120)
 
     p_sub = doc.add_paragraph()
-    run_sub = p_sub.add_run("Test Inputs & Execution Parameters Matrix (Q1, Q2, Q3)")
+    run_sub = p_sub.add_run("Test Inputs Matrix (Separated by Question 1, Question 2, and Question 3)")
     run_sub.font.name = "Arial"
-    run_sub.font.size = Pt(13)
+    run_sub.font.size = Pt(12)
     run_sub.font.italic = True
     run_sub.font.color.rgb = RGBColor(89, 89, 89)
 
-    doc.add_paragraph("This document details all test input parameters evaluated across the 3 core requirements:")
-    doc.add_paragraph("1. Q1 — Technical & On-Page SEO Audit Findings\n2. Q2 — Name, Address, Phone (NAP) Consistency Audit\n3. Q3 — Evidence-Grounded Question Answering (QA)")
+    doc.add_paragraph("This document details all test input parameters evaluated, strictly separated by Question category.")
 
-    # Table
-    table = doc.add_table(rows=1, cols=6)
-    table.style = "Table Grid"
+    sections = [
+        ("Question 1 (Q1) — Technical & On-Page SEO Audit Findings", "Q1"),
+        ("Question 2 (Q2) — Local SEO & NAP Consistency Audit", "Q2"),
+        ("Question 3 (Q3) — Evidence-Grounded Question Answering (QA)", "Q3"),
+    ]
 
-    from docx.oxml import parse_xml
-    from docx.oxml.ns import nsdecls
+    for title, code in sections:
+        h = doc.add_heading(title, level=2)
+        for run in h.runs:
+            run.font.color.rgb = RGBColor(31, 78, 120)
 
-    hdr_cells = table.rows[0].cells
-    hdr_titles = ["ID", "Scope", "Target URL", "Question (Q3)", "Limits", "Objective"]
-    for i, title in enumerate(hdr_titles):
-        hdr_cells[i].text = title
-        shd = parse_xml(r'<w:shd {} w:fill="1F4E78"/>'.format(nsdecls('w')))
-        hdr_cells[i]._tc.get_or_add_tcPr().append(shd)
-        for p in hdr_cells[i].paragraphs:
-            for run in p.runs:
-                run.font.bold = True
-                run.font.size = Pt(9.5)
-                run.font.color.rgb = RGBColor(255, 255, 255)
+        filtered = [tc for tc in test_cases if code in tc.question_type]
+        if not filtered:
+            continue
 
-    for tc in test_cases:
-        row_cells = table.add_row().cells
-        row_cells[0].text = tc.id
-        row_cells[1].text = tc.question_type
-        row_cells[2].text = tc.target_url
-        row_cells[3].text = tc.question or "N/A"
-        row_cells[4].text = f"Pages: {tc.max_pages}\nDepth: {tc.max_depth}"
-        row_cells[5].text = tc.description
+        table = doc.add_table(rows=1, cols=5)
+        table.style = "Table Grid"
 
-        for cell in row_cells:
-            for p in cell.paragraphs:
+        hdr_cells = table.rows[0].cells
+        hdr_titles = ["ID", "Target URL", "Question (Q3)", "Crawl Limits", "Objective & Description"]
+        for i, t in enumerate(hdr_titles):
+            hdr_cells[i].text = t
+            shd = parse_xml(r'<w:shd {} w:fill="1F4E78"/>'.format(nsdecls('w')))
+            hdr_cells[i]._tc.get_or_add_tcPr().append(shd)
+            for p in hdr_cells[i].paragraphs:
                 for run in p.runs:
-                    run.font.name = "Arial"
-                    run.font.size = Pt(8.5)
+                    run.font.bold = True
+                    run.font.size = Pt(9.5)
+                    run.font.color.rgb = RGBColor(255, 255, 255)
+
+        for tc in filtered:
+            row_cells = table.add_row().cells
+            row_cells[0].text = tc.id
+            row_cells[1].text = tc.target_url
+            row_cells[2].text = tc.question or "N/A"
+            row_cells[3].text = f"Pages: {tc.max_pages}\nDepth: {tc.max_depth}"
+            row_cells[4].text = tc.description
+
+            for cell in row_cells:
+                for p in cell.paragraphs:
+                    for run in p.runs:
+                        run.font.name = "Arial"
+                        run.font.size = Pt(8.5)
+
+        doc.add_paragraph("")  # Spacer between sections
 
     doc.save(file_path)
-    print(f"Generated Word inputs file: {file_path}")
+    print(f"Generated Word inputs file (separated by Q1, Q2, Q3): {file_path}")
 
 
 def generate_txt_inputs(test_cases: list[TestCase], file_path: str) -> None:
     lines = [
         "=========================================================================================",
-        "                 EVIDENCE-GROUNDED SEO AUDIT AGENT — BATCH TEST INPUTS",
+        "            EVIDENCE-GROUNDED SEO AUDIT AGENT — TEST INPUTS (SEPARATED BY QUESTION)",
         "=========================================================================================",
-        "Summary of all input parameters tested independently for Q1 (SEO Audit), Q2 (NAP Check),",
-        "and Q3 (Grounded QA).",
+        "Summary of input parameters tested independently, separated into Question 1, Question 2,",
+        "and Question 3.",
         "=========================================================================================\n",
     ]
 
-    for tc in test_cases:
-        lines.append(f"Test ID       : {tc.id}")
-        lines.append(f"Category      : {tc.question_type}")
-        lines.append(f"Target URL    : {tc.target_url}")
-        lines.append(f"Question (Q3) : {tc.question or 'N/A (Audit / NAP check only)'}")
-        lines.append(f"Crawl Limits  : Max Pages = {tc.max_pages}, Max Depth = {tc.max_depth}, Timeout = 12s")
-        lines.append(f"LLM Provider  : {tc.llm_provider.upper()}")
-        lines.append(f"Description   : {tc.description}")
-        lines.append("-" * 89 + "\n")
+    sections = [
+        ("SECTION 1: QUESTION 1 (Q1) — TECHNICAL & ON-PAGE SEO AUDIT FINDINGS", "Q1"),
+        ("SECTION 2: QUESTION 2 (Q2) — LOCAL SEO & NAP CONSISTENCY AUDIT", "Q2"),
+        ("SECTION 3: QUESTION 3 (Q3) — EVIDENCE-GROUNDED QUESTION ANSWERING (QA)", "Q3"),
+    ]
+
+    for sec_title, code in sections:
+        lines.append("=" * 89)
+        lines.append(f" {sec_title}")
+        lines.append("=" * 89 + "\n")
+
+        filtered = [tc for tc in test_cases if code in tc.question_type]
+        for tc in filtered:
+            lines.append(f"  Test ID       : {tc.id}")
+            lines.append(f"  Target URL    : {tc.target_url}")
+            lines.append(f"  Question (Q3) : {tc.question or 'N/A (Audit / NAP check only)'}")
+            lines.append(f"  Crawl Limits  : Max Pages = {tc.max_pages}, Max Depth = {tc.max_depth}, Timeout = 12s")
+            lines.append(f"  LLM Provider  : {tc.llm_provider.upper()}")
+            lines.append(f"  Description   : {tc.description}")
+            lines.append("  " + "-" * 85 + "\n")
+        lines.append("\n")
 
     with open(file_path, "w", encoding="utf-8") as f:
         f.write("\n".join(lines))
-    print(f"Generated Text inputs file: {file_path}")
+    print(f"Generated Text inputs file (separated by Q1, Q2, Q3): {file_path}")
 
 
 def create_outputs_zip(base_output_dir: str = "outputs", zip_filename: str = "outputs/all_test_outputs.zip") -> None:
@@ -354,11 +387,16 @@ def create_outputs_zip(base_output_dir: str = "outputs", zip_filename: str = "ou
     with zipfile.ZipFile(abs_zip_path, "w", zipfile.ZIP_DEFLATED) as zf:
         for root, dirs, files in os.walk(base_output_dir):
             for file in files:
+                if file.startswith("~$") or file.endswith(".tmp"):
+                    continue  # Skip temporary office lock files
                 full_file_path = os.path.join(root, file)
                 if os.path.abspath(full_file_path) == abs_zip_path:
                     continue  # Skip zip file itself
                 rel_path = os.path.relpath(full_file_path, base_output_dir)
-                zf.write(full_file_path, rel_path)
+                try:
+                    zf.write(full_file_path, rel_path)
+                except PermissionError:
+                    pass
 
     print(f"Successfully created ZIP archive ({os.path.getsize(abs_zip_path)} bytes).")
 
