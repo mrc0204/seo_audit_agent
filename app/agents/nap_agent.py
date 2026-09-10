@@ -24,14 +24,32 @@ phone-shaped string is the business's number or one quoted in a case study.
 :func:`filter_candidates_with_llm` provides that hook with the same structural
 guarantee as Phase 4 — a model may only *reject* candidates, never introduce or edit
 one, so it cannot put a value into evidence that is not literally on the page.
+
+A second, later LLM hook works the other direction — *recovering* a candidate the
+regex/schema tiers structurally cannot see (a plain header name with no copyright
+line or schema; a "City, State" address with no street or generic suffix word).
+When ``generate`` is supplied to :func:`run_nap_check` and a field ends up with
+*zero* candidates from every page, :func:`_select_llm_fallback_pages` picks a small,
+targeted subset of pages (home/contact/about-like, capped at
+:data:`MAX_LLM_FALLBACK_PAGES`) and
+:func:`~app.extraction.nap_extractor.extract_nap_candidates_via_llm` is asked only
+about that missing field there — bounding the cost to a handful of calls even on a
+large crawl, never one call per page. Every value it proposes still has to pass the
+same literal-substring check as everything else (see that function's docstring), so
+this cannot put an invented value into evidence either.
 """
 
 from __future__ import annotations
 
 from collections import Counter, defaultdict
 from typing import Any, Callable, Iterable
+from urllib.parse import urlsplit
 
-from app.extraction.nap_extractor import extract_nap_candidates, identify_target_business
+from app.extraction.nap_extractor import (
+    extract_nap_candidates,
+    extract_nap_candidates_via_llm,
+    identify_target_business,
+)
 from app.extraction.normalize import address_subsumes, differs_only_by_legal_suffix
 from app.models.nap import NAPComparison, NAPValue
 
@@ -40,11 +58,13 @@ NAP_FIELDS: tuple[str, ...] = ("name", "address", "phone")
 
 #: Minimum number of distinct pages that must contribute a value before a verdict
 #: other than ``insufficient_data`` is possible.
-MIN_PAGES_FOR_VERDICT = 2
+MIN_PAGES_FOR_VERDICT = 1
 
 #: Ranking used to pick which raw spelling represents a normalized value. Structured
 #: markup is a deliberate statement of the value; visible text is an inference from
-#: layout.
+#: layout. "llm" is deliberately unlisted -- it falls through to the default rank in
+#: :func:`_representative_raw`, below every other source, since it only ever
+#: runs when nothing more precise found anything for that field.
 SOURCE_PRIORITY: dict[str, int] = {
     "json_ld": 0,
     "microdata": 1,
@@ -52,8 +72,42 @@ SOURCE_PRIORITY: dict[str, int] = {
     "visible_text": 3,
 }
 
+#: URL path segments that make a page worth an LLM NAP lookup even when it isn't
+#: the homepage.
+_CONTACT_LIKE_PATH_MARKERS = frozenset(
+    {"contact", "contact-us", "contactus", "about", "about-us", "aboutus", "impressum"}
+)
 
-def run_nap_check(pages: list[Any]) -> list[Any]:
+#: Caps how many pages :func:`run_nap_check` will spend an LLM call on per missing
+#: field. NAP information lives on a business's homepage or its Contact/About page
+#: in the overwhelming majority of real sites, so searching further pages adds cost
+#: without meaningfully improving recall.
+MAX_LLM_FALLBACK_PAGES = 3
+
+
+def _select_llm_fallback_pages(pages: list[Any]) -> list[Any]:
+    """Pick a small, targeted subset of pages worth an LLM NAP lookup.
+
+    Homepage(s) first, then any page whose path looks like a Contact/About page,
+    capped at :data:`MAX_LLM_FALLBACK_PAGES` total. Falls back to the first
+    crawled page if nothing matches either shape, so there is always at least one
+    page to try rather than skipping the fallback entirely on an unusual site.
+    """
+    home: list[Any] = []
+    contact_like: list[Any] = []
+    for page in pages:
+        url = getattr(page, "final_url", "") or getattr(page, "url", "") or ""
+        path_segments = urlsplit(url).path.strip("/").lower().split("/")
+        if path_segments == [""]:
+            home.append(page)
+        elif any(segment in _CONTACT_LIKE_PATH_MARKERS for segment in path_segments):
+            contact_like.append(page)
+
+    selected = (home + contact_like)[:MAX_LLM_FALLBACK_PAGES]
+    return selected or pages[:1]
+
+
+def run_nap_check(pages: list[Any], generate: Callable[..., str] | None = None) -> list[Any]:
     """Audit and compare Name, Address, and Phone consistency across crawled web pages.
 
     Two passes, per the plan's own diagram (target business identification ->
@@ -65,8 +119,16 @@ def run_nap_check(pages: list[Any]) -> list[Any]:
     comparison. See :func:`identify_target_business` for exactly how the target is
     chosen and what "no identifiable target" degrades to.
 
+    A third, optional pass runs only when ``generate`` is supplied and only for a
+    field that came back with zero candidates from every page above — see the
+    module docstring's "second, later LLM hook" section for exactly what it does
+    and why it is bounded in scope.
+
     Args:
         pages: ``PageData`` objects from Phase 3.
+        generate: Optional ``generate(prompt, **kwargs) -> str`` callable. ``None``
+            (the default) runs exactly as before this hook existed — no field this
+            affects is required for a correct, evidence-backed result.
 
     Returns:
         One :class:`NAPComparison` per field in :data:`NAP_FIELDS`, always three,
@@ -85,6 +147,20 @@ def run_nap_check(pages: list[Any]) -> list[Any]:
             continue
         for field in NAP_FIELDS:
             collected[field].extend(found.get(field, []))
+
+    if generate is not None:
+        missing_fields = [field for field in NAP_FIELDS if not collected.get(field)]
+        if missing_fields:
+            for page in _select_llm_fallback_pages(pages):
+                still_missing = [f for f in missing_fields if not collected.get(f)]
+                if not still_missing:
+                    break
+                try:
+                    found = extract_nap_candidates_via_llm(page, still_missing, generate)
+                except Exception:
+                    continue
+                for field, values in found.items():
+                    collected[field].extend(values)
 
     return [compare_field(field, collected.get(field, [])) for field in NAP_FIELDS]
 
@@ -201,10 +277,12 @@ def describe_disagreement(comparison: NAPComparison) -> str:
     """
     if comparison.verdict == "insufficient_data":
         found = len(comparison.evidence)
+        if found == 0:
+            return f"No {comparison.field} value found on any crawled page."
         pages = len(comparison.pages_compared)
         return (
             f"Only {found} {comparison.field} value(s) across {pages} page(s); at least "
-            f"{MIN_PAGES_FOR_VERDICT} pages must carry a value before consistency can "
+            f"{MIN_PAGES_FOR_VERDICT} page(s) must carry a value before consistency can "
             "be judged."
         )
 

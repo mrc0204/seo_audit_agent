@@ -36,6 +36,7 @@ prompting alone. The pipeline is three deliberately separate stages:
 from __future__ import annotations
 
 import json
+import re
 from typing import Any, Callable
 
 from app.models.answer import QAAnswer
@@ -111,11 +112,11 @@ def _offline_answer(query: str, candidates: list[RetrievedChunk]) -> QAAnswer:
     against python.org: "How do I download Python?" failed entirely under that
     ordering despite the correct answer being the second-ranked candidate.
 
-    Retrieval (:func:`app.retrieval.retriever.retrieve_top_k`) has already filtered
-    for topical relevance before any of ``candidates`` reach here; this step filters
-    again, much more strictly, for whether the *best available* one is strong enough
-    to call an actual answer with no semantic judge to confirm it. See
-    :data:`OFFLINE_ANSWER_MIN_COVERAGE`.
+    Retrieval only ranks candidates by BM25 and applies no relevance floor of its
+    own (see :mod:`app.retrieval.retriever`); this function is where lexical
+    evidence is actually judged — deciding whether the *best available*
+    candidate has enough of it to call an actual answer, with no semantic judge
+    to confirm it. See :data:`OFFLINE_ANSWER_MIN_COVERAGE`.
     """
     if not candidates:
         return _null_answer(query)
@@ -125,8 +126,15 @@ def _offline_answer(query: str, candidates: list[RetrievedChunk]) -> QAAnswer:
     if _query_coverage(query, best.text) < OFFLINE_ANSWER_MIN_COVERAGE:
         return _null_answer(query)
 
-    excerpt = best.text[:MAX_EXCERPT_CHARS]
-    return QAAnswer(query=query, url=best.url, excerpt=excerpt, match_type="exact_substring")
+    if len(best.text) > MAX_EXCERPT_CHARS:
+        # Never modify evidence after selecting it: truncating best.text would
+        # return a passage the page never actually stated verbatim. Unlike the
+        # LLM path, there is no semantic judge here to pick a shorter sub-span
+        # that still answers the question, so the honest result when the best
+        # candidate doesn't fit the excerpt cap is null, not a cut passage.
+        return _null_answer(query)
+
+    return QAAnswer(query=query, url=best.url, excerpt=best.text, match_type="exact_substring")
 
 
 def _query_coverage(query: str, text: str) -> float:
@@ -186,7 +194,17 @@ def _llm_answer(
         return _null_answer(query)
 
     url, excerpt = parsed
-    excerpt = excerpt[:MAX_EXCERPT_CHARS]
+
+    if len(excerpt) > MAX_EXCERPT_CHARS:
+        # Never modify evidence after selecting it: silently slicing the LLM's
+        # claimed excerpt down to MAX_EXCERPT_CHARS would validate a passage the
+        # model never actually claimed (find_source_span would be checking a
+        # truncated string, not the model's real answer) and could return a
+        # cut-off, out-of-context sentence as if it were the exact quote. An
+        # overlong excerpt is a prompt violation -- DEFAULT_QA_PROMPT already
+        # asks for the shortest qualifying span -- so the honest response is
+        # null, not a shortened guess.
+        return _null_answer(query)
 
     # The independent check: the model's own claim is never trusted on its say-so.
     if find_source_span(url, excerpt, pages) is None:
@@ -214,19 +232,46 @@ def _parse_response(raw: Any) -> tuple[str, str] | None:
     Accepts a JSON object with ``url``/``excerpt`` keys, since that is what
     :data:`DEFAULT_QA_PROMPT` asks for. Any other shape, an explicit "NONE", or
     missing fields all parse to ``None`` — the caller then returns the null answer
-    rather than guessing at malformed output.
+    rather than guessing at malformed output. Robustly strips reasoning thoughts
+    (<think>...</think>), markdown code fences (```json ... ```), and outer chatter.
     """
     if not raw:
         return None
 
     text = str(raw).strip()
+    if not text:
+        return None
+
+    # Remove reasoning model thought blocks if present (e.g. <think>...</think>)
+    text = re.sub(r"<think>[\s\S]*?</think>", "", text).strip()
+
     if not text or text.upper() == "NONE":
         return None
 
+    # Try direct parse first
+    payload: Any = None
     try:
         payload = json.loads(text)
     except (ValueError, TypeError):
-        return None
+        pass
+
+    # If direct parse failed, strip markdown code fences if present
+    if not isinstance(payload, dict):
+        fence_match = re.search(r"```(?:json)?\s*([\s\S]*?)\s*```", text)
+        if fence_match:
+            try:
+                payload = json.loads(fence_match.group(1).strip())
+            except (ValueError, TypeError):
+                pass
+
+    # If still not a dict, extract outermost {...}
+    if not isinstance(payload, dict):
+        brace_match = re.search(r"\{[\s\S]*\}", text)
+        if brace_match:
+            try:
+                payload = json.loads(brace_match.group(0).strip())
+            except (ValueError, TypeError):
+                pass
 
     if not isinstance(payload, dict):
         return None
@@ -239,29 +284,27 @@ def _parse_response(raw: Any) -> tuple[str, str] | None:
     if not isinstance(excerpt, str) or not excerpt.strip():
         return None
 
-    return url.strip(), excerpt
+    return url.strip(), excerpt.strip()
 
 
 #: Instructs the model to select and copy, never compose. The "exact character
 #: span" requirement is unenforceable by prompt alone, which is why
 #: :func:`_llm_answer` always re-verifies the response independently.
 DEFAULT_QA_PROMPT = (
-    "You are given passages retrieved from a website because they share vocabulary "
-    "with the question below. Sharing vocabulary is not the same as answering the "
-    "question, and your first job is to judge that difference, not to assume it.\n\n"
+    "You are an evidence-grounded question answering agent. You are given passages retrieved "
+    "from a website because they share vocabulary with the question below. "
+    "Your goal is to answer the question using the retrieved passages.\n\n"
     "Question: {query}\n\n"
     "Passages:\n{candidates}\n\n"
-    "Step 1 — judge: does any passage genuinely answer this specific question, as "
-    "opposed to merely mentioning the same topic or sharing a few words with it? A "
-    "passage that is on-topic but does not actually state the answer does NOT "
-    "count, even if it is the closest match available.\n\n"
-    "Step 2 — if no passage genuinely answers it, reply with exactly the word "
-    "NONE. Returning NONE for a related-but-non-answering passage is the correct, "
-    "expected outcome, not a fallback to avoid.\n\n"
-    "Step 3 — if (and only if) one genuinely does, copy the exact span of text "
-    "from that passage that answers the question, word for word. Do not write a "
-    "new sentence, paraphrase, summarize, or combine text from more than one "
-    "passage. Reply with a single JSON object: "
-    '{{"url": "<the passage\'s URL>", "excerpt": "<the exact copied text, '
-    'character for character>"}}.'
+    "Step 1 — evaluate the passages: check if any passage genuinely answers the question or provides "
+    "the information requested (including business hours, services, location, contact details, or schedule). "
+    "Mere mention of an unrelated topic without answering does not count.\n\n"
+    "Step 2 — if no passage genuinely answers the question, reply with exactly the word NONE.\n\n"
+    "Step 3 — if any passage answers it, copy the most concise, exact verbatim span of text from that "
+    "passage that answers the question word for word. "
+    "The excerpt must: be copied verbatim, character for character, from the source; preserve the original "
+    "wording exactly without paraphrasing; contain enough context to answer the question; be no longer than "
+    + str(MAX_EXCERPT_CHARS)
+    + " characters; and not be made up. Reply with a single JSON object:\n"
+    '{{"url": "<the passage\'s URL>", "excerpt": "<the exact copied text, character for character>"}}'
 )

@@ -25,7 +25,7 @@ class NAPValue(BaseModel):
     page: str
     raw_value: str
     normalized_value: str
-    source: Literal["visible_text", "json_ld", "microdata", "tel_link"]
+    source: Literal["visible_text", "json_ld", "microdata", "tel_link", "llm"]
 
 
 class NAPComparison(BaseModel):

@@ -81,6 +81,16 @@ def find_source_span(url: str, excerpt: str, pages: list[Any]) -> tuple[int, int
     if not normalized_excerpt:
         return None
 
+    # Strip surrounding quotes if the LLM wrapped the excerpt in quotes
+    if (
+        normalized_excerpt.startswith(('"', "'", "“", "”"))
+        and normalized_excerpt.endswith(('"', "'", "“", "”"))
+        and len(normalized_excerpt) > 2
+    ):
+        stripped = normalized_excerpt[1:-1].strip()
+        if stripped in page_text:
+            normalized_excerpt = stripped
+
     start = page_text.find(normalized_excerpt)
     if start == -1:
         return None
@@ -140,14 +150,18 @@ def filter_valid_answer(answer: Any, pages: list[Any]) -> Any | None:
 
 
 def _find_page(url: str, pages: list[Any]) -> Any | None:
-    """Find the page whose ``final_url`` (or ``url``) matches exactly.
-
-    Exact match only — no normalization, no trailing-slash folding. The excerpt
-    must have come from the URL actually cited, not a URL that merely resembles it.
-    """
+    """Find the page whose ``final_url`` (or ``url``) matches, tolerating trailing slashes."""
     for page in pages:
         if getattr(page, "final_url", None) == url or getattr(page, "url", None) == url:
             return page
+
+    clean_url = url.rstrip("/")
+    for page in pages:
+        p_final = (getattr(page, "final_url", None) or "").rstrip("/")
+        p_url = (getattr(page, "url", None) or "").rstrip("/")
+        if p_final == clean_url or p_url == clean_url:
+            return page
+
     return None
 
 

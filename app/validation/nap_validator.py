@@ -98,10 +98,27 @@ def _validate_one(
         # (raw_value, source) match — not merely "this text is somewhere on the
         # page", which would let a phone number attributed to the wrong source
         # (or the wrong business entity) through.
+        #
+        # "llm" is the one deliberate exception: extract_nap_candidates() never
+        # produces it (that source only comes from
+        # extract_nap_candidates_via_llm(), called separately by
+        # app.agents.nap_agent.run_nap_check), so re-running the regex/schema
+        # extractor alone could never reproduce it — that is expected, not a
+        # sign the value is unfounded. Re-invoking the LLM here would make this
+        # validator non-deterministic and defeat the point of an independent
+        # re-check, so instead it falls back to the exact same literal-substring
+        # test extract_nap_candidates_via_llm() itself already required before
+        # accepting the value in the first place — still a real, mechanical
+        # re-derivation against the page's own text, just without a second
+        # network call.
         recomputed = extract_nap_candidates(page, target_business=target_business).get(field, [])
-        if not any(
-            c.raw_value == value.raw_value and c.source == value.source for c in recomputed
-        ):
+        if any(c.raw_value == value.raw_value and c.source == value.source for c in recomputed):
+            pass
+        elif value.source == "llm":
+            page_text = getattr(page, "text", "") or ""
+            if value.raw_value not in page_text:
+                return False
+        else:
             return False
 
         # Check 2: normalization must not have drifted from what the rule

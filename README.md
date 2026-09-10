@@ -66,7 +66,7 @@ All flags:
 | `--max-depth` | 3 | Link-distance budget from the seed URL. |
 | `--timeout` | 10 | Per-request timeout, in seconds. |
 | `--output-dir` | `outputs` | Where the three JSON files are written. |
-| `--llm-provider` | `none` | `groq`, `gemini`, or `none`. See below. |
+| `--llm-provider` | `none` | `groq`, `gemini`, `nvidia`, or `none`. See below. |
 | `--no-robots` | *(respects robots.txt)* | Ignore robots.txt. Not recommended. |
 | `--no-sitemap` | *(uses the sitemap)* | Don't seed the crawl from `/sitemap.xml`. |
 
@@ -93,7 +93,7 @@ app; both are optional dependencies the CLI itself doesn't need.
 `.env` (copy from `.env.example`):
 
 ```bash
-LLM_PROVIDER=groq          # groq | gemini | none
+LLM_PROVIDER=groq          # groq | gemini | nvidia | none
 LLM_API_KEY=your_key_here  # only needed if LLM_PROVIDER isn't "none"
 MAX_PAGES=100
 MAX_DEPTH=3
@@ -210,7 +210,7 @@ polishes `suggested_fix` wording and helps Q3 pick a more precise excerpt than
 the deterministic top-match fallback. Nothing about correctness depends on one
 being configured.
 
-Two free-tier providers are supported, selected via `--llm-provider` or
+Three free-tier providers are supported, selected via `--llm-provider` or
 `LLM_PROVIDER` in `.env` — swapping between them is a one-line config change,
 not a code change:
 
@@ -218,11 +218,17 @@ not a code change:
   completions endpoint.
 - **Gemini** (`GEMINI_API_KEY`, or reuse `LLM_API_KEY`) — Google's Gemini
   free-tier `generateContent` endpoint.
+- **NVIDIA NIM** (`NVIDIA_API_KEY`, or reuse `LLM_API_KEY`) — NVIDIA's
+  OpenAI-compatible free-tier catalog endpoint at build.nvidia.com. Its free
+  tier is a separate quota entirely from Groq's or Gemini's, so it is a genuine
+  fallback if one of the others runs out of free-tier headroom mid-testing.
 
-Both are called directly over HTTP (no vendor SDK required — one less thing to
-install). If a provider is selected but misconfigured or unreachable, the
+All three are called directly over HTTP (no vendor SDK required — one less thing
+to install). If a provider is selected but misconfigured or unreachable, the
 pipeline logs a warning and continues fully deterministically; it never crashes
-or silently degrades correctness.
+or silently degrades correctness. Every free tier here has its own real limits
+(request-rate caps, a daily or total token/credit budget) — pick whichever one
+still has headroom rather than assuming any is unlimited.
 
 ## Running the tests
 
@@ -312,7 +318,7 @@ seo_audit_agent/
 │   ├── retrieval/       # BM25 chunk index + top-k retriever
 │   ├── validation/       # Independent re-derivation checks for Q1/Q2/Q3 output
 │   ├── models/           # Locked Pydantic data contracts (Phase 1)
-│   ├── llm/              # Swappable Groq/Gemini provider
+│   ├── llm/              # Swappable Groq/Gemini/NVIDIA provider
 │   ├── main.py            # CLI: wires the pipeline together, writes outputs/
 │   ├── web.py             # Optional FastAPI wrapper over app.main.run_pipeline
 │   └── static/index.html  # Single-file frontend served by web.py

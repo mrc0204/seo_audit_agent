@@ -147,6 +147,14 @@ def test_audit_returns_the_briefs_three_deliverable_shapes():
             "normalized_values": ["5035550147"],
             "confidence": 1.0,
             "verdict": "consistent",
+            "evidence": [
+                {
+                    "page": "https://example.com/",
+                    "raw_value": "+1 503-555-0147",
+                    "normalized_value": "5035550147",
+                    "source": "json_ld",
+                }
+            ],
         }
     ]
 
@@ -215,3 +223,21 @@ def test_audit_never_reaches_run_pipeline_for_an_invalid_url():
         client.post("/api/audit", json={"url": "not a url at all"})
 
     mock_run.assert_not_called()
+
+
+def test_audit_forwards_question_scope_flags():
+    with patch("app.web.run_pipeline", return_value=_canned_result()) as mock_run:
+        client.post(
+            "/api/audit",
+            json={
+                "url": "https://example.com/",
+                "run_q1": False,
+                "run_q2": True,
+                "run_q3": False,
+            },
+        )
+
+    kwargs = mock_run.call_args.kwargs
+    assert kwargs["run_q1"] is False
+    assert kwargs["run_q2"] is True
+    assert kwargs["run_q3"] is False

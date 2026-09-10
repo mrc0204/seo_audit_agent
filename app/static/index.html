@@ -449,52 +449,362 @@
   .nap-verdict[data-v="insufficient_data"] { color: var(--text-muted); background: var(--info-bg); border: 1px solid var(--info-border); }
 
   .nap-values {
-    font-size: 12px;
-    color: var(--text-muted);
+    font-size: 13px;
+    color: var(--text);
     font-family: var(--mono);
     word-break: break-word;
     line-height: 1.6;
+    margin-bottom: 8px;
   }
 
-  .answer-card {
+  .nap-card.inconsistent-card {
+    border-color: var(--critical-border);
+    background: var(--critical-bg);
+  }
+
+  .nap-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .nap-header .nap-field { margin-bottom: 0; }
+  .nap-header .nap-verdict { margin-bottom: 0; }
+
+  .nap-summary-text {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+
+  .nap-evidence-box {
+    margin-top: 12px;
+    padding: 10px 12px;
+    background: var(--panel-sunken);
+    border: 1px solid var(--border);
     border-radius: var(--radius-sm);
   }
-
-  .answer-card.answered { border-left: 3px solid var(--ok); padding-left: 18px; }
-  .answer-card.unanswered { border-left: 3px solid var(--border-strong); padding-left: 18px; }
-
-  .answer-query {
-    font-size: 13px;
+  .nap-evidence-box.evidence-warning {
+    border-color: var(--critical-border);
+    background: var(--panel);
+  }
+  .nap-evidence-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  .nap-evidence-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .nap-evidence-row {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding-bottom: 6px;
+    border-bottom: 1px dashed var(--border);
+  }
+  .nap-evidence-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .nap-ev-val {
+    font-size: 12.5px;
+    font-family: var(--mono);
+    font-weight: 600;
+    color: var(--text);
+    word-break: break-word;
+  }
+  .nap-ev-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+  }
+  .nap-source-tag {
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: var(--accent-dim);
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 10px;
+    text-transform: uppercase;
+  }
+  .nap-page-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    max-width: 250px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .nap-page-link:hover {
+    color: var(--accent);
+    text-decoration: underline;
+  }
+  .nap-no-data {
+    font-size: 12px;
     color: var(--text-faint);
-    margin-bottom: 12px;
-    font-weight: 500;
+    margin-top: 8px;
   }
 
+  /* Question field enhancements & suggestions */
+  .field-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 7px;
+  }
+  .field-header label {
+    margin-bottom: 0;
+  }
+  .field-badge {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--accent-dim);
+    padding: 2px 8px;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+  }
+  .question-suggestions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 7px;
+    margin-top: 9px;
+  }
+  .suggestions-label {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--text-faint);
+    margin-right: 2px;
+  }
+  .sugg-chip {
+    background: var(--panel-sunken);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 4px 11px;
+    font-size: 12px;
+    font-family: inherit;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .sugg-chip:hover {
+    background: var(--accent-dim);
+    color: var(--accent);
+    border-color: var(--accent);
+    transform: translateY(-1px);
+  }
+  .sugg-chip:active {
+    transform: translateY(0);
+  }
+  .field.highlight-needed input {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-dim);
+    animation: pulse-border 1.5s infinite alternate;
+  }
+  @keyframes pulse-border {
+    from { box-shadow: 0 0 0 2px var(--accent-dim); }
+    to { box-shadow: 0 0 0 5px var(--accent-dim); }
+  }
+
+  /* Enhanced Answer Card */
+  .answer-card {
+    border-radius: var(--radius-md);
+    padding: 22px;
+    background: var(--panel-sunken);
+    border: 1px solid var(--border);
+    transition: all 0.2s ease;
+  }
+  .answer-card.answered {
+    border-left: 4px solid var(--ok);
+    background: linear-gradient(180deg, rgba(16, 185, 129, 0.03) 0%, var(--panel-sunken) 100%);
+  }
+  .answer-card.unanswered {
+    border-left: 4px solid var(--border-strong);
+  }
+  .answer-header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 16px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .answer-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+  .answer-badge.answered {
+    background: rgba(16, 185, 129, 0.15);
+    color: var(--ok);
+  }
+  .answer-badge.unanswered {
+    background: rgba(148, 163, 184, 0.15);
+    color: var(--text-muted);
+  }
+  .answer-badge.info {
+    background: var(--accent-dim);
+    color: var(--accent);
+  }
+  .answer-meta-pill {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--ok);
+    background: rgba(16, 185, 129, 0.08);
+    padding: 3px 10px;
+    border-radius: 12px;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+  }
+  .answer-query-box {
+    margin-bottom: 16px;
+    font-size: 14px;
+  }
+  .query-label {
+    font-weight: 600;
+    color: var(--text-faint);
+    margin-right: 6px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .query-text {
+    font-weight: 700;
+    color: var(--text);
+  }
+  .answer-quote-box {
+    position: relative;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 18px 20px 14px 24px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow-sm);
+  }
+  .quote-icon {
+    position: absolute;
+    top: 6px;
+    left: 8px;
+    font-size: 32px;
+    font-family: var(--font-serif);
+    color: var(--accent);
+    opacity: 0.25;
+    line-height: 1;
+    pointer-events: none;
+  }
   .answer-excerpt {
     font-family: var(--font-serif);
-    font-size: 18px;
-    font-style: italic;
-    line-height: 1.5;
+    font-size: 17px;
+    font-style: normal;
+    line-height: 1.6;
     color: var(--text);
     border: none;
     padding: 0;
-    margin: 0 0 14px;
+    margin: 0 0 12px;
+    position: relative;
+    z-index: 1;
   }
-
-  .answer-source {
-    font-size: 12px;
-    font-family: var(--mono);
-    word-break: break-all;
+  .quote-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px dashed var(--border);
+    padding-top: 10px;
+    font-size: 11.5px;
+  }
+  .char-count {
     color: var(--text-faint);
+    font-family: var(--mono);
   }
-
-  .answer-source a { color: var(--accent); text-decoration: none; }
-  .answer-source a:hover { text-decoration: underline; }
-
+  .copy-excerpt-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 4px 10px;
+    font-size: 12px;
+    font-family: inherit;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .copy-excerpt-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-dim);
+  }
+  .answer-source-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12.5px;
+    flex-wrap: wrap;
+  }
+  .source-label {
+    font-weight: 600;
+    color: var(--text-faint);
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .source-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--accent);
+    text-decoration: none;
+    font-family: var(--mono);
+    font-size: 12px;
+    word-break: break-all;
+  }
+  .source-link:hover {
+    text-decoration: underline;
+  }
+  .unanswered-detail-box {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 16px 18px;
+  }
   .unanswered-text {
     color: var(--text-muted);
     font-size: 14.5px;
     line-height: 1.6;
+    margin: 0 0 14px;
+  }
+  .anti-hallucination-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: var(--panel-sunken);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--text-muted);
+  }
+  .shield-icon {
+    font-size: 16px;
+    line-height: 1;
+    flex-shrink: 0;
   }
 
   .empty-state {
@@ -504,11 +814,68 @@
     padding: 24px 0;
   }
 
-  @media (max-width: 560px) {
-    .nap-grid { grid-template-columns: 1fr; }
-    form .row { flex-direction: column; }
-    h1 { font-size: 24px; }
-    .card { padding: 20px; }
+  .scope-field {
+    margin: 16px 0 18px;
+  }
+  .scope-legend {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+  }
+  .scope-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .scope-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 14px;
+    background: var(--panel-sunken);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    user-select: none;
+  }
+  .scope-card:hover {
+    border-color: var(--border-strong);
+    background: var(--panel);
+  }
+  .scope-card input[type="checkbox"] {
+    margin-top: 2px;
+    accent-color: var(--accent);
+    width: 17px;
+    height: 17px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .scope-card:has(input[type="checkbox"]:checked) {
+    border-color: var(--accent);
+    background: var(--accent-dim);
+  }
+  .scope-card-text {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .scope-card-title {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .scope-card-desc {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    line-height: 1.35;
+  }
+  @media (max-width: 680px) {
+    .scope-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -528,10 +895,47 @@
           <input type="url" id="url" name="url" placeholder="https://example.com" required>
         </div>
       </div>
-      <div class="row">
-        <div class="field">
-          <label for="question">Question (optional)</label>
+      <div class="row" id="question-container">
+        <div class="field" style="width: 100%;">
+          <div class="field-header">
+            <label for="question">Question for Site</label>
+            <span class="field-badge" id="question-badge">Required for Q3</span>
+          </div>
           <input type="text" id="question" name="question" placeholder="e.g. What are your business hours?">
+          <div class="question-suggestions">
+            <span class="suggestions-label">Quick suggestions:</span>
+            <button type="button" class="sugg-chip" data-q="What are your business hours?">🕒 Business hours</button>
+            <button type="button" class="sugg-chip" data-q="What products or services do you offer?">📦 Products & services</button>
+            <button type="button" class="sugg-chip" data-q="Where are you located?">📍 Location & address</button>
+            <button type="button" class="sugg-chip" data-q="How can I contact support or customer service?">💬 Contact info</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="scope-field">
+        <label class="scope-legend">Audit Scope (Choose questions to run)</label>
+        <div class="scope-grid">
+          <label class="scope-card">
+            <input type="checkbox" id="run_q1" name="run_q1" checked>
+            <div class="scope-card-text">
+              <span class="scope-card-title">Q1: SEO Audit</span>
+              <span class="scope-card-desc">Missing titles, 404 links, broken canonicals, indexability</span>
+            </div>
+          </label>
+          <label class="scope-card">
+            <input type="checkbox" id="run_q2" name="run_q2" checked>
+            <div class="scope-card-text">
+              <span class="scope-card-title">Q2: NAP Check</span>
+              <span class="scope-card-desc">Name, Address & Phone consistency across pages (Fast)</span>
+            </div>
+          </label>
+          <label class="scope-card">
+            <input type="checkbox" id="run_q3" name="run_q3" checked>
+            <div class="scope-card-text">
+              <span class="scope-card-title">Q3: Grounded Q&A</span>
+              <span class="scope-card-desc">Verifiable passage answer to your natural question</span>
+            </div>
+          </label>
         </div>
       </div>
 
@@ -555,9 +959,8 @@
           <div class="field">
             <label for="llm_provider">LLM provider</label>
             <select id="llm_provider" name="llm_provider">
-              <option value="none" selected>None (fully deterministic)</option>
-              <option value="groq">Groq</option>
-              <option value="gemini">Gemini</option>
+              <option value="nvidia" selected>NVIDIA NIM (Nemotron 30B)</option>
+              <option value="none">None (fully deterministic)</option>
             </select>
           </div>
         </div>
@@ -573,13 +976,13 @@
   </div>
 
   <div id="results">
-    <div class="card">
+    <div class="card" id="summary-section">
       <p class="section-title">Crawl summary</p>
       <p class="summary-line" id="summary-pages"></p>
       <div id="summary-notes"></div>
     </div>
 
-    <div class="card">
+    <div class="card" id="findings-section">
       <p class="section-title">On-page SEO findings</p>
       <div class="severity-tabs" id="severity-tabs">
         <button type="button" class="tab active" data-sev="all">All</button>
@@ -590,7 +993,7 @@
       <div id="findings-list"></div>
     </div>
 
-    <div class="card">
+    <div class="card" id="nap-section">
       <p class="section-title">NAP consistency</p>
       <div class="nap-grid" id="nap-grid"></div>
     </div>
@@ -665,61 +1068,246 @@
     const order = { name: 0, address: 1, phone: 2 };
     const sorted = [...napReport].sort((a, b) => (order[a.field] ?? 9) - (order[b.field] ?? 9));
 
-    grid.innerHTML = sorted.map((c) => `
-      <div class="nap-card">
-        <div class="nap-field">${escapeHtml(c.field)}</div>
-        <div class="nap-verdict" data-v="${c.verdict}">${VERDICT_LABEL[c.verdict] || c.verdict}</div>
-        <div class="nap-values">${
-          c.values && c.values.length
-            ? c.values.map(escapeHtml).join("<br>")
-            : "&mdash;"
-        }</div>
-      </div>
-    `).join("");
+    grid.innerHTML = sorted.map((c) => {
+      const isConsistent = c.verdict === "consistent";
+      const isInconsistent = c.verdict === "inconsistent";
+      const hasData = c.verdict !== "insufficient_data";
+
+      let evidenceHtml = "";
+      if (c.evidence && c.evidence.length > 0) {
+        evidenceHtml = `
+          <div class="nap-evidence-box ${isInconsistent ? 'evidence-warning' : ''}">
+            <div class="nap-evidence-label">${isInconsistent ? 'Evidence of Conflict:' : 'Verified Sources:'}</div>
+            <div class="nap-evidence-items">
+              ${c.evidence.map(ev => `
+                <div class="nap-evidence-row">
+                  <span class="nap-ev-val">"${escapeHtml(ev.raw_value)}"</span>
+                  <div class="nap-ev-meta">
+                    <span class="nap-source-tag">${escapeHtml(ev.source)}</span>
+                    <a class="nap-page-link" href="${escapeHtml(ev.page)}" target="_blank" rel="noopener">${escapeHtml(ev.page)}</a>
+                  </div>
+                </div>
+              `).join("")}
+            </div>
+          </div>
+        `;
+      } else if (!hasData) {
+        evidenceHtml = `<div class="nap-no-data">No ${escapeHtml(c.field)} details found on crawled pages.</div>`;
+      }
+
+      return `
+        <div class="nap-card ${isInconsistent ? 'inconsistent-card' : ''}">
+          <div class="nap-header">
+            <div class="nap-field">${escapeHtml(c.field)}</div>
+            <div class="nap-verdict" data-v="${c.verdict}">${VERDICT_LABEL[c.verdict] || c.verdict}</div>
+          </div>
+          <div class="nap-summary-text">
+            ${isConsistent 
+              ? `Found consistent value across ${c.pages_compared ? c.pages_compared.length : 1} page(s):`
+              : isInconsistent 
+              ? `<strong>Conflict detected!</strong> Found ${c.values ? c.values.length : 2} different values across ${c.pages_compared ? c.pages_compared.length : 1} page(s):`
+              : `No data found across crawled pages.`
+            }
+          </div>
+          <div class="nap-values">
+            ${c.values && c.values.length ? c.values.map(escapeHtml).join("<br>") : "&mdash;"}
+          </div>
+          ${evidenceHtml}
+        </div>
+      `;
+    }).join("");
   }
 
   function renderAnswer(answer) {
     const section = document.getElementById("answer-section");
     const body = document.getElementById("answer-body");
-    if (!answer) {
+    const runQ3 = document.getElementById("run_q3").checked;
+
+    if (!runQ3) {
       section.style.display = "none";
       return;
     }
     section.style.display = "";
 
+    if (!answer) {
+      body.innerHTML = `
+        <div class="answer-card unanswered">
+          <div class="answer-header-bar">
+            <div class="answer-badge info">ℹ️ No Question Submitted</div>
+          </div>
+          <p class="unanswered-text" style="margin: 0;">
+            Q3 (Content Q&A) was selected, but no question was entered with this audit. Enter a question above or click one of the quick suggestions, then run the audit.
+          </p>
+        </div>
+      `;
+      return;
+    }
+
     if (answer.url && answer.excerpt) {
       body.innerHTML = `
         <div class="answer-card answered">
-          <p class="answer-query">"${escapeHtml(answer.query)}"</p>
-          <blockquote class="answer-excerpt">${escapeHtml(answer.excerpt)}</blockquote>
-          <div class="answer-source">Source: <a href="${escapeHtml(answer.url)}" target="_blank" rel="noopener">${escapeHtml(answer.url)}</a></div>
+          <div class="answer-header-bar">
+            <div class="answer-badge answered">
+              <svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              Grounded Answer Found
+            </div>
+            <span class="answer-meta-pill">✓ Exact Substring Verified (No Hallucination)</span>
+          </div>
+
+          <div class="answer-query-box">
+            <span class="query-label">Question Asked:</span>
+            <span class="query-text">"${escapeHtml(answer.query)}"</span>
+          </div>
+
+          <div class="answer-quote-box">
+            <div class="quote-icon">“</div>
+            <blockquote class="answer-excerpt">${escapeHtml(answer.excerpt)}</blockquote>
+            <div class="quote-footer">
+              <span class="char-count">${answer.excerpt.length} characters</span>
+              <button type="button" class="copy-excerpt-btn" id="copy-excerpt-btn">📋 Copy Quote</button>
+            </div>
+          </div>
+
+          <div class="answer-source-bar">
+            <span class="source-label">Source Document:</span>
+            <a href="${escapeHtml(answer.url)}" target="_blank" rel="noopener" class="source-link">
+              <span>${escapeHtml(answer.url)}</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+            </a>
+          </div>
         </div>
       `;
+
+      const copyBtn = document.getElementById("copy-excerpt-btn");
+      if (copyBtn) {
+        copyBtn.addEventListener("click", () => {
+          navigator.clipboard.writeText(answer.excerpt).then(() => {
+            copyBtn.textContent = "✓ Copied!";
+            setTimeout(() => { copyBtn.textContent = "📋 Copy Quote"; }, 2000);
+          }).catch(() => {
+            copyBtn.textContent = "Copied";
+          });
+        });
+      }
     } else {
       body.innerHTML = `
         <div class="answer-card unanswered">
-          <p class="answer-query">"${escapeHtml(answer.query)}"</p>
-          <p class="unanswered-text">This site does not answer that question — no page contains a verifiable passage, so nothing is guessed.</p>
+          <div class="answer-header-bar">
+            <div class="answer-badge unanswered">
+              <svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+              </svg>
+              No Verifiable Passage on Site
+            </div>
+            <span class="answer-meta-pill" style="color:var(--text-muted); background:rgba(148,163,184,0.1); border-color:var(--border);">Evidence Standard Upheld</span>
+          </div>
+
+          <div class="answer-query-box">
+            <span class="query-label">Question Asked:</span>
+            <span class="query-text">"${escapeHtml(answer.query)}"</span>
+          </div>
+
+          <div class="unanswered-detail-box">
+            <p class="unanswered-text">
+              This site does not explicitly answer that question — all crawled pages and retrieved candidate passages were evaluated, but no verifiable verbatim text stating the answer was found.
+            </p>
+            <div class="anti-hallucination-note">
+              <span class="shield-icon">🛡️</span>
+              <div>
+                <strong>Anti-Hallucination Guarantee:</strong> Unlike generic conversational bots that invent plausible claims when facts are missing, this agent refuses to guess. An answer is only returned if backed character-for-character by real page text.
+              </div>
+            </div>
+          </div>
         </div>
       `;
     }
   }
 
+  function updateQuestionState() {
+    const runQ3 = document.getElementById("run_q3").checked;
+    const qBadge = document.getElementById("question-badge");
+    const qRow = document.getElementById("question-container");
+    if (runQ3) {
+      if (qBadge) {
+        qBadge.textContent = "Required for Q3";
+        qBadge.style.color = "var(--accent)";
+        qBadge.style.background = "var(--accent-dim)";
+      }
+      if (qRow) qRow.style.opacity = "1";
+    } else {
+      if (qBadge) {
+        qBadge.textContent = "Optional (Q3 unselected)";
+        qBadge.style.color = "var(--text-faint)";
+        qBadge.style.background = "transparent";
+      }
+      if (qRow) qRow.style.opacity = "0.75";
+    }
+  }
+
+  document.getElementById("run_q3").addEventListener("change", updateQuestionState);
+
+  document.querySelectorAll(".sugg-chip").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const q = btn.getAttribute("data-q");
+      const questionInput = document.getElementById("question");
+      questionInput.value = q;
+      const q3Checkbox = document.getElementById("run_q3");
+      if (!q3Checkbox.checked) {
+        q3Checkbox.checked = true;
+      }
+      questionInput.focus();
+      updateQuestionState();
+    });
+  });
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     errorEl.style.display = "none";
     resultsEl.style.display = "none";
+
+    const runQ1 = document.getElementById("run_q1").checked;
+    const runQ2 = document.getElementById("run_q2").checked;
+    const runQ3 = document.getElementById("run_q3").checked;
+    const questionVal = document.getElementById("question").value.trim();
+
+    if (!runQ1 && !runQ2 && !runQ3) {
+      errorEl.textContent = "Please select at least one question to run (Q1, Q2, or Q3).";
+      errorEl.style.display = "block";
+      return;
+    }
+
+    if (runQ3 && !questionVal) {
+      errorEl.textContent = "Please enter a question or click one of the suggested questions above to run Q3 (Content Q&A), or uncheck Q3.";
+      errorEl.style.display = "block";
+      const qInput = document.getElementById("question");
+      qInput.focus();
+      const qField = document.getElementById("question-container");
+      if (qField) {
+        const inputField = qField.querySelector(".field");
+        if (inputField) {
+          inputField.classList.add("highlight-needed");
+          setTimeout(() => inputField.classList.remove("highlight-needed"), 3000);
+        }
+      }
+      return;
+    }
+
     submitBtn.disabled = true;
     statusEl.style.display = "flex";
     statusText.textContent = "Crawling the site — this can take a little while…";
 
     const payload = {
       url: document.getElementById("url").value.trim(),
-      question: document.getElementById("question").value.trim() || null,
+      question: questionVal || null,
       max_pages: parseInt(document.getElementById("max_pages").value, 10),
       max_depth: parseInt(document.getElementById("max_depth").value, 10),
       timeout: parseInt(document.getElementById("timeout").value, 10),
       llm_provider: document.getElementById("llm_provider").value,
+      run_q1: runQ1,
+      run_q2: runQ2,
+      run_q3: runQ3,
     };
 
     try {
@@ -741,13 +1329,29 @@
         .map((n) => `<div class="note">${escapeHtml(n)}</div>`)
         .join("");
 
-      allFindings = data.findings || [];
-      activeSeverity = "all";
-      document.querySelectorAll(".tab").forEach((t) => t.classList.toggle("active", t.dataset.sev === "all"));
-      renderFindings();
+      const findingsSection = document.getElementById("findings-section");
+      if (findingsSection) findingsSection.style.display = runQ1 ? "block" : "none";
 
-      renderNap(data.nap_report || []);
-      renderAnswer(data.answer);
+      const napSection = document.getElementById("nap-section");
+      if (napSection) napSection.style.display = runQ2 ? "block" : "none";
+
+      if (runQ1) {
+        allFindings = data.findings || [];
+        activeSeverity = "all";
+        document.querySelectorAll(".tab").forEach((t) => t.classList.toggle("active", t.dataset.sev === "all"));
+        renderFindings();
+      }
+
+      if (runQ2) {
+        renderNap(data.nap_report || []);
+      }
+
+      if (runQ3) {
+        renderAnswer(data.answer);
+      } else {
+        const ansSec = document.getElementById("answer-section");
+        if (ansSec) ansSec.style.display = "none";
+      }
 
       resultsEl.style.display = "block";
     } catch (err) {

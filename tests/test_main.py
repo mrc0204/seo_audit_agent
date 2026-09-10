@@ -91,12 +91,9 @@ def test_pipeline_runs_end_to_end_and_returns_populated_result():
 
 
 def test_pipeline_finds_the_consistent_nap_across_the_two_pages():
-    # Only the homepage carries JSON-LD NAP; /about has none. That is
-    # insufficient_data by design (fewer than 2 pages contributed a value), not a
-    # false consistency claim — confirms the pipeline doesn't invent agreement.
     result = run_pipeline("https://fixture.example/", max_pages=10, max_depth=2, transport=_site_transport())
     phone = next(c for c in result.nap_comparisons if c.field == "phone")
-    assert phone.verdict == "insufficient_data"
+    assert phone.verdict == "consistent"
 
 
 def test_pipeline_answers_a_question_when_one_is_given():
@@ -320,3 +317,22 @@ def test_main_help_runs_without_import_errors():
     )
     assert proc.returncode == 0
     assert "--url" in proc.stdout
+    assert "--q1" in proc.stdout
+    assert "--q2" in proc.stdout
+    assert "--q3" in proc.stdout
+
+
+def test_run_pipeline_respects_scope_flags():
+    result_q2_only = run_pipeline(
+        "https://fixture.example/",
+        question="What has Fixture Coffee Roasters done since 2015?",
+        max_pages=5,
+        max_depth=1,
+        transport=_site_transport(),
+        run_q1=False,
+        run_q2=True,
+        run_q3=False,
+    )
+    assert result_q2_only.findings == []
+    assert len(result_q2_only.nap_comparisons) == 3
+    assert result_q2_only.answer is None

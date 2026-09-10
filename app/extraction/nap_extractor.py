@@ -15,13 +15,26 @@ Visible text is the loosest source and therefore the most tightly gated: phone
 numbers must match a phone-shaped pattern *and* pass a digit-count test, addresses
 must contain a house number followed by a street-type word, and names are read only
 from a copyright line. Anything vaguer would put guesses into evidence.
+
+A fifth, optional source — :func:`extract_nap_candidates_via_llm` — exists for real
+sites where the value is genuinely stated but in a shape none of the four regex/schema
+tiers above recognize (a plain header/logo name with no copyright line or schema; a
+"City, State" address with no street or generic suffix word at all). It is never a
+replacement for the tiers above and the same governing rule still applies, enforced
+mechanically rather than by trusting the model: a claimed value is only kept if it is
+a literal, whitespace-normalized substring of the page's own text — the identical
+check :mod:`app.validation.qa_validator` uses for Q3. See
+:func:`app.agents.nap_agent.run_nap_check` for when this source actually runs (only
+for a field with zero candidates from every other source, and only against a small,
+targeted subset of pages — never every page in a large crawl).
 """
 
 from __future__ import annotations
 
+import json
 import re
 from collections import Counter
-from typing import Any
+from typing import Any, Callable, Iterable
 from urllib.parse import urlsplit
 
 from app.extraction.html_parser import element_text, normalize_whitespace, parse_html
@@ -435,6 +448,141 @@ def extract_nap_candidates(
                 add("name", match, "visible_text")
 
     return {field: _prefer_precise_sources(found) for field, found in candidates.items()}
+
+
+#: How much of a page's text is shown to the LLM NAP fallback. NAP information
+#: typically sits in a header/logo (near the start) or a footer (near the end),
+#: so a long page is bounded by keeping both ends rather than just truncating
+#: from the front, which would silently drop a footer entirely.
+_LLM_NAP_MAX_CHARS = 6000
+
+
+def extract_nap_candidates_via_llm(
+    page_data: Any, fields: Iterable[str], generate: Callable[..., str]
+) -> dict[str, list[NAPValue]]:
+    """Ask an LLM to find NAP values none of the tiers above could recognize.
+
+    A last-resort supplementary source, never a replacement for the tiers above:
+    :func:`app.agents.nap_agent.run_nap_check` calls this only for a field that
+    already has zero candidates from every other source across the whole site,
+    and only against a small, targeted subset of pages it selects (home/contact/
+    about-like) — never against every page in a large crawl, which both bounds
+    the cost and matches how a human would actually go looking for this
+    information.
+
+    The same governing rule as every other source in this module still applies,
+    enforced mechanically rather than by trusting the prompt: a claimed value is
+    only accepted if it is a literal, whitespace-normalized substring of this
+    page's own text — the identical check
+    :func:`app.validation.qa_validator.find_source_span` uses for Q3. The model
+    may point at real text on the page; it may never compose or paraphrase one.
+
+    Args:
+        page_data: A ``PageData`` from Phase 3.
+        fields: Which of "name"/"address"/"phone" to ask about — normally only
+            the fields the rest of this module found nothing for, site-wide.
+        generate: A ``generate(prompt, **kwargs) -> str`` callable.
+
+    Returns:
+        ``{field: [NAPValue]}`` for whichever requested fields the model found
+        AND that passed the literal-substring check — often empty. Any parse
+        failure, exception, or invented (non-literal) value degrades silently to
+        no candidate for that field, never a guess.
+    """
+    requested = [f for f in fields if f in _NORMALIZERS]
+    if not requested:
+        return {}
+
+    page_url = getattr(page_data, "final_url", "") or getattr(page_data, "url", "")
+    text = getattr(page_data, "text", "") or ""
+
+    if not text.strip() or _is_legal_document_url(page_url):
+        return {}
+
+    try:
+        raw = generate(
+            _llm_nap_prompt(text, requested),
+            max_tokens=400,
+            reasoning_effort="low",
+            temperature=0,
+        )
+    except Exception:
+        return {}
+
+    claimed = _parse_llm_nap_response(raw, requested)
+    if not claimed:
+        return {}
+
+    found: dict[str, list[NAPValue]] = {}
+    for field, value in claimed.items():
+        raw_value = normalize_whitespace(value)
+        if not raw_value or raw_value not in text:
+            # Not literally on the page -- the model composed or paraphrased
+            # instead of pointing at real text. Discarded, never "fixed".
+            continue
+
+        normalized = _NORMALIZERS[field](raw_value)
+        if not normalized:
+            continue
+
+        found[field] = [
+            NAPValue(
+                page=page_url,
+                raw_value=raw_value,
+                normalized_value=normalized,
+                source="llm",
+            )
+        ]
+
+    return found
+
+
+def _bound_text_for_llm(text: str, max_chars: int = _LLM_NAP_MAX_CHARS) -> str:
+    """Keep both ends of a long page's text, since NAP data lives at either end."""
+    if len(text) <= max_chars:
+        return text
+    half = max_chars // 2
+    return text[:half] + "\n...\n" + text[-half:]
+
+
+def _llm_nap_prompt(text: str, fields: list[str]) -> str:
+    """Build the prompt asking the model to quote NAP values verbatim, or say none."""
+    field_list = ", ".join(fields)
+    example = json.dumps({field: "<exact text from the page, or null>" for field in fields})
+    return (
+        "You are given the visible text of one web page. Find the business's own "
+        f"{field_list} on this page, if stated.\n\n"
+        "Rules:\n"
+        "- Copy each value EXACTLY as it appears below -- the same characters, "
+        "spacing, and punctuation. Do not paraphrase, reformat, translate, "
+        "abbreviate, or invent anything.\n"
+        "- Only report a field the page actually states. Use null for a field "
+        "that is not present -- guessing is worse than leaving it blank.\n"
+        "- An address does not need a street name or number to count: a city "
+        "and state/region is a real, reportable address if that is all the page "
+        "states.\n\n"
+        f"Page text:\n{_bound_text_for_llm(text)}\n\n"
+        f"Reply with a single JSON object using exactly these keys: {example}"
+    )
+
+
+def _parse_llm_nap_response(raw: Any, fields: list[str]) -> dict[str, str]:
+    """Parse the model's JSON reply into ``{field: claimed_text}``, dropping nulls/junk."""
+    if not raw:
+        return {}
+    try:
+        payload = json.loads(str(raw).strip())
+    except (ValueError, TypeError):
+        return {}
+    if not isinstance(payload, dict):
+        return {}
+
+    result: dict[str, str] = {}
+    for field in fields:
+        value = payload.get(field)
+        if isinstance(value, str) and value.strip():
+            result[field] = value
+    return result
 
 
 def _prefer_precise_sources(values: list[NAPValue]) -> list[NAPValue]:

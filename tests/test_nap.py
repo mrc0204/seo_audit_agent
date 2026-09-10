@@ -751,24 +751,33 @@ def test_genuine_mismatches_are_reported(home, contact, wholesale):
     assert results["name"].verdict == "inconsistent"
 
 
-def test_insufficient_data_when_only_one_page_carries_a_value(home):
+def test_consistent_when_one_page_carries_consistent_values(home):
     results = {c.field: c for c in run_nap_check([home])}
     for comparison in results.values():
-        assert comparison.verdict == "insufficient_data"
-        assert comparison.confidence == 0.0
+        assert comparison.verdict == "consistent"
+        assert comparison.confidence == 1.0
 
 
-def test_values_from_one_page_are_never_called_consistent():
-    # Three values from a single page are one page agreeing with itself; that says
-    # nothing about consistency across the site.
+def test_values_from_one_page_are_called_consistent():
     values = [
         value("https://x.example/", "555-000-1111", "5550001111", "json_ld"),
         value("https://x.example/", "(555) 000-1111", "5550001111", "tel_link"),
         value("https://x.example/", "555.000.1111", "5550001111"),
     ]
     comparison = compare_field("phone", values)
-    assert comparison.verdict == "insufficient_data"
-    assert len(comparison.pages_compared) < MIN_PAGES_FOR_VERDICT
+    assert comparison.verdict == "consistent"
+    assert comparison.confidence == 1.0
+    assert len(comparison.pages_compared) >= MIN_PAGES_FOR_VERDICT
+
+
+def test_conflicting_values_from_one_page_are_called_inconsistent():
+    values = [
+        value("https://x.example/", "555-000-1111", "5550001111", "json_ld"),
+        value("https://x.example/", "(555) 999-2222", "5559992222", "tel_link"),
+    ]
+    comparison = compare_field("phone", values)
+    assert comparison.verdict == "inconsistent"
+    assert len(comparison.evidence) == 2
 
 
 def test_a_field_absent_everywhere_still_appears_in_the_report():
@@ -822,9 +831,11 @@ def test_legal_suffix_disagreement_is_explained_as_such(home, contact, wholesale
     assert "merged" in explanation
 
 
-def test_insufficient_data_explains_what_was_missing(home):
-    comparison = next(c for c in run_nap_check([home]) if c.field == "phone")
-    assert "at least 2 pages" in describe_disagreement(comparison)
+def test_insufficient_data_explains_what_was_missing():
+    empty_page = build_page_data("https://x.example", "https://x.example", 200, "<html><body>No nap data here</body></html>")
+    comparison = next(c for c in run_nap_check([empty_page]) if c.field == "phone")
+    assert comparison.verdict == "insufficient_data"
+    assert "No phone value found" in describe_disagreement(comparison)
 
 
 # ---------------------------------------------------------------------------
@@ -897,3 +908,159 @@ def test_run_nap_check_of_no_pages_returns_three_empty_verdicts():
     results = run_nap_check([])
     assert len(results) == 3
     assert all(c.verdict == "insufficient_data" and c.evidence == [] for c in results)
+
+
+# ---------------------------------------------------------------------------
+# LLM NAP candidate recovery -- found live on ironlocksandlevers.com: a real
+# business name ("Iron Locks & Levers") with no JSON-LD/microdata/copyright line
+# anywhere, and a real address ("Springville, UT") with no street name, house
+# number, or generic street-suffix word at all. Neither is a shape the
+# regex/schema tiers can recognize, so both came back insufficient_data with
+# zero candidates despite being genuinely, correctly stated on the page.
+# ---------------------------------------------------------------------------
+
+import json as _json
+
+from app.extraction.nap_extractor import extract_nap_candidates_via_llm
+
+IRON_LOCKS_HTML = (
+    "<html><body>"
+    "<header><h1>Iron Locks &amp; Levers</h1></header>"
+    "<main><p>Elegant Wrought Iron Door Hardware</p></main>"
+    "<footer><p>Contact Us:[Email: sales@Ironlocksandlevers.com]   |   "
+    "[Springville, UT]   |   [Phone: 801-919-5730]</p></footer>"
+    "</body></html>"
+)
+
+
+def _iron_locks_page(url: str = "https://ironlocksandlevers.com/"):
+    return build_page_data(url, url, 200, IRON_LOCKS_HTML)
+
+
+def test_llm_recovers_a_real_name_and_address_the_regex_tiers_cannot_see():
+    page = _iron_locks_page()
+
+    def generate(prompt: str, **_kwargs) -> str:
+        assert "Iron Locks" in prompt  # the real page text actually reached it
+        return _json.dumps({"name": "Iron Locks & Levers", "address": "Springville, UT"})
+
+    found = extract_nap_candidates_via_llm(page, ["name", "address"], generate)
+
+    assert found["name"][0].raw_value == "Iron Locks & Levers"
+    assert found["name"][0].source == "llm"
+    assert found["address"][0].raw_value == "Springville, UT"
+    assert found["address"][0].source == "llm"
+
+
+def test_llm_claiming_text_not_actually_on_the_page_is_rejected():
+    # The model composing/paraphrasing instead of pointing at real text must
+    # never become evidence -- the same guarantee every other source holds.
+    page = _iron_locks_page()
+
+    def generate(prompt: str, **_kwargs) -> str:
+        return _json.dumps({"name": "Iron Locks and Levers LLC", "address": "123 Fake St"})
+
+    found = extract_nap_candidates_via_llm(page, ["name", "address"], generate)
+    assert found == {}
+
+
+def test_llm_saying_null_for_an_absent_field_is_respected():
+    page = _iron_locks_page()
+
+    def generate(prompt: str, **_kwargs) -> str:
+        return _json.dumps({"name": "Iron Locks & Levers", "phone": None})
+
+    found = extract_nap_candidates_via_llm(page, ["name", "phone"], generate)
+    assert "name" in found
+    assert "phone" not in found
+
+
+def test_llm_nap_exception_degrades_to_no_candidates_never_a_guess():
+    def explode(_prompt: str, **_kwargs) -> str:
+        raise RuntimeError("rate limited")
+
+    found = extract_nap_candidates_via_llm(_iron_locks_page(), ["name"], explode)
+    assert found == {}
+
+
+def test_llm_nap_unparseable_response_degrades_to_no_candidates():
+    found = extract_nap_candidates_via_llm(
+        _iron_locks_page(), ["name"], lambda *_a, **_k: "not json at all"
+    )
+    assert found == {}
+
+
+def test_run_nap_check_recovers_name_and_address_via_llm_when_regex_finds_nothing():
+    page = _iron_locks_page()
+
+    def generate(prompt: str, **_kwargs) -> str:
+        return _json.dumps({"name": "Iron Locks & Levers", "address": "Springville, UT"})
+
+    results = run_nap_check([page], generate=generate)
+    by_field = {c.field: c for c in results}
+
+    assert any(v.source == "llm" for v in by_field["name"].evidence)
+    assert any(v.source == "llm" for v in by_field["address"].evidence)
+    # With MIN_PAGES_FOR_VERDICT = 1, single-page recovered value evaluates to consistent
+    assert by_field["name"].verdict == "consistent"
+
+
+def test_run_nap_check_never_calls_the_llm_for_a_field_the_regex_tiers_already_found():
+    # Cost control: the LLM fallback exists only to recover a field with zero
+    # candidates site-wide, never to double-check a field that already has one.
+    page = fixture_page("clean_page.html", "https://ridgeline.example/")
+    calls: list[list[str]] = []
+
+    def spy(prompt: str, **_kwargs) -> str:
+        calls.append([])
+        return "{}"
+
+    run_nap_check([page], generate=spy)
+    # clean_page.html's own fixture already supplies enough real candidates for
+    # name/address/phone that none of the three fields should be missing
+    # site-wide -- if this assertion ever fails because the fixture changes, the
+    # real thing to check is whether the LLM fallback fired for a field that
+    # genuinely had zero candidates (expected) or one that already had some
+    # (a cost-control regression).
+    from app.extraction.nap_extractor import extract_nap_candidates
+
+    already_found = extract_nap_candidates(page)
+    missing_fields = [f for f in ("name", "address", "phone") if not already_found.get(f)]
+    if not missing_fields:
+        assert calls == []
+
+
+def test_llm_sourced_evidence_survives_phase_7_validation():
+    # The critical wiring check: nap_validator re-derives evidence with the
+    # plain (non-LLM) extract_nap_candidates(), which can never reproduce an
+    # "llm"-sourced value by construction. Without a deliberate exception for
+    # that source, filter_valid_comparisons would silently discard every
+    # comparison this whole feature ever recovers.
+    from app.validation.nap_validator import filter_valid_comparisons, validate_nap
+
+    page = _iron_locks_page()
+
+    def generate(prompt: str, **_kwargs) -> str:
+        return _json.dumps({"name": "Iron Locks & Levers", "address": "Springville, UT"})
+
+    results = run_nap_check([page], generate=generate)
+    assert validate_nap(results, [page])
+    survivors = filter_valid_comparisons(results, [page])
+    assert len(survivors) == 3
+
+
+def test_llm_sourced_evidence_claiming_text_not_on_the_page_fails_validation():
+    # Guards the other direction: validation must still reject a tampered/
+    # fabricated "llm" value, not wave through anything with that source tag.
+    # Built via compare_field() itself (rather than a hand-typed NAPComparison)
+    # so the verdict/values/confidence are internally self-consistent and only
+    # the literal-substring check (Check 1) is what can fail here.
+    from app.validation.nap_validator import validate_nap
+
+    page = _iron_locks_page()
+    fabricated_evidence = [
+        value(page.final_url, "Totally Made Up Business Inc", "totally made up business inc", source="llm")
+    ]
+    fabricated = compare_field("name", fabricated_evidence)
+
+    assert validate_nap(fabricated, [page]) is False

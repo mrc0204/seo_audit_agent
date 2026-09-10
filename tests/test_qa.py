@@ -330,13 +330,25 @@ def test_answer_of_no_pages_is_null():
     assert answer.url is None and answer.excerpt is None
 
 
-def test_excerpt_is_capped_at_max_length():
+def test_an_overlong_offline_candidate_is_rejected_not_truncated():
+    # Never modify evidence after selecting it: a chunk longer than
+    # MAX_EXCERPT_CHARS is never sliced down to fit (a truncated excerpt is not
+    # what the page actually said) -- with no semantic judge to pick a shorter
+    # sub-span offline, the honest result is null.
     long_para = "Roasting notes and tasting details. " * 40
+    assert len(long_para) > MAX_EXCERPT_CHARS
     html = f"<html><body><main><p>{long_para}</p></main></body></html>"
     page = build_page_data("https://x.example/", "https://x.example/", 200, html)
     answer = answer_question("roasting notes tasting details", [page])
-    assert answer.excerpt is not None
-    assert len(answer.excerpt) <= MAX_EXCERPT_CHARS
+    assert answer.excerpt is None
+    assert answer.match_type == "none"
+
+
+def test_a_short_offline_candidate_is_returned_exactly_unmodified():
+    html = "<html><body><main><p>Free cupping sessions every Saturday morning.</p></main></body></html>"
+    page = build_page_data("https://x.example/", "https://x.example/", 200, html)
+    answer = answer_question("cupping sessions Saturday morning", [page])
+    assert answer.excerpt == "Free cupping sessions every Saturday morning."
 
 
 # ---------------------------------------------------------------------------
@@ -361,6 +373,49 @@ def test_llm_selecting_a_real_excerpt_is_accepted(ridgeline):
     assert answer.excerpt == REAL_EXCERPT
     assert answer.match_type == "exact_substring"
     assert validate_qa(answer, [ridgeline])
+
+
+def test_llm_markdown_code_fence_is_parsed_cleanly(ridgeline):
+    fenced = f"```json\n{_json_response(ridgeline.final_url, REAL_EXCERPT)}\n```"
+    answer = answer_question(
+        "When are the cupping sessions?",
+        [ridgeline],
+        generate=lambda _, **__: fenced,
+    )
+    assert answer.excerpt == REAL_EXCERPT
+    assert answer.match_type == "exact_substring"
+
+
+def test_llm_reasoning_think_tags_are_stripped_cleanly(ridgeline):
+    with_thoughts = f"<think>Thinking through candidates...</think>\n{_json_response(ridgeline.final_url, REAL_EXCERPT)}"
+    answer = answer_question(
+        "When are the cupping sessions?",
+        [ridgeline],
+        generate=lambda _, **__: with_thoughts,
+    )
+    assert answer.excerpt == REAL_EXCERPT
+    assert answer.match_type == "exact_substring"
+
+
+def test_llm_excerpt_longer_than_the_cap_is_rejected_not_truncated():
+    # Never modify evidence after selecting it: an overlong excerpt that IS a
+    # genuine literal substring of the page must still be rejected outright,
+    # not silently sliced down to MAX_EXCERPT_CHARS and then validated -- that
+    # would mean find_source_span checks a string the model never actually
+    # returned, and the caller gets back a cut-off, out-of-context passage
+    # under the pretense of being "the exact quote".
+    long_sentence = "Roasting notes and tasting details. " * 40
+    assert len(long_sentence) > MAX_EXCERPT_CHARS
+    html = f"<html><body><main><p>{long_sentence}</p></main></body></html>"
+    page = build_page_data("https://x.example/", "https://x.example/", 200, html)
+
+    answer = answer_question(
+        "What are the roasting notes?",
+        [page],
+        generate=lambda _, **__: _json_response(page.final_url, long_sentence),
+    )
+    assert answer.excerpt is None
+    assert answer.match_type == "none"
 
 
 def test_llm_paraphrasing_instead_of_copying_is_rejected(ridgeline):

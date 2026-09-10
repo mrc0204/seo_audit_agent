@@ -93,6 +93,9 @@ def run_pipeline(
     use_sitemap: bool = True,
     llm_generate: Callable[[str], str] | None = None,
     transport: Any = None,
+    run_q1: bool = True,
+    run_q2: bool = True,
+    run_q3: bool = True,
 ) -> PipelineResult:
     """Run the full crawl -> extract -> Q1/Q2/Q3 -> validate pipeline once.
 
@@ -106,10 +109,13 @@ def run_pipeline(
         timeout: Per-request timeout in seconds.
         respect_robots: Passed through to the crawler.
         use_sitemap: Passed through to the crawler.
-        llm_generate: Optional callable used for both Q1's ``suggested_fix``
-            rewriting and Q3's answer selection. ``None`` (the default) runs the
-            pipeline fully deterministically — no field this affects is required
-            for a correct, evidence-backed result.
+        llm_generate: Optional callable used for Q1's ``suggested_fix`` rewriting,
+            Q2's NAP candidate-recovery fallback (only for a field with zero
+            candidates from every page — see
+            :func:`app.agents.nap_agent.run_nap_check`), and Q3's answer
+            selection. ``None`` (the default) runs the pipeline fully
+            deterministically — no field this affects is required for a correct,
+            evidence-backed result.
         transport: Optional ``httpx`` transport, for tests to serve a fixture site
             instead of the real network. Threaded straight through to
             :meth:`app.crawler.crawler.Crawler.crawl`.
@@ -145,16 +151,34 @@ def run_pipeline(
         if fr.ok and _is_html_fetch(fr)
     ]
 
-    findings = run_seo_audit(pages, fetch_results=fetch_results)
-    findings = apply_llm_suggested_fixes(findings, llm_generate)
-    findings = filter_valid_findings(findings, pages)
+    # Q2's LLM fallback deliberately runs BEFORE Q1's suggested_fix polishing,
+    # even though Q1 appears first in the brief and in every output. Found
+    # live: apply_llm_suggested_fixes can make one LLM call per Q1 finding
+    # (dozens on a real, imperfect site), and a rate-limited free-tier provider
+    # (NVIDIA's free tier caps requests per minute) can be exhausted by that
+    # alone -- when it ran first, Q2's own LLM candidate-recovery calls then
+    # silently got nothing (by design: an LLM failure degrades to no candidate,
+    # never a crash), even though the exact same call succeeded when tested in
+    # isolation moments later. Q2's fallback only ever spends a handful of
+    # calls (capped at MAX_LLM_FALLBACK_PAGES), so running it first means it
+    # is not the one starved when a shared rate limit is tight -- and it feeds
+    # a correctness-relevant field (recovered NAP evidence), unlike Q1's
+    # suggested_fix, which already has a fully deterministic fallback wording
+    # and loses only polish, never evidence, if the LLM budget runs out.
+    nap_comparisons: list[NAPComparison] = []
+    if run_q2:
+        nap_comparisons = run_nap_check(pages, generate=llm_generate)
+        nap_comparisons = filter_valid_comparisons(nap_comparisons, pages)
 
-    nap_comparisons = run_nap_check(pages)
-    nap_comparisons = filter_valid_comparisons(nap_comparisons, pages)
+    findings: list[Finding] = []
+    if run_q1:
+        findings = run_seo_audit(pages, fetch_results=fetch_results)
+        findings = apply_llm_suggested_fixes(findings, llm_generate)
+        findings = filter_valid_findings(findings, pages)
 
     answer: QAAnswer | None = None
-    if question:
-        answer = answer_question(question, pages, generate=llm_generate)
+    if run_q3 and question and question.strip():
+        answer = answer_question(question.strip(), pages, generate=llm_generate)
         answer = filter_valid_answer(answer, pages)
 
     crawl_notes = list(report.notes) if report else []
@@ -256,7 +280,8 @@ def build_llm_generate(provider_name: str | None, api_key: str | None) -> Callab
     correctness, and is worth a printed warning rather than a hard failure.
 
     Args:
-        provider_name: ``"groq"``, ``"gemini"``, or ``None``/``"none"`` to disable.
+        provider_name: ``"groq"``, ``"gemini"``, ``"nvidia"``, or ``None``/``"none"``
+            to disable.
         api_key: The provider's API key, if required.
 
     Returns:
@@ -267,17 +292,18 @@ def build_llm_generate(provider_name: str | None, api_key: str | None) -> Callab
     if name in ("", "none"):
         return None
 
-    from app.llm.provider import GeminiProvider, GroqProvider
+    from app.llm.provider import GeminiProvider, GroqProvider, NvidiaProvider
 
-    provider_classes = {"groq": GroqProvider, "gemini": GeminiProvider}
+    provider_classes = {"groq": GroqProvider, "gemini": GeminiProvider, "nvidia": NvidiaProvider}
     if name not in provider_classes:
         print(f"warning: unknown LLM provider {name!r}; continuing without LLM.", file=sys.stderr)
         return None
 
     try:
         # api_key is passed at construction, not per-call: each provider also
-        # falls back to its own env var (GROQ_API_KEY / GEMINI_API_KEY) when this
-        # is None, so LLM_API_KEY in .env.example is honored either way.
+        # falls back to its own env var (GROQ_API_KEY / GEMINI_API_KEY /
+        # NVIDIA_API_KEY) when this is None, so LLM_API_KEY in .env.example is
+        # honored either way.
         provider = provider_classes[name](api_key=api_key)
     except Exception as exc:
         print(f"warning: could not initialize {name} provider ({exc}); continuing without LLM.", file=sys.stderr)
@@ -318,9 +344,9 @@ def _build_arg_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--llm-provider",
         type=str,
-        default=os.environ.get("LLM_PROVIDER", "none"),
-        choices=["none", "groq", "gemini"],
-        help="Optional LLM provider for suggested-fix phrasing and Q&A selection",
+        default=os.environ.get("LLM_PROVIDER", "nvidia"),
+        choices=["nvidia", "none"],
+        help="LLM provider (default: nvidia; or none to disable) for suggested-fix phrasing and Q&A selection",
     )
     parser.add_argument(
         "--no-robots",
@@ -336,6 +362,12 @@ def _build_arg_parser() -> argparse.ArgumentParser:
         default=True,
         help="Do not seed the crawl frontier from the site's sitemap",
     )
+    parser.add_argument("--q1", dest="run_q1", action="store_true", default=None, help="Run Q1 On-page SEO Audit")
+    parser.add_argument("--no-q1", dest="run_q1", action="store_false", help="Skip Q1 On-page SEO Audit")
+    parser.add_argument("--q2", dest="run_q2", action="store_true", default=None, help="Run Q2 NAP Consistency Check")
+    parser.add_argument("--no-q2", dest="run_q2", action="store_false", help="Skip Q2 NAP Consistency Check")
+    parser.add_argument("--q3", dest="run_q3", action="store_true", default=None, help="Run Q3 Grounded Q&A")
+    parser.add_argument("--no-q3", dest="run_q3", action="store_false", help="Skip Q3 Grounded Q&A")
     return parser
 
 
@@ -361,6 +393,16 @@ def main(argv: list[str] | None = None) -> int:
 
     llm_generate = build_llm_generate(args.llm_provider, os.environ.get("LLM_API_KEY"))
 
+    explicit_positive = [f for f in (args.run_q1, args.run_q2, args.run_q3) if f is True]
+    if explicit_positive:
+        run_q1 = bool(args.run_q1)
+        run_q2 = bool(args.run_q2)
+        run_q3 = bool(args.run_q3)
+    else:
+        run_q1 = args.run_q1 is not False
+        run_q2 = args.run_q2 is not False
+        run_q3 = args.run_q3 is not False
+
     result = run_pipeline(
         url=args.url,
         question=args.question,
@@ -370,6 +412,9 @@ def main(argv: list[str] | None = None) -> int:
         respect_robots=args.respect_robots,
         use_sitemap=args.use_sitemap,
         llm_generate=llm_generate,
+        run_q1=run_q1,
+        run_q2=run_q2,
+        run_q3=run_q3,
     )
 
     if result.pages_fetched == 0:

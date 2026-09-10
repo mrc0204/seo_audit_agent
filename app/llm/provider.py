@@ -1,11 +1,15 @@
 """Swappable LLM provider interface protocol and client implementations.
 
-Both providers talk to their vendor's plain REST endpoint over ``httpx`` rather
-than the ``groq``/``google-generativeai`` SDKs. This is a deliberate simplification,
-not a missing feature: each API is one HTTP POST and a JSON body, ``httpx`` is
-already a project dependency, and skipping the SDKs means selecting a provider
-never requires an extra install. Both are the vendors' documented **free-tier**
-endpoints — no paid subscription, matching the brief's constraint.
+All three providers talk to their vendor's plain REST endpoint over ``httpx``
+rather than a vendor SDK. This is a deliberate simplification, not a missing
+feature: each API is one HTTP POST and a JSON body, ``httpx`` is already a
+project dependency, and skipping the SDKs means selecting a provider never
+requires an extra install. All three are the vendors' documented **free-tier**
+endpoints — no paid subscription, matching the brief's constraint. NVIDIA was
+added as a third option specifically because Groq's and Gemini's free tiers each
+hit a real ceiling during this project's own live testing (Groq's daily token
+cap, in particular) — it draws from an entirely separate quota, so switching
+``LLM_PROVIDER`` is a genuine way to keep testing rather than waiting out a reset.
 
 Every call site in this codebase (:func:`app.agents.seo_agent.apply_llm_suggested_fixes`,
 :func:`app.agents.nap_agent.filter_candidates_with_llm`,
@@ -21,6 +25,7 @@ it.
 from __future__ import annotations
 
 import os
+import time
 from abc import ABC, abstractmethod
 from typing import Any
 
@@ -48,6 +53,8 @@ DEFAULT_TIMEOUT = 30.0
 #: knowledge of "current" model IDs is never a substitute for checking on the day.
 DEFAULT_GROQ_MODEL = "openai/gpt-oss-20b"
 DEFAULT_GEMINI_MODEL = "gemini-flash-latest"
+
+DEFAULT_NVIDIA_MODEL = "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning"
 
 
 class LLMProvider(ABC):
@@ -243,24 +250,163 @@ class GeminiProvider(LLMProvider):
             raise ValueError(f"Unexpected Gemini response shape: {data!r}") from exc
 
 
+class NvidiaProvider(LLMProvider):
+    """NVIDIA NIM LLM provider implementation.
+
+    Talks to NVIDIA's OpenAI-compatible NIM catalog endpoint
+    (``integrate.api.nvidia.com``) — free API keys (``nvapi-...``) are issued at
+    build.nvidia.com. Added as a third option alongside Groq/Gemini specifically
+    because both of those hit real free-tier ceilings during this project's own
+    live testing (Groq's daily token cap, in particular) — NVIDIA's free tier is a
+    separate quota entirely, so it is a genuine fallback, not a duplicate of an
+    existing one. Still a free tier with its own real limits (a fixed signup
+    credit balance and its own requests-per-minute cap), not unlimited.
+    """
+
+    API_URL = "https://integrate.api.nvidia.com/v1/chat/completions"
+
+    def __init__(
+        self,
+        api_key: str | None = None,
+        model: str | None = None,
+        timeout: float = DEFAULT_TIMEOUT,
+        client: httpx.Client | None = None,
+    ) -> None:
+        """
+        Args:
+            api_key: NVIDIA NIM API key. Falls back to the ``NVIDIA_API_KEY`` env
+                var, then ``LLM_API_KEY`` (the name used in ``.env.example`` when
+                ``LLM_PROVIDER=nvidia``).
+            model: Model id. Falls back to ``NVIDIA_MODEL``, then
+                :data:`DEFAULT_NVIDIA_MODEL`.
+            timeout: Per-request timeout in seconds.
+            client: Optional pre-built ``httpx.Client`` — tests substitute one
+                with a mock transport instead of touching the network.
+        """
+        self.api_key = (
+            api_key or os.environ.get("NVIDIA_API_KEY") or os.environ.get("LLM_API_KEY")
+        )
+        self.model = model or os.environ.get("NVIDIA_MODEL") or DEFAULT_NVIDIA_MODEL
+        self.timeout = timeout
+        self._client = client
+
+    def generate(self, prompt: str, **kwargs: Any) -> str:
+        """Generate text completion using the NVIDIA NIM API.
+
+        Args:
+            prompt: The prompt text.
+            **kwargs: ``temperature`` and ``max_tokens`` are forwarded if given.
+                ``enable_thinking``, if explicitly given as ``True``, turns
+                thinking mode back on (see the note below for why it is
+                explicitly turned OFF otherwise, rather than merely left
+                unset), and ``reasoning_budget`` is forwarded alongside it.
+                Anything else (e.g. Groq-specific ``reasoning_effort``) is
+                ignored, so callers can pass through the same keyword set used
+                elsewhere without this provider breaking. Always a single
+                non-streamed response — this provider's interface is a plain
+                ``str`` return, and every call site in this codebase already
+                expects that, not a token stream.
+
+        Returns:
+            The completion text, stripped of leading/trailing whitespace.
+
+        Raises:
+            ProviderConfigError: No API key is configured.
+            httpx.HTTPStatusError: The API returned a non-2xx response.
+            ValueError: The response body was not the expected shape.
+
+        Note on ``enable_thinking``/``reasoning_budget``:
+            Nemotron models on NVIDIA's catalog (this was confirmed live on
+            ``nvidia/nemotron-3.5-lightning-30b-a3b`` before
+            :data:`DEFAULT_NVIDIA_MODEL` was changed to a larger Nemotron variant
+            — not yet re-confirmed on the new one) are "thinking" models whose
+            reasoning, by default, is written straight into the answer's own
+            ``content`` field rather than a separate field the way Groq's
+            reasoning model does — found live: with nothing sent for
+            ``chat_template_kwargs`` at all, a plain "say hello" prompt came back
+            as "Here's a thinking process: 1. Analyze User Request..." and never
+            finished reasoning to an actual answer even at ``max_tokens=300``.
+            Merely omitting the field does NOT default to thinking-off for this
+            model family, unlike what its own parameter name might suggest —
+            confirmed live that ``chat_template_kwargs.enable_thinking`` must be
+            sent explicitly as ``False`` to get a clean, parseable answer
+            (confirmed live: the identical prompt then returned exactly
+            ``"Hello!"`` with
+            ``reasoning_content: null``). So it is sent explicitly every call,
+            defaulting to ``False``, and only flipped to ``True`` when a caller
+            opts in.
+        """
+        if not self.api_key:
+            raise ProviderConfigError(
+                "NVIDIA API key not configured — set NVIDIA_API_KEY or LLM_API_KEY."
+            )
+
+        enable_thinking = bool(kwargs.get("enable_thinking", False))
+        payload: dict[str, Any] = {
+            "model": self.model,
+            "messages": [{"role": "user", "content": prompt}],
+            "temperature": kwargs.get("temperature", 0.2),
+            "max_tokens": kwargs.get("max_tokens", 512),
+            "chat_template_kwargs": {"enable_thinking": enable_thinking},
+        }
+        if enable_thinking and kwargs.get("reasoning_budget"):
+            payload["reasoning_budget"] = kwargs["reasoning_budget"]
+
+        data = _post_json(
+            self._client,
+            self.API_URL,
+            headers={"Authorization": f"Bearer {self.api_key}"},
+            payload=payload,
+            timeout=self.timeout,
+        )
+
+        try:
+            return data["choices"][0]["message"]["content"].strip()
+        except (KeyError, IndexError, TypeError, AttributeError) as exc:
+            raise ValueError(f"Unexpected NVIDIA response shape: {data!r}") from exc
+
+
 def _post_json(
     client: httpx.Client | None,
     url: str,
     headers: dict[str, str],
     payload: dict[str, Any],
     timeout: float,
+    max_retries: int = 3,
 ) -> dict[str, Any]:
     """POST JSON and return the parsed JSON response, raising on any HTTP error.
 
     Shared by both providers so a caller supplying a mock ``client`` (for tests) or
     swapping providers sees the exact same error-handling behaviour either way.
+    Includes exponential-backoff retries for transient 429/5xx status codes and network drops.
     """
     owns_client = client is None
     client = client or httpx.Client(timeout=timeout)
+    last_exc: Exception | None = None
     try:
-        response = client.post(url, headers=headers, json=payload, timeout=timeout)
-        response.raise_for_status()
-        return response.json()
+        for attempt in range(max_retries + 1):
+            try:
+                response = client.post(url, headers=headers, json=payload, timeout=timeout)
+                if response.status_code in (429, 500, 502, 503, 504) and attempt < max_retries:
+                    time.sleep(1.0 * (attempt + 1))
+                    continue
+                response.raise_for_status()
+                return response.json()
+            except httpx.HTTPStatusError as exc:
+                last_exc = exc
+                if exc.response.status_code in (429, 500, 502, 503, 504) and attempt < max_retries:
+                    time.sleep(1.0 * (attempt + 1))
+                    continue
+                raise
+            except (httpx.TimeoutException, httpx.NetworkError) as exc:
+                last_exc = exc
+                if attempt < max_retries:
+                    time.sleep(1.0 * (attempt + 1))
+                    continue
+                raise
+        if last_exc:
+            raise last_exc
+        raise RuntimeError("POST JSON failed after retries")
     finally:
         if owns_client:
             client.close()

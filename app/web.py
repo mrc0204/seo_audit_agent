@@ -29,6 +29,22 @@ from starlette.concurrency import run_in_threadpool
 from app.crawler.url_utils import InvalidURLError, normalize_url
 from app.main import build_llm_generate, run_pipeline
 
+# Load .env into this process's environment on import, the same as the CLI does
+# in app.main._build_arg_parser(). Found live: without this, `uvicorn
+# app.web:app` never sees LLM_API_KEY/GROQ_API_KEY/etc. at all (only the shell's
+# own exported env vars, which .env is not), so os.environ.get("LLM_API_KEY")
+# below is always None -- every LLM call through the web UI (any provider)
+# silently raised ProviderConfigError and degraded to the fully deterministic
+# path, with no visible error, since that degrade-on-failure behavior is by
+# design for every LLM-touched call site in this pipeline. The UI *looked* like
+# it was running with an LLM selected; it never actually was.
+try:
+    from dotenv import load_dotenv
+
+    load_dotenv()
+except ImportError:
+    pass
+
 _STATIC_DIR = os.path.join(os.path.dirname(__file__), "static")
 
 app = FastAPI(title="Evidence-Grounded SEO Audit Agent")
@@ -43,6 +59,9 @@ class AuditRequest(BaseModel):
     max_depth: int = Field(default=2, ge=0, le=5)
     timeout: int = Field(default=15, ge=1, le=60)
     llm_provider: str = "none"
+    run_q1: bool = True
+    run_q2: bool = True
+    run_q3: bool = True
 
 
 class AuditResponse(BaseModel):
@@ -97,6 +116,9 @@ async def audit(request: AuditRequest) -> AuditResponse:
             max_depth=request.max_depth,
             timeout=request.timeout,
             llm_generate=llm_generate,
+            run_q1=request.run_q1,
+            run_q2=request.run_q2,
+            run_q3=request.run_q3,
         )
     except InvalidURLError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
@@ -109,6 +131,12 @@ async def audit(request: AuditRequest) -> AuditResponse:
         pages_fetched=result.pages_fetched,
         crawl_notes=result.crawl_notes,
         findings=[f.to_audit_entry() for f in result.findings],
-        nap_report=[c.to_report_entry() for c in result.nap_comparisons],
+        nap_report=[
+            {
+                **c.to_report_entry(),
+                "evidence": [e.model_dump(mode="json") for e in c.evidence],
+            }
+            for c in result.nap_comparisons
+        ],
         answer=result.answer.to_answer_json() if result.answer is not None else None,
     )
