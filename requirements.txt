@@ -6,6 +6,15 @@ python-dotenv>=1.0.0
 rank-bm25>=0.2.2
 pytest>=8.0.0
 
-# LLM SDK options (Uncomment the provider you wish to use)
-groq>=0.4.0
+# Web UI (app/web.py) — a thin FastAPI wrapper over app.main.run_pipeline plus a
+# static single-page frontend. Optional: the CLI (python -m app.main) needs
+# neither of these.
+fastapi>=0.110.0
+uvicorn>=0.29.0
+
+# LLM providers: app/llm/provider.py calls Groq's and Gemini's REST endpoints
+# directly over httpx (already a dependency above), so neither vendor SDK below
+# is actually required. Left here only in case you'd rather swap in the SDK
+# client yourself.
+# groq>=0.4.0
 # google-generativeai>=0.4.0

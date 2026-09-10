@@ -1,0 +1,901 @@
+[
+  {
+    "url": "https://wptavern.com/",
+    "stack": "WordPress",
+    "timestamp": "2026-09-10T03:07:43.616143+00:00",
+    "pages_fetched": 6,
+    "pages_ok": 6,
+    "crawl_seconds": 42.7,
+    "notes": [],
+    "findings": [
+      {
+        "metric": "missing_h1",
+        "page": "https://wptavern.com/",
+        "severity": "info",
+        "evidence": "The page contains no <h1> element.",
+        "suggested_fix": "Add a single <h1> naming the page's main topic.",
+        "check_id": "SEO-HEAD-001"
+      },
+      {
+        "metric": "missing_meta_description",
+        "page": "https://wptavern.com/",
+        "severity": "info",
+        "evidence": "No <meta name=\"description\"> element is present in the document <head>.",
+        "suggested_fix": "Add a unique meta description of about 70-160 characters.",
+        "check_id": "SEO-META-001"
+      },
+      {
+        "metric": "missing_meta_description",
+        "page": "https://wptavern.com/collection-of-wordpress-related-infographics",
+        "severity": "info",
+        "evidence": "No <meta name=\"description\"> element is present in the document <head>.",
+        "suggested_fix": "Add a unique meta description of about 70-160 characters.",
+        "check_id": "SEO-META-001"
+      },
+      {
+        "metric": "missing_meta_description",
+        "page": "https://wptavern.com/devpress-plans-to-launch-plugintheme-review-service",
+        "severity": "info",
+        "evidence": "No <meta name=\"description\"> element is present in the document <head>.",
+        "suggested_fix": "Add a unique meta description of about 70-160 characters.",
+        "check_id": "SEO-META-001"
+      },
+      {
+        "metric": "title_too_long",
+        "page": "https://wptavern.com/devpress-plans-to-launch-plugintheme-review-service",
+        "severity": "info",
+        "evidence": "<title> is 64 characters, over the 60-character display limit: \"DevPress Plans To Launch Plugin/Theme Review Service \u2013 WP Tavern\"",
+        "suggested_fix": "Shorten the title to 60 characters or fewer so it is not truncated in search results.",
+        "check_id": "SEO-TITLE-004"
+      },
+      {
+        "metric": "missing_meta_description",
+        "page": "https://wptavern.com/joost-de-valk-answers-questions-from-his-peers",
+        "severity": "info",
+        "evidence": "No <meta name=\"description\"> element is present in the document <head>.",
+        "suggested_fix": "Add a unique meta description of about 70-160 characters.",
+        "check_id": "SEO-META-001"
+      },
+      {
+        "metric": "missing_meta_description",
+        "page": "https://wptavern.com/snowshoemag-com-switches-to-wordpress",
+        "severity": "info",
+        "evidence": "No <meta name=\"description\"> element is present in the document <head>.",
+        "suggested_fix": "Add a unique meta description of about 70-160 characters.",
+        "check_id": "SEO-META-001"
+      },
+      {
+        "metric": "missing_meta_description",
+        "page": "https://wptavern.com/wpmods-relaunches-their-forums",
+        "severity": "info",
+        "evidence": "No <meta name=\"description\"> element is present in the document <head>.",
+        "suggested_fix": "Add a unique meta description of about 70-160 characters.",
+        "check_id": "SEO-META-001"
+      }
+    ],
+    "nap": [
+      {
+        "field": "name",
+        "pages_compared": [],
+        "values": [],
+        "normalized_values": [],
+        "confidence": 0.0,
+        "verdict": "insufficient_data",
+        "evidence": []
+      },
+      {
+        "field": "address",
+        "pages_compared": [],
+        "values": [],
+        "normalized_values": [],
+        "confidence": 0.0,
+        "verdict": "insufficient_data",
+        "evidence": []
+      },
+      {
+        "field": "phone",
+        "pages_compared": [],
+        "values": [],
+        "normalized_values": [],
+        "confidence": 0.0,
+        "verdict": "insufficient_data",
+        "evidence": []
+      }
+    ],
+    "qa": [
+      {
+        "query": "What is WordPress Tavern?",
+        "expected": "answerable",
+        "url": null,
+        "excerpt": null,
+        "match_type": "none"
+      },
+      {
+        "query": "Does the site cover WordPress plugins?",
+        "expected": "answerable",
+        "url": null,
+        "excerpt": null,
+        "match_type": "none"
+      },
+      {
+        "query": "Does the site cover WordPress themes?",
+        "expected": "answerable",
+        "url": null,
+        "excerpt": null,
+        "match_type": "none"
+      },
+      {
+        "query": "What is the refund policy for a purchase on this site?",
+        "expected": "unanswerable",
+        "url": null,
+        "excerpt": null,
+        "match_type": "none"
+      },
+      {
+        "query": "What programming language is the Linux kernel written in?",
+        "expected": "unanswerable",
+        "url": null,
+        "excerpt": null,
+        "match_type": "none"
+      }
+    ]
+  },
+  {
+    "url": "https://www.allbirds.com/",
+    "stack": "Shopify",
+    "timestamp": "2026-09-10T03:08:27.074307+00:00",
+    "pages_fetched": 6,
+    "pages_ok": 5,
+    "crawl_seconds": 7.9,
+    "notes": [
+      "skipped URLs: 1 non_html"
+    ],
+    "findings": [
+      {
+        "metric": "image_missing_alt",
+        "page": "https://www.allbirds.com/",
+        "severity": "warning",
+        "evidence": "2 of 41 <img> elements have no alt attribute: ",
+        "suggested_fix": "Add descriptive alt text to each image, or alt=\"\" if it is purely decorative.",
+        "check_id": "SEO-IMG-001"
+      },
+      {
+        "metric": "image_missing_alt",
+        "page": "https://www.allbirds.com/products/mens-wool-runners-natural-white",
+        "severity": "warning",
+        "evidence": "3 of 47 <img> elements have no alt attribute: ",
+        "suggested_fix": "Add descriptive alt text to each image, or alt=\"\" if it is purely decorative.",
+        "check_id": "SEO-IMG-001"
+      },
+      {
+        "metric": "image_missing_alt",
+        "page": "https://www.allbirds.com/products/trino-tubers-onyx",
+        "severity": "warning",
+        "evidence": "2 of 31 <img> elements have no alt attribute: ",
+        "suggested_fix": "Add descriptive alt text to each image, or alt=\"\" if it is purely decorative.",
+        "check_id": "SEO-IMG-001"
+      },
+      {
+        "metric": "duplicate_meta_description",
+        "page": "https://www.allbirds.com/products/womens-wool-runners-natural-black",
+        "severity": "warning",
+        "evidence": "This page's meta description \"Allbirds Wool Runners for women are lightweight sneakers, washable, and made from sustainable and recycled materials. FREE shipping & returns. Our Wool Runners are destined to be a trusted companion.\" is also used on 1 other page(s): https://www.allbirds.com/products/womens-wool-runners-natural-white",
+        "suggested_fix": "Write a distinct meta description for each page.",
+        "check_id": "SEO-DUP-002"
+      },
+      {
+        "metric": "image_missing_alt",
+        "page": "https://www.allbirds.com/products/womens-wool-runners-natural-black",
+        "severity": "warning",
+        "evidence": "3 of 45 <img> elements have no alt attribute: ",
+        "suggested_fix": "Add descriptive alt text to each image, or alt=\"\" if it is purely decorative.",
+        "check_id": "SEO-IMG-001"
+      },
+      {
+        "metric": "duplicate_meta_description",
+        "page": "https://www.allbirds.com/products/womens-wool-runners-natural-white",
+        "severity": "warning",
+        "evidence": "This page's meta description \"Allbirds Wool Runners for women are lightweight sneakers, washable, and made from sustainable and recycled materials. FREE shipping & returns. Our Wool Runners are destined to be a trusted companion.\" is also used on 1 other page(s): https://www.allbirds.com/products/womens-wool-runners-natural-black",
+        "suggested_fix": "Write a distinct meta description for each page.",
+        "check_id": "SEO-DUP-002"
+      },
+      {
+        "metric": "image_missing_alt",
+        "page": "https://www.allbirds.com/products/womens-wool-runners-natural-white",
+        "severity": "warning",
+        "evidence": "3 of 45 <img> elements have no alt attribute: ",
+        "suggested_fix": "Add descriptive alt text to each image, or alt=\"\" if it is purely decorative.",
+        "check_id": "SEO-IMG-001"
+      },
+      {
+        "metric": "empty_heading",
+        "page": "https://www.allbirds.com/",
+        "severity": "info",
+        "evidence": "The page contains 1 empty <h3> element(s).",
+        "suggested_fix": "Remove the empty <h3> element(s) or give them text.",
+        "check_id": "SEO-HEAD-003"
+      },
+      {
+        "metric": "multiple_h1",
+        "page": "https://www.allbirds.com/products/mens-wool-runners-natural-white",
+        "severity": "info",
+        "evidence": "The page contains 3 <h1> elements: \"Men's Wool Runner\", \"Men's Wool Runner\", \"Better Things in a Better Way\"",
+        "suggested_fix": "Keep one <h1> as the page's main heading and demote the others to <h2>.",
+        "check_id": "SEO-HEAD-002"
+      },
+      {
+        "metric": "empty_heading",
+        "page": "https://www.allbirds.com/products/mens-wool-runners-natural-white",
+        "severity": "info",
+        "evidence": "The page contains 1 empty <h3> element(s).",
+        "suggested_fix": "Remove the empty <h3> element(s) or give them text.",
+        "check_id": "SEO-HEAD-003"
+      },
+      {
+        "metric": "meta_description_too_long",
+        "page": "https://www.allbirds.com/products/mens-wool-runners-natural-white",
+        "severity": "info",
+        "evidence": "Meta description is 269 characters, over the 160-character display limit: \"Wool Runners for men are lightweight sneakers, made to be washable, and constructed from sustainable and recycled materials. FREE shipping & returns. Allbirds keep your feet comfy during your everyday...\"",
+        "suggested_fix": "Trim the description to 160 characters or fewer.",
+        "check_id": "SEO-META-004"
+      },
+      {
+        "metric": "multiple_h1",
+        "page": "https://www.allbirds.com/products/trino-tubers-onyx",
+        "severity": "info",
+        "evidence": "The page contains 3 <h1> elements: \"Trino\u00ae Tubers\", \"Trino\u00ae Tubers\", \"Better things in a better way.\"",
+        "suggested_fix": "Keep one <h1> as the page's main heading and demote the others to <h2>.",
+        "check_id": "SEO-HEAD-002"
+      },
+      {
+        "metric": "empty_heading",
+        "page": "https://www.allbirds.com/products/trino-tubers-onyx",
+        "severity": "info",
+        "evidence": "The page contains 1 empty <h3> element(s).",
+        "suggested_fix": "Remove the empty <h3> element(s) or give them text.",
+        "check_id": "SEO-HEAD-003"
+      },
+      {
+        "metric": "meta_description_too_long",
+        "page": "https://www.allbirds.com/products/trino-tubers-onyx",
+        "severity": "info",
+        "evidence": "Meta description is 202 characters, over the 160-character display limit: \"Breezy comfort with a pop of color, Trino\u00ae Tubers full length sustainable socks made from eco-friendly materials freshen up the classic crew with a simple design\u2014a perfect match for your favorite shoe...\"",
+        "suggested_fix": "Trim the description to 160 characters or fewer.",
+        "check_id": "SEO-META-004"
+      },
+      {
+        "metric": "title_too_long",
+        "page": "https://www.allbirds.com/products/trino-tubers-onyx",
+        "severity": "info",
+        "evidence": "<title> is 75 characters, over the 60-character display limit: \"Trino\u00ae Tubers - Onyx | Eco-friendly, Breathable, Wool Tube Socks | Allbirds\"",
+        "suggested_fix": "Shorten the title to 60 characters or fewer so it is not truncated in search results.",
+        "check_id": "SEO-TITLE-004"
+      },
+      {
+        "metric": "multiple_h1",
+        "page": "https://www.allbirds.com/products/womens-wool-runners-natural-black",
+        "severity": "info",
+        "evidence": "The page contains 3 <h1> elements: \"Women's Wool Runner\", \"Women's Wool Runner\", \"Better Things in a Better Way\"",
+        "suggested_fix": "Keep one <h1> as the page's main heading and demote the others to <h2>.",
+        "check_id": "SEO-HEAD-002"
+      },
+      {
+        "metric": "empty_heading",
+        "page": "https://www.allbirds.com/products/womens-wool-runners-natural-black",
+        "severity": "info",
+        "evidence": "The page contains 1 empty <h3> element(s).",
+        "suggested_fix": "Remove the empty <h3> element(s) or give them text.",
+        "check_id": "SEO-HEAD-003"
+      },
+      {
+        "metric": "meta_description_too_long",
+        "page": "https://www.allbirds.com/products/womens-wool-runners-natural-black",
+        "severity": "info",
+        "evidence": "Meta description is 199 characters, over the 160-character display limit: \"Allbirds Wool Runners for women are lightweight sneakers, washable, and made from sustainable and recycled materials. FREE shipping & returns. Our Wool Runners are destined to be a trusted companion.\"",
+        "suggested_fix": "Trim the description to 160 characters or fewer.",
+        "check_id": "SEO-META-004"
+      },
+      {
+        "metric": "multiple_h1",
+        "page": "https://www.allbirds.com/products/womens-wool-runners-natural-white",
+        "severity": "info",
+        "evidence": "The page contains 3 <h1> elements: \"Women's Wool Runner\", \"Women's Wool Runner\", \"Better Things in a Better Way\"",
+        "suggested_fix": "Keep one <h1> as the page's main heading and demote the others to <h2>.",
+        "check_id": "SEO-HEAD-002"
+      },
+      {
+        "metric": "empty_heading",
+        "page": "https://www.allbirds.com/products/womens-wool-runners-natural-white",
+        "severity": "info",
+        "evidence": "The page contains 1 empty <h3> element(s).",
+        "suggested_fix": "Remove the empty <h3> element(s) or give them text.",
+        "check_id": "SEO-HEAD-003"
+      },
+      {
+        "metric": "meta_description_too_long",
+        "page": "https://www.allbirds.com/products/womens-wool-runners-natural-white",
+        "severity": "info",
+        "evidence": "Meta description is 199 characters, over the 160-character display limit: \"Allbirds Wool Runners for women are lightweight sneakers, washable, and made from sustainable and recycled materials. FREE shipping & returns. Our Wool Runners are destined to be a trusted companion.\"",
+        "suggested_fix": "Trim the description to 160 characters or fewer.",
+        "check_id": "SEO-META-004"
+      }
+    ],
+    "nap": [
+      {
+        "field": "name",
+        "pages_compared": [
+          "https://www.allbirds.com/",
+          "https://www.allbirds.com/products/mens-wool-runners-natural-white",
+          "https://www.allbirds.com/products/womens-wool-runners-natural-black",
+          "https://www.allbirds.com/products/womens-wool-runners-natural-white",
+          "https://www.allbirds.com/products/trino-tubers-onyx"
+        ],
+        "values": [
+          "AB DNAM LLC"
+        ],
+        "normalized_values": [
+          "ab dnam llc"
+        ],
+        "confidence": 1.0,
+        "verdict": "consistent",
+        "evidence": [
+          {
+            "page": "https://www.allbirds.com/",
+            "raw_value": "AB DNAM LLC",
+            "normalized_value": "ab dnam llc",
+            "source": "visible_text"
+          },
+          {
+            "page": "https://www.allbirds.com/products/mens-wool-runners-natural-white",
+            "raw_value": "AB DNAM LLC",
+            "normalized_value": "ab dnam llc",
+            "source": "visible_text"
+          },
+          {
+            "page": "https://www.allbirds.com/products/womens-wool-runners-natural-black",
+            "raw_value": "AB DNAM LLC",
+            "normalized_value": "ab dnam llc",
+            "source": "visible_text"
+          },
+          {
+            "page": "https://www.allbirds.com/products/womens-wool-runners-natural-white",
+            "raw_value": "AB DNAM LLC",
+            "normalized_value": "ab dnam llc",
+            "source": "visible_text"
+          },
+          {
+            "page": "https://www.allbirds.com/products/trino-tubers-onyx",
+            "raw_value": "AB DNAM LLC",
+            "normalized_value": "ab dnam llc",
+            "source": "visible_text"
+          }
+        ]
+      },
+      {
+        "field": "address",
+        "pages_compared": [
+          "https://www.allbirds.com/",
+          "https://www.allbirds.com/products/mens-wool-runners-natural-white",
+          "https://www.allbirds.com/products/womens-wool-runners-natural-black",
+          "https://www.allbirds.com/products/womens-wool-runners-natural-white",
+          "https://www.allbirds.com/products/trino-tubers-onyx"
+        ],
+        "values": [
+          "8484 Wilshire Blvd"
+        ],
+        "normalized_values": [
+          "8484 wilshire boulevard"
+        ],
+        "confidence": 1.0,
+        "verdict": "consistent",
+        "evidence": [
+          {
+            "page": "https://www.allbirds.com/",
+            "raw_value": "8484 Wilshire Blvd",
+            "normalized_value": "8484 wilshire boulevard",
+            "source": "visible_text"
+          },
+          {
+            "page": "https://www.allbirds.com/products/mens-wool-runners-natural-white",
+            "raw_value": "8484 Wilshire Blvd",
+            "normalized_value": "8484 wilshire boulevard",
+            "source": "visible_text"
+          },
+          {
+            "page": "https://www.allbirds.com/products/womens-wool-runners-natural-black",
+            "raw_value": "8484 Wilshire Blvd",
+            "normalized_value": "8484 wilshire boulevard",
+            "source": "visible_text"
+          },
+          {
+            "page": "https://www.allbirds.com/products/womens-wool-runners-natural-white",
+            "raw_value": "8484 Wilshire Blvd",
+            "normalized_value": "8484 wilshire boulevard",
+            "source": "visible_text"
+          },
+          {
+            "page": "https://www.allbirds.com/products/trino-tubers-onyx",
+            "raw_value": "8484 Wilshire Blvd",
+            "normalized_value": "8484 wilshire boulevard",
+            "source": "visible_text"
+          }
+        ]
+      },
+      {
+        "field": "phone",
+        "pages_compared": [
+          "https://www.allbirds.com/",
+          "https://www.allbirds.com/products/mens-wool-runners-natural-white",
+          "https://www.allbirds.com/products/womens-wool-runners-natural-black",
+          "https://www.allbirds.com/products/womens-wool-runners-natural-white",
+          "https://www.allbirds.com/products/trino-tubers-onyx"
+        ],
+        "values": [
+          "+1 (424) 363-8064"
+        ],
+        "normalized_values": [
+          "4243638064"
+        ],
+        "confidence": 1.0,
+        "verdict": "consistent",
+        "evidence": [
+          {
+            "page": "https://www.allbirds.com/",
+            "raw_value": "+1 (424) 363-8064",
+            "normalized_value": "4243638064",
+            "source": "visible_text"
+          },
+          {
+            "page": "https://www.allbirds.com/products/mens-wool-runners-natural-white",
+            "raw_value": "+1 (424) 363-8064",
+            "normalized_value": "4243638064",
+            "source": "visible_text"
+          },
+          {
+            "page": "https://www.allbirds.com/products/womens-wool-runners-natural-black",
+            "raw_value": "+1 (424) 363-8064",
+            "normalized_value": "4243638064",
+            "source": "visible_text"
+          },
+          {
+            "page": "https://www.allbirds.com/products/womens-wool-runners-natural-white",
+            "raw_value": "+1 (424) 363-8064",
+            "normalized_value": "4243638064",
+            "source": "visible_text"
+          },
+          {
+            "page": "https://www.allbirds.com/products/trino-tubers-onyx",
+            "raw_value": "+1 (424) 363-8064",
+            "normalized_value": "4243638064",
+            "source": "visible_text"
+          }
+        ]
+      }
+    ],
+    "qa": [
+      {
+        "query": "What materials does Allbirds use in its shoes?",
+        "expected": "answerable",
+        "url": null,
+        "excerpt": null,
+        "match_type": "none"
+      },
+      {
+        "query": "Does Allbirds sell wool shoes?",
+        "expected": "answerable",
+        "url": null,
+        "excerpt": null,
+        "match_type": "none"
+      },
+      {
+        "query": "Does Allbirds ship internationally?",
+        "expected": "answerable",
+        "url": null,
+        "excerpt": null,
+        "match_type": "none"
+      },
+      {
+        "query": "What is the population of Japan?",
+        "expected": "unanswerable",
+        "url": null,
+        "excerpt": null,
+        "match_type": "none"
+      },
+      {
+        "query": "Who won the most recent World Cup?",
+        "expected": "unanswerable",
+        "url": null,
+        "excerpt": null,
+        "match_type": "none"
+      }
+    ]
+  },
+  {
+    "url": "https://webflow.com/",
+    "stack": "Webflow",
+    "timestamp": "2026-09-10T03:08:39.594208+00:00",
+    "pages_fetched": 6,
+    "pages_ok": 6,
+    "crawl_seconds": 7.3,
+    "notes": [],
+    "findings": [
+      {
+        "metric": "noindex_directive",
+        "page": "https://webflow.com/@incredible-visibility",
+        "severity": "critical",
+        "evidence": "Robots meta directives on this page are: noindex, follow. \"noindex\" excludes it from search results.",
+        "suggested_fix": "Confirm this page is meant to be hidden from search. If it should be indexed, remove \"noindex\" from the robots meta tag.",
+        "check_id": "SEO-INDEX-001"
+      },
+      {
+        "metric": "multiple_h1",
+        "page": "https://webflow.com/",
+        "severity": "info",
+        "evidence": "The page contains 2 <h1> elements: \"Build for what\u2019s next\", \"#MadeinWebflow\"",
+        "suggested_fix": "Keep one <h1> as the page's main heading and demote the others to <h2>.",
+        "check_id": "SEO-HEAD-002"
+      },
+      {
+        "metric": "meta_description_too_long",
+        "page": "https://webflow.com/@creative-pod",
+        "severity": "info",
+        "evidence": "Meta description is 209 characters, over the 160-character display limit: \"Creative Pod (creative-pod) | service provider from Crawley, United Kingdom on Webflow. Your outsourced marketing department for a fixed monthly fee. Design and creativity are at the heart of everythi...\"",
+        "suggested_fix": "Trim the description to 160 characters or fewer.",
+        "check_id": "SEO-META-004"
+      },
+      {
+        "metric": "title_too_short",
+        "page": "https://webflow.com/@creative-pod",
+        "severity": "info",
+        "evidence": "<title> is only 22 characters: \"Creative Pod - Webflow\"",
+        "suggested_fix": "Expand the title towards 30-60 characters with distinguishing detail.",
+        "check_id": "SEO-TITLE-005"
+      },
+      {
+        "metric": "meta_description_too_long",
+        "page": "https://webflow.com/@incredible-visibility",
+        "severity": "info",
+        "evidence": "Meta description is 309 characters, over the 160-character display limit: \"Incredible Visibility (incredible-visibility) | service provider from Florida, United States on Webflow. Incredible Visibility is a strategic design and development agency, we provide concrete and hol...\"",
+        "suggested_fix": "Trim the description to 160 characters or fewer.",
+        "check_id": "SEO-META-004"
+      },
+      {
+        "metric": "meta_description_too_short",
+        "page": "https://webflow.com/@massimo22",
+        "severity": "info",
+        "evidence": "Meta description is only 60 characters: \"Massimo Adoratorio (massimo22) | service provider on Webflow\"",
+        "suggested_fix": "Expand the description towards 160 characters.",
+        "check_id": "SEO-META-005"
+      },
+      {
+        "metric": "title_too_short",
+        "page": "https://webflow.com/@massimo22",
+        "severity": "info",
+        "evidence": "<title> is only 28 characters: \"Massimo Adoratorio - Webflow\"",
+        "suggested_fix": "Expand the title towards 30-60 characters with distinguishing detail.",
+        "check_id": "SEO-TITLE-005"
+      },
+      {
+        "metric": "meta_description_too_short",
+        "page": "https://webflow.com/@piasissala",
+        "severity": "info",
+        "evidence": "Meta description is only 54 characters: \"Pia Sissala (piasissala) | service provider on Webflow\"",
+        "suggested_fix": "Expand the description towards 160 characters.",
+        "check_id": "SEO-META-005"
+      },
+      {
+        "metric": "title_too_short",
+        "page": "https://webflow.com/@piasissala",
+        "severity": "info",
+        "evidence": "<title> is only 21 characters: \"Pia Sissala - Webflow\"",
+        "suggested_fix": "Expand the title towards 30-60 characters with distinguishing detail.",
+        "check_id": "SEO-TITLE-005"
+      },
+      {
+        "metric": "meta_description_too_long",
+        "page": "https://webflow.com/@wdmorley",
+        "severity": "info",
+        "evidence": "Meta description is 817 characters, over the 160-character display limit: \"Will Morley (wdmorley) | service provider from Den Haag, Netherlands on Webflow. I'm a Netherlands-based Webflow Premium Partner working with design-led agencies and ambitious teams on high-impact web...\"",
+        "suggested_fix": "Trim the description to 160 characters or fewer.",
+        "check_id": "SEO-META-004"
+      },
+      {
+        "metric": "title_too_short",
+        "page": "https://webflow.com/@wdmorley",
+        "severity": "info",
+        "evidence": "<title> is only 21 characters: \"Will Morley - Webflow\"",
+        "suggested_fix": "Expand the title towards 30-60 characters with distinguishing detail.",
+        "check_id": "SEO-TITLE-005"
+      }
+    ],
+    "nap": [
+      {
+        "field": "name",
+        "pages_compared": [
+          "https://webflow.com/"
+        ],
+        "values": [
+          "Webflow"
+        ],
+        "normalized_values": [
+          "webflow"
+        ],
+        "confidence": 0.0,
+        "verdict": "insufficient_data",
+        "evidence": [
+          {
+            "page": "https://webflow.com/",
+            "raw_value": "Webflow",
+            "normalized_value": "webflow",
+            "source": "json_ld"
+          }
+        ]
+      },
+      {
+        "field": "address",
+        "pages_compared": [
+          "https://webflow.com/"
+        ],
+        "values": [
+          "398 11th St, San Francisco, CA, 94103, US"
+        ],
+        "normalized_values": [
+          "398 11th street san francisco ca 94103 us"
+        ],
+        "confidence": 0.0,
+        "verdict": "insufficient_data",
+        "evidence": [
+          {
+            "page": "https://webflow.com/",
+            "raw_value": "398 11th St, San Francisco, CA, 94103, US",
+            "normalized_value": "398 11th street san francisco ca 94103 us",
+            "source": "json_ld"
+          }
+        ]
+      },
+      {
+        "field": "phone",
+        "pages_compared": [],
+        "values": [],
+        "normalized_values": [],
+        "confidence": 0.0,
+        "verdict": "insufficient_data",
+        "evidence": []
+      }
+    ],
+    "qa": [
+      {
+        "query": "What is Webflow?",
+        "expected": "answerable",
+        "url": "https://webflow.com/",
+        "excerpt": "What marketing teams love about webflow",
+        "match_type": "exact_substring"
+      },
+      {
+        "query": "Can Webflow be used to build websites without code?",
+        "expected": "answerable",
+        "url": null,
+        "excerpt": null,
+        "match_type": "none"
+      },
+      {
+        "query": "Does Webflow offer a CMS?",
+        "expected": "answerable",
+        "url": null,
+        "excerpt": null,
+        "match_type": "none"
+      },
+      {
+        "query": "What is the boiling point of water in Fahrenheit?",
+        "expected": "unanswerable",
+        "url": null,
+        "excerpt": null,
+        "match_type": "none"
+      },
+      {
+        "query": "What is the capital of Australia?",
+        "expected": "unanswerable",
+        "url": null,
+        "excerpt": null,
+        "match_type": "none"
+      }
+    ]
+  },
+  {
+    "url": "https://motherfuckingwebsite.com/",
+    "stack": "Static HTML (no CSS/JS)",
+    "timestamp": "2026-09-10T03:08:48.776679+00:00",
+    "pages_fetched": 1,
+    "pages_ok": 1,
+    "crawl_seconds": 4.2,
+    "notes": [],
+    "findings": [
+      {
+        "metric": "missing_canonical",
+        "page": "https://motherfuckingwebsite.com/",
+        "severity": "info",
+        "evidence": "No <link rel=\"canonical\"> element is present in the document <head>.",
+        "suggested_fix": "Add a self-referencing canonical link to consolidate duplicate URLs.",
+        "check_id": "SEO-CANON-001"
+      },
+      {
+        "metric": "missing_meta_description",
+        "page": "https://motherfuckingwebsite.com/",
+        "severity": "info",
+        "evidence": "No <meta name=\"description\"> element is present in the document <head>.",
+        "suggested_fix": "Add a unique meta description of about 70-160 characters.",
+        "check_id": "SEO-META-001"
+      },
+      {
+        "metric": "missing_open_graph",
+        "page": "https://motherfuckingwebsite.com/",
+        "severity": "info",
+        "evidence": "Open Graph tags absent from <head>: og:description, og:image, og:title.",
+        "suggested_fix": "Add the missing og: meta tags so shared links render a title, summary and image.",
+        "check_id": "SEO-SOCIAL-001"
+      },
+      {
+        "metric": "title_too_short",
+        "page": "https://motherfuckingwebsite.com/",
+        "severity": "info",
+        "evidence": "<title> is only 21 characters: \"Motherfucking Website\"",
+        "suggested_fix": "Expand the title towards 30-60 characters with distinguishing detail.",
+        "check_id": "SEO-TITLE-005"
+      }
+    ],
+    "nap": [
+      {
+        "field": "name",
+        "pages_compared": [],
+        "values": [],
+        "normalized_values": [],
+        "confidence": 0.0,
+        "verdict": "insufficient_data",
+        "evidence": []
+      },
+      {
+        "field": "address",
+        "pages_compared": [],
+        "values": [],
+        "normalized_values": [],
+        "confidence": 0.0,
+        "verdict": "insufficient_data",
+        "evidence": []
+      },
+      {
+        "field": "phone",
+        "pages_compared": [],
+        "values": [],
+        "normalized_values": [],
+        "confidence": 0.0,
+        "verdict": "insufficient_data",
+        "evidence": []
+      }
+    ],
+    "qa": [
+      {
+        "query": "What does this website say about fonts?",
+        "expected": "answerable",
+        "url": null,
+        "excerpt": null,
+        "match_type": "none"
+      },
+      {
+        "query": "What does this website say about JavaScript?",
+        "expected": "answerable",
+        "url": null,
+        "excerpt": null,
+        "match_type": "none"
+      },
+      {
+        "query": "What is the site's shipping policy?",
+        "expected": "unanswerable",
+        "url": null,
+        "excerpt": null,
+        "match_type": "none"
+      },
+      {
+        "query": "What programming language was used to build the site's backend API?",
+        "expected": "unanswerable",
+        "url": null,
+        "excerpt": null,
+        "match_type": "none"
+      },
+      {
+        "query": "How many employees does the company have?",
+        "expected": "unanswerable",
+        "url": null,
+        "excerpt": null,
+        "match_type": "none"
+      }
+    ]
+  },
+  {
+    "url": "https://excalidraw.com/",
+    "stack": "JS-heavy SPA (client-rendered canvas app)",
+    "timestamp": "2026-09-10T03:08:52.959972+00:00",
+    "pages_fetched": 1,
+    "pages_ok": 1,
+    "crawl_seconds": 2.3,
+    "notes": [
+      "https://excalidraw.com/: 200 OK but almost no server-rendered text \u2014 the page is likely client-rendered and its real content was not seen."
+    ],
+    "findings": [
+      {
+        "metric": "thin_content",
+        "page": "https://excalidraw.com/",
+        "severity": "info",
+        "evidence": "The page has 3 words of visible text, below the 150-word threshold used here.",
+        "suggested_fix": "Confirm this page has enough substance to rank. Short utility pages such as contact or login pages are often legitimately brief.",
+        "check_id": "SEO-CONTENT-001"
+      },
+      {
+        "metric": "title_too_short",
+        "page": "https://excalidraw.com/",
+        "severity": "info",
+        "evidence": "<title> is only 21 characters: \"Excalidraw Whiteboard\"",
+        "suggested_fix": "Expand the title towards 30-60 characters with distinguishing detail.",
+        "check_id": "SEO-TITLE-005"
+      }
+    ],
+    "nap": [
+      {
+        "field": "name",
+        "pages_compared": [],
+        "values": [],
+        "normalized_values": [],
+        "confidence": 0.0,
+        "verdict": "insufficient_data",
+        "evidence": []
+      },
+      {
+        "field": "address",
+        "pages_compared": [],
+        "values": [],
+        "normalized_values": [],
+        "confidence": 0.0,
+        "verdict": "insufficient_data",
+        "evidence": []
+      },
+      {
+        "field": "phone",
+        "pages_compared": [],
+        "values": [],
+        "normalized_values": [],
+        "confidence": 0.0,
+        "verdict": "insufficient_data",
+        "evidence": []
+      }
+    ],
+    "qa": [
+      {
+        "query": "What is Excalidraw?",
+        "expected": "answerable",
+        "url": null,
+        "excerpt": null,
+        "match_type": "none"
+      },
+      {
+        "query": "What is the site's return policy?",
+        "expected": "unanswerable",
+        "url": null,
+        "excerpt": null,
+        "match_type": "none"
+      },
+      {
+        "query": "What is the population of Canada?",
+        "expected": "unanswerable",
+        "url": null,
+        "excerpt": null,
+        "match_type": "none"
+      },
+      {
+        "query": "What is the site's phone number?",
+        "expected": "unanswerable",
+        "url": null,
+        "excerpt": null,
+        "match_type": "none"
+      }
+    ]
+  }
+]

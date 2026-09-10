@@ -1,0 +1,764 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Evidence-Grounded SEO Audit Agent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:ital@1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: light;
+
+    /* Neutrals: a warm-leaning slate scale, not pure gray */
+    --bg: #f6f7f9;
+    --panel: #ffffff;
+    --panel-sunken: #f8f9fb;
+    --border: #e6e8ec;
+    --border-strong: #d7dae0;
+    --text: #14161c;
+    --text-muted: #666c78;
+    --text-faint: #9aa0ac;
+
+    /* Brand accent: indigo, cool and confident without being generic blue */
+    --accent: #4338ca;
+    --accent-hover: #3730a3;
+    --accent-dim: #eef0fd;
+    --accent-ring: rgba(67, 56, 202, 0.16);
+
+    /* Semantic severity palette */
+    --critical: #b91c1c;
+    --critical-bg: #fef2f2;
+    --critical-border: #fecaca;
+    --warning: #b45309;
+    --warning-bg: #fffbeb;
+    --warning-border: #fde68a;
+    --info: #475569;
+    --info-bg: #f1f5f9;
+    --info-border: #e2e8f0;
+    --ok: #15803d;
+    --ok-bg: #f0fdf4;
+    --ok-border: #bbf7d0;
+
+    --radius-sm: 8px;
+    --radius: 12px;
+    --radius-lg: 16px;
+    --shadow-sm: 0 1px 2px rgba(20, 22, 28, 0.04);
+    --shadow: 0 1px 3px rgba(20, 22, 28, 0.06), 0 8px 24px -12px rgba(20, 22, 28, 0.10);
+    --shadow-lg: 0 24px 48px -16px rgba(20, 22, 28, 0.22);
+
+    --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --mono: ui-monospace, "SF Mono", "Cascadia Code", Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      color-scheme: dark;
+      --bg: #0c0d11;
+      --panel: #15171d;
+      --panel-sunken: #1b1e26;
+      --border: #262a34;
+      --border-strong: #333844;
+      --text: #eceef2;
+      --text-muted: #9aa1b0;
+      --text-faint: #6b7080;
+
+      --accent: #8b87f6;
+      --accent-hover: #a5a1f9;
+      --accent-dim: rgba(139, 135, 246, 0.14);
+      --accent-ring: rgba(139, 135, 246, 0.28);
+
+      --critical: #f87171;
+      --critical-bg: rgba(248, 113, 113, 0.10);
+      --critical-border: rgba(248, 113, 113, 0.28);
+      --warning: #fbbf24;
+      --warning-bg: rgba(251, 191, 36, 0.10);
+      --warning-border: rgba(251, 191, 36, 0.28);
+      --info: #9ca7bb;
+      --info-bg: rgba(156, 167, 187, 0.10);
+      --info-border: rgba(156, 167, 187, 0.24);
+      --ok: #4ade80;
+      --ok-bg: rgba(74, 222, 128, 0.10);
+      --ok-border: rgba(74, 222, 128, 0.26);
+
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+      --shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 8px 24px -12px rgba(0, 0, 0, 0.5);
+      --shadow-lg: 0 24px 48px -16px rgba(0, 0, 0, 0.6);
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "cv11", "ss01";
+  }
+
+  .wrap {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 56px 24px 96px;
+  }
+
+  header {
+    margin-bottom: 36px;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-dim);
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+  }
+
+  .eyebrow .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    margin: 0 0 10px;
+    color: var(--text);
+  }
+
+  .subtitle {
+    color: var(--text-muted);
+    font-size: 15.5px;
+    line-height: 1.6;
+    margin: 0;
+    max-width: 620px;
+    font-weight: 400;
+  }
+
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+
+  form .row {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+
+  label {
+    display: block;
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    color: var(--text-muted);
+    margin-bottom: 7px;
+  }
+
+  input[type="text"], input[type="url"], input[type="number"], select {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 14.5px;
+    font-family: inherit;
+    background: var(--panel-sunken);
+    color: var(--text);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  }
+
+  input::placeholder { color: var(--text-faint); }
+
+  input:focus, select:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: var(--panel);
+    box-shadow: 0 0 0 4px var(--accent-ring);
+  }
+
+  .field { flex: 1; }
+
+  details {
+    margin-top: 6px;
+    margin-bottom: 18px;
+  }
+
+  summary {
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 600;
+    user-select: none;
+    list-style: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  summary::-webkit-details-marker { display: none; }
+
+  summary::before {
+    content: "";
+    width: 0; height: 0;
+    border-left: 4px solid var(--text-faint);
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    transition: transform 0.15s ease;
+  }
+
+  details[open] summary::before { transform: rotate(90deg); }
+
+  details .row { margin-top: 16px; }
+
+  button {
+    background: var(--accent);
+    color: #ffffff;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 12px 24px;
+    font-size: 14.5px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    font-family: inherit;
+    box-shadow: 0 1px 2px rgba(67, 56, 202, 0.25);
+    transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+  }
+
+  button:hover { background: var(--accent-hover); box-shadow: 0 4px 12px -2px rgba(67, 56, 202, 0.4); }
+  button:active { transform: translateY(1px); }
+  button:disabled { opacity: 0.55; cursor: default; transform: none; box-shadow: none; }
+
+  .status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-muted);
+    font-size: 13.5px;
+    margin-top: 18px;
+  }
+
+  .spinner {
+    width: 16px; height: 16px;
+    border: 2px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    flex: none;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .error {
+    background: var(--critical-bg);
+    color: var(--critical);
+    border: 1px solid var(--critical-border);
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    font-size: 13.5px;
+    margin-top: 18px;
+    font-weight: 500;
+  }
+
+  #results { display: none; animation: rise 0.35s ease; }
+
+  .section-title {
+    font-size: 12.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-faint);
+    margin: 0 0 16px;
+  }
+
+  .summary-line {
+    font-size: 14px;
+    color: var(--text);
+    margin-bottom: 4px;
+    font-weight: 500;
+  }
+
+  .note {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    background: var(--panel-sunken);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 9px 12px;
+    margin-top: 8px;
+  }
+
+  .severity-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+  }
+
+  .tab {
+    border: 1.5px solid var(--border);
+    background: var(--panel);
+    border-radius: 20px;
+    padding: 6px 15px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--text-muted);
+    font-family: inherit;
+    transition: all 0.12s ease;
+  }
+
+  .tab:hover { border-color: var(--border-strong); }
+  .tab.active { border-color: transparent; }
+  .tab[data-sev="critical"].active { color: var(--critical); background: var(--critical-bg); }
+  .tab[data-sev="warning"].active { color: var(--warning); background: var(--warning-bg); }
+  .tab[data-sev="info"].active { color: var(--info); background: var(--info-bg); }
+  .tab[data-sev="all"].active { color: var(--accent); background: var(--accent-dim); }
+
+  .finding {
+    border: 1px solid var(--border);
+    border-left-width: 3px;
+    border-radius: var(--radius-sm);
+    padding: 16px 18px;
+    margin-bottom: 10px;
+    background: var(--panel);
+  }
+
+  .finding[data-sev="critical"] { border-left-color: var(--critical); }
+  .finding[data-sev="warning"] { border-left-color: var(--warning); }
+  .finding[data-sev="info"] { border-left-color: var(--info); }
+
+  .finding-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+
+  .metric {
+    font-weight: 700;
+    font-size: 14.5px;
+    letter-spacing: -0.005em;
+  }
+
+  .badge {
+    font-size: 10.5px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 3px 9px;
+    border-radius: 20px;
+    white-space: nowrap;
+    flex: none;
+  }
+
+  .badge[data-sev="critical"] { color: var(--critical); background: var(--critical-bg); border: 1px solid var(--critical-border); }
+  .badge[data-sev="warning"] { color: var(--warning); background: var(--warning-bg); border: 1px solid var(--warning-border); }
+  .badge[data-sev="info"] { color: var(--info); background: var(--info-bg); border: 1px solid var(--info-border); }
+
+  .finding .page-url {
+    font-size: 12px;
+    color: var(--text-faint);
+    font-family: var(--mono);
+    word-break: break-all;
+    margin-bottom: 10px;
+  }
+
+  .finding .evidence {
+    font-size: 13px;
+    color: var(--text);
+    background: var(--panel-sunken);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 10px 12px;
+    margin-bottom: 10px;
+    font-family: var(--mono);
+    white-space: pre-wrap;
+    word-break: break-word;
+    line-height: 1.5;
+  }
+
+  .finding .fix {
+    font-size: 13.5px;
+    color: var(--text-muted);
+  }
+
+  .finding .fix strong { color: var(--text); font-weight: 700; }
+
+  .nap-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+
+  .nap-card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px;
+    background: var(--panel);
+  }
+
+  .nap-field {
+    font-size: 11.5px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-faint);
+    margin-bottom: 10px;
+  }
+
+  .nap-verdict {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+
+  .nap-verdict[data-v="consistent"] { color: var(--ok); background: var(--ok-bg); border: 1px solid var(--ok-border); }
+  .nap-verdict[data-v="inconsistent"] { color: var(--critical); background: var(--critical-bg); border: 1px solid var(--critical-border); }
+  .nap-verdict[data-v="insufficient_data"] { color: var(--text-muted); background: var(--info-bg); border: 1px solid var(--info-border); }
+
+  .nap-values {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: var(--mono);
+    word-break: break-word;
+    line-height: 1.6;
+  }
+
+  .answer-card {
+    border-radius: var(--radius-sm);
+  }
+
+  .answer-card.answered { border-left: 3px solid var(--ok); padding-left: 18px; }
+  .answer-card.unanswered { border-left: 3px solid var(--border-strong); padding-left: 18px; }
+
+  .answer-query {
+    font-size: 13px;
+    color: var(--text-faint);
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+
+  .answer-excerpt {
+    font-family: var(--font-serif);
+    font-size: 18px;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--text);
+    border: none;
+    padding: 0;
+    margin: 0 0 14px;
+  }
+
+  .answer-source {
+    font-size: 12px;
+    font-family: var(--mono);
+    word-break: break-all;
+    color: var(--text-faint);
+  }
+
+  .answer-source a { color: var(--accent); text-decoration: none; }
+  .answer-source a:hover { text-decoration: underline; }
+
+  .unanswered-text {
+    color: var(--text-muted);
+    font-size: 14.5px;
+    line-height: 1.6;
+  }
+
+  .empty-state {
+    color: var(--text-faint);
+    font-size: 14px;
+    text-align: center;
+    padding: 24px 0;
+  }
+
+  @media (max-width: 560px) {
+    .nap-grid { grid-template-columns: 1fr; }
+    form .row { flex-direction: column; }
+    h1 { font-size: 24px; }
+    .card { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="eyebrow"><span class="dot"></span>Evidence-first, never guessed</span>
+    <h1>Evidence-Grounded SEO Audit Agent</h1>
+    <p class="subtitle">Crawl a site, get an on-page SEO audit, a NAP consistency check, and a grounded answer to one question — every finding backed by real evidence, or null.</p>
+  </header>
+
+  <div class="card">
+    <form id="audit-form">
+      <div class="row">
+        <div class="field">
+          <label for="url">Website URL</label>
+          <input type="url" id="url" name="url" placeholder="https://example.com" required>
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="question">Question (optional)</label>
+          <input type="text" id="question" name="question" placeholder="e.g. What are your business hours?">
+        </div>
+      </div>
+
+      <details>
+        <summary>Advanced options</summary>
+        <div class="row">
+          <div class="field">
+            <label for="max_pages">Max pages</label>
+            <input type="number" id="max_pages" name="max_pages" value="20" min="1" max="200">
+          </div>
+          <div class="field">
+            <label for="max_depth">Max depth</label>
+            <input type="number" id="max_depth" name="max_depth" value="2" min="0" max="5">
+          </div>
+          <div class="field">
+            <label for="timeout">Timeout (s)</label>
+            <input type="number" id="timeout" name="timeout" value="15" min="1" max="60">
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="llm_provider">LLM provider</label>
+            <select id="llm_provider" name="llm_provider">
+              <option value="none" selected>None (fully deterministic)</option>
+              <option value="groq">Groq</option>
+              <option value="gemini">Gemini</option>
+            </select>
+          </div>
+        </div>
+      </details>
+
+      <button type="submit" id="submit-btn">Run audit</button>
+      <div class="status" id="status" style="display:none;">
+        <div class="spinner"></div>
+        <span id="status-text">Crawling the site — this can take a little while…</span>
+      </div>
+      <div class="error" id="error" style="display:none;"></div>
+    </form>
+  </div>
+
+  <div id="results">
+    <div class="card">
+      <p class="section-title">Crawl summary</p>
+      <p class="summary-line" id="summary-pages"></p>
+      <div id="summary-notes"></div>
+    </div>
+
+    <div class="card">
+      <p class="section-title">On-page SEO findings</p>
+      <div class="severity-tabs" id="severity-tabs">
+        <button type="button" class="tab active" data-sev="all">All</button>
+        <button type="button" class="tab" data-sev="critical">Critical</button>
+        <button type="button" class="tab" data-sev="warning">Warning</button>
+        <button type="button" class="tab" data-sev="info">Info</button>
+      </div>
+      <div id="findings-list"></div>
+    </div>
+
+    <div class="card">
+      <p class="section-title">NAP consistency</p>
+      <div class="nap-grid" id="nap-grid"></div>
+    </div>
+
+    <div class="card" id="answer-section" style="display:none;">
+      <p class="section-title">Grounded answer</p>
+      <div id="answer-body"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  const form = document.getElementById("audit-form");
+  const submitBtn = document.getElementById("submit-btn");
+  const statusEl = document.getElementById("status");
+  const statusText = document.getElementById("status-text");
+  const errorEl = document.getElementById("error");
+  const resultsEl = document.getElementById("results");
+
+  let allFindings = [];
+  let activeSeverity = "all";
+
+  const SEVERITY_LABEL = { critical: "Critical", warning: "Warning", info: "Info" };
+  const VERDICT_LABEL = {
+    consistent: "✓ Consistent",
+    inconsistent: "✕ Inconsistent",
+    insufficient_data: "Not enough data",
+  };
+
+  function escapeHtml(str) {
+    const div = document.createElement("div");
+    div.textContent = str == null ? "" : String(str);
+    return div.innerHTML;
+  }
+
+  function renderFindings() {
+    const list = document.getElementById("findings-list");
+    const shown = activeSeverity === "all"
+      ? allFindings
+      : allFindings.filter((f) => f.severity === activeSeverity);
+
+    if (shown.length === 0) {
+      list.innerHTML = '<p class="empty-state">No findings' +
+        (activeSeverity === "all" ? " — this page looks clean." : " at this severity.") + "</p>";
+      return;
+    }
+
+    list.innerHTML = shown.map((f) => `
+      <div class="finding" data-sev="${f.severity}">
+        <div class="finding-head">
+          <span class="metric">${escapeHtml(f.metric)}</span>
+          <span class="badge" data-sev="${f.severity}">${SEVERITY_LABEL[f.severity] || f.severity}</span>
+        </div>
+        <div class="page-url">${escapeHtml(f.page)}</div>
+        <div class="evidence">${escapeHtml(f.evidence)}</div>
+        <div class="fix"><strong>Fix:</strong> ${escapeHtml(f.suggested_fix)}</div>
+      </div>
+    `).join("");
+  }
+
+  document.getElementById("severity-tabs").addEventListener("click", (e) => {
+    const btn = e.target.closest(".tab");
+    if (!btn) return;
+    activeSeverity = btn.dataset.sev;
+    document.querySelectorAll(".tab").forEach((t) => t.classList.toggle("active", t === btn));
+    renderFindings();
+  });
+
+  function renderNap(napReport) {
+    const grid = document.getElementById("nap-grid");
+    const order = { name: 0, address: 1, phone: 2 };
+    const sorted = [...napReport].sort((a, b) => (order[a.field] ?? 9) - (order[b.field] ?? 9));
+
+    grid.innerHTML = sorted.map((c) => `
+      <div class="nap-card">
+        <div class="nap-field">${escapeHtml(c.field)}</div>
+        <div class="nap-verdict" data-v="${c.verdict}">${VERDICT_LABEL[c.verdict] || c.verdict}</div>
+        <div class="nap-values">${
+          c.values && c.values.length
+            ? c.values.map(escapeHtml).join("<br>")
+            : "&mdash;"
+        }</div>
+      </div>
+    `).join("");
+  }
+
+  function renderAnswer(answer) {
+    const section = document.getElementById("answer-section");
+    const body = document.getElementById("answer-body");
+    if (!answer) {
+      section.style.display = "none";
+      return;
+    }
+    section.style.display = "";
+
+    if (answer.url && answer.excerpt) {
+      body.innerHTML = `
+        <div class="answer-card answered">
+          <p class="answer-query">"${escapeHtml(answer.query)}"</p>
+          <blockquote class="answer-excerpt">${escapeHtml(answer.excerpt)}</blockquote>
+          <div class="answer-source">Source: <a href="${escapeHtml(answer.url)}" target="_blank" rel="noopener">${escapeHtml(answer.url)}</a></div>
+        </div>
+      `;
+    } else {
+      body.innerHTML = `
+        <div class="answer-card unanswered">
+          <p class="answer-query">"${escapeHtml(answer.query)}"</p>
+          <p class="unanswered-text">This site does not answer that question — no page contains a verifiable passage, so nothing is guessed.</p>
+        </div>
+      `;
+    }
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    errorEl.style.display = "none";
+    resultsEl.style.display = "none";
+    submitBtn.disabled = true;
+    statusEl.style.display = "flex";
+    statusText.textContent = "Crawling the site — this can take a little while…";
+
+    const payload = {
+      url: document.getElementById("url").value.trim(),
+      question: document.getElementById("question").value.trim() || null,
+      max_pages: parseInt(document.getElementById("max_pages").value, 10),
+      max_depth: parseInt(document.getElementById("max_depth").value, 10),
+      timeout: parseInt(document.getElementById("timeout").value, 10),
+      llm_provider: document.getElementById("llm_provider").value,
+    };
+
+    try {
+      const res = await fetch("/api/audit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.detail || `Request failed (${res.status})`);
+      }
+
+      document.getElementById("summary-pages").textContent =
+        `Crawled ${data.pages_crawled} of ${data.pages_fetched} fetched page(s) from ${data.start_url}`;
+      document.getElementById("summary-notes").innerHTML = (data.crawl_notes || [])
+        .map((n) => `<div class="note">${escapeHtml(n)}</div>`)
+        .join("");
+
+      allFindings = data.findings || [];
+      activeSeverity = "all";
+      document.querySelectorAll(".tab").forEach((t) => t.classList.toggle("active", t.dataset.sev === "all"));
+      renderFindings();
+
+      renderNap(data.nap_report || []);
+      renderAnswer(data.answer);
+
+      resultsEl.style.display = "block";
+    } catch (err) {
+      errorEl.textContent = err.message || "Something went wrong.";
+      errorEl.style.display = "block";
+    } finally {
+      submitBtn.disabled = false;
+      statusEl.style.display = "none";
+    }
+  });
+})();
+</script>
+</body>
+</html>
