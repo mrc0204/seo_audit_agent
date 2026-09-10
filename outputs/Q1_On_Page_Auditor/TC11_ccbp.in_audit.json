@@ -1,0 +1,289 @@
+[
+  {
+    "metric": "image_missing_alt",
+    "page": "https://www.ccbp.in/",
+    "severity": "warning",
+    "evidence": "8 of 161 <img> elements have no alt attribute: https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Home/award-design-line-desktop-2x.png, https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/intensive/landingpage/award1-design-desktop-2x.png, https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Home/preferred.png, https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/intensive/roundarrow.svg, https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Home/your-story-logo.png and 3 more",
+    "suggested_fix": "Add descriptive alt text to each image, or alt=\"\" if it is purely decorative."
+  },
+  {
+    "metric": "image_missing_alt",
+    "page": "https://www.ccbp.in/about-us",
+    "severity": "warning",
+    "evidence": "20 of 182 <img> elements have no alt attribute: https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Home/award-section/award-image.png, https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Home/award-section/award-logo.png, https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Home/award-section/award-taking-image.png, https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Home/investors/Rehan+Yar+Khan.png, https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Home/investors/anup-jain.png and 15 more",
+    "suggested_fix": "Add descriptive alt text to each image, or alt=\"\" if it is purely decorative."
+  },
+  {
+    "metric": "image_missing_alt",
+    "page": "https://www.ccbp.in/academy",
+    "severity": "warning",
+    "evidence": "6 of 257 <img> elements have no alt attribute: https://cdn.prod.website-files.com/5fa61cbbf0d432b3230f62b1/69d8827c3657966471f648a5_student-logo.avif, https://cdn.prod.website-files.com/5fa61cbbf0d432b3230f62b1/68d13a3bfd9a59596c2c4a2c_career%20coaches%20who%20can%20help%20you%20.png, https://cdn.prod.website-files.com/5fa61cbbf0d432b3230f62b1/68d1386407287ad78c375396_coaches%20who%20can%20help%20you.png, https://cdn.prod.website-files.com/5fa61cbbf0d432b3230f62b1/68d138fd1f0cdeabd1984745_coaches%20who%20can%20help%20you%20.png, https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Hire/whatsapp.png and 1 more",
+    "suggested_fix": "Add descriptive alt text to each image, or alt=\"\" if it is purely decorative."
+  },
+  {
+    "metric": "image_missing_alt",
+    "page": "https://www.ccbp.in/careers",
+    "severity": "warning",
+    "evidence": "3 of 118 <img> elements have no alt attribute: https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Home/your-story-logo.png, https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Home/financial-express-logo.png, https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Home/ministry-recognision-article.png",
+    "suggested_fix": "Add descriptive alt text to each image, or alt=\"\" if it is purely decorative."
+  },
+  {
+    "metric": "image_missing_alt",
+    "page": "https://www.ccbp.in/hire",
+    "severity": "warning",
+    "evidence": "6 of 100 <img> elements have no alt attribute: https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Hire/hire-page-logo.svg, https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Hire/landing-section/Nxtwave+Hire_Colored.svg, https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/hire-Interns/hiring-fee-for-recruiters.png, https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/hire-Interns/time-to-hire.png, https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/hire-Interns/trained-graduates.png and 1 more",
+    "suggested_fix": "Add descriptive alt text to each image, or alt=\"\" if it is purely decorative."
+  },
+  {
+    "metric": "image_missing_alt",
+    "page": "https://www.ccbp.in/intensive",
+    "severity": "warning",
+    "evidence": "1 of 226 <img> elements have no alt attribute: https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Home/email.icon.svg",
+    "suggested_fix": "Add descriptive alt text to each image, or alt=\"\" if it is purely decorative."
+  },
+  {
+    "metric": "image_missing_alt",
+    "page": "https://www.ccbp.in/intensive/backend-developer-course",
+    "severity": "warning",
+    "evidence": "25 of 119 <img> elements have no alt attribute: https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Blogs/java-full-stack/html.svg?auto=format%2Ccompress&q=80, https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Blogs/java-full-stack/css.svg?auto=format%2Ccompress&q=80, https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Blogs/java-full-stack/python.svg?auto=format%2Ccompress&q=80, https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Blogs/java-full-stack/react.svg?auto=format%2Ccompress&q=80 and 20 more",
+    "suggested_fix": "Add descriptive alt text to each image, or alt=\"\" if it is purely decorative."
+  },
+  {
+    "metric": "image_missing_alt",
+    "page": "https://www.ccbp.in/intensive/react-js-training-in-hyderabad",
+    "severity": "warning",
+    "evidence": "25 of 119 <img> elements have no alt attribute: https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Blogs/java-full-stack/html.svg, https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Blogs/java-full-stack/css.svg, https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Blogs/java-full-stack/python.svg, https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Blogs/java-full-stack/react.svg and 20 more",
+    "suggested_fix": "Add descriptive alt text to each image, or alt=\"\" if it is purely decorative."
+  },
+  {
+    "metric": "image_missing_alt",
+    "page": "https://www.ccbp.in/intensive/spring-boot-course",
+    "severity": "warning",
+    "evidence": "25 of 120 <img> elements have no alt attribute: https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Blogs/java-full-stack/html.svg?auto=format%2Ccompress&q=80, https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Blogs/java-full-stack/css.svg?auto=format%2Ccompress&q=80, https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Blogs/java-full-stack/python.svg?auto=format%2Ccompress&q=80, https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Blogs/java-full-stack/react.svg?auto=format%2Ccompress&q=80 and 20 more",
+    "suggested_fix": "Add descriptive alt text to each image, or alt=\"\" if it is purely decorative."
+  },
+  {
+    "metric": "image_missing_alt",
+    "page": "https://www.ccbp.in/intensive/web-development-course-in-chennai",
+    "severity": "warning",
+    "evidence": "25 of 122 <img> elements have no alt attribute: https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Blogs/java-full-stack/html.svg?auto=format%2Ccompress&q=80, https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Blogs/java-full-stack/css.svg?auto=format%2Ccompress&q=80, https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Blogs/java-full-stack/python.svg?auto=format%2Ccompress&q=80, https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Blogs/java-full-stack/react.svg?auto=format%2Ccompress&q=80 and 20 more",
+    "suggested_fix": "Add descriptive alt text to each image, or alt=\"\" if it is purely decorative."
+  },
+  {
+    "metric": "image_missing_alt",
+    "page": "https://www.ccbp.in/intensive/web-development-course-in-jaipur",
+    "severity": "warning",
+    "evidence": "39 of 122 <img> elements have no alt attribute: https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/reviews/profile-images/pammi-vsr-sai-manohar-bosch-a.png, https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/reviews/profile-images/rohith-kumar-kommineni-3ff1231b-f551-447a-9920-d00305e1dc28.png, https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/reviews/profile-images/lakshmi-prasanna-chodesetti-zensar-b.png, https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Reviews/company-logos/accion-labs.png and 34 more",
+    "suggested_fix": "Add descriptive alt text to each image, or alt=\"\" if it is purely decorative."
+  },
+  {
+    "metric": "image_missing_alt",
+    "page": "https://www.ccbp.in/intensive/web-development-course-in-kolkata",
+    "severity": "warning",
+    "evidence": "25 of 122 <img> elements have no alt attribute: https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Blogs/java-full-stack/html.svg?auto=format%2Ccompress&q=80, https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Blogs/java-full-stack/css.svg?auto=format%2Ccompress&q=80, https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Blogs/java-full-stack/python.svg?auto=format%2Ccompress&q=80, https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Blogs/java-full-stack/react.svg?auto=format%2Ccompress&q=80 and 20 more",
+    "suggested_fix": "Add descriptive alt text to each image, or alt=\"\" if it is purely decorative."
+  },
+  {
+    "metric": "image_missing_alt",
+    "page": "https://www.ccbp.in/intensive/web-development-course-in-pune",
+    "severity": "warning",
+    "evidence": "38 of 115 <img> elements have no alt attribute: https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/reviews/company-logos/simplotel.png, https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/reviews/profile-images/sahil-srivastav-8c531f91-9bfe-4fe9-b8fb-12e92635f3b2.png, https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/reviews/company-logos/aizen-algo.png, https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/reviews/profile-images/standard-photo-for-seo.png and 33 more",
+    "suggested_fix": "Add descriptive alt text to each image, or alt=\"\" if it is purely decorative."
+  },
+  {
+    "metric": "image_missing_alt",
+    "page": "https://www.ccbp.in/reviews",
+    "severity": "warning",
+    "evidence": "136 of 576 <img> elements have no alt attribute: https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Reviews/profile-images/sayak-dutta.png, https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Reviews/profile-images/sayak-dutta.png, https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Reviews/company-logos/google.png, https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Reviews/profile-images/deepak-kumar.png, https://d14qv6cm1t62pm.cloudfront.net/ccbp-website/Reviews/profile-images/deepak-kumar.png and 131 more",
+    "suggested_fix": "Add descriptive alt text to each image, or alt=\"\" if it is purely decorative."
+  },
+  {
+    "metric": "skipped_heading_level",
+    "page": "https://www.ccbp.in/",
+    "severity": "info",
+    "evidence": "Heading levels jump from <h4> to <h6> with no <h5> in between.",
+    "suggested_fix": "Insert an <h5> or promote the <h6> so the outline is contiguous."
+  },
+  {
+    "metric": "multiple_h1",
+    "page": "https://www.ccbp.in/about-us",
+    "severity": "info",
+    "evidence": "The page contains 2 <h1> elements: \"Founders\", \"Advisor\"",
+    "suggested_fix": "Keep one <h1> as the page's main heading and demote the others to <h2>."
+  },
+  {
+    "metric": "skipped_heading_level",
+    "page": "https://www.ccbp.in/about-us",
+    "severity": "info",
+    "evidence": "Heading levels jump from <h4> to <h6> with no <h5> in between.",
+    "suggested_fix": "Insert an <h5> or promote the <h6> so the outline is contiguous."
+  },
+  {
+    "metric": "title_too_short",
+    "page": "https://www.ccbp.in/about-us",
+    "severity": "info",
+    "evidence": "<title> is only 29 characters: \"about us | NxtWave | CCBP 4.0\"",
+    "suggested_fix": "Expand the title towards 30-60 characters with distinguishing detail."
+  },
+  {
+    "metric": "skipped_heading_level",
+    "page": "https://www.ccbp.in/academy",
+    "severity": "info",
+    "evidence": "Heading levels jump from <h4> to <h6> with no <h5> in between.",
+    "suggested_fix": "Insert an <h5> or promote the <h6> so the outline is contiguous."
+  },
+  {
+    "metric": "multiple_h1",
+    "page": "https://www.ccbp.in/careers",
+    "severity": "info",
+    "evidence": "The page contains 3 <h1> elements: \"build Careers While you Build Yours\", \"when you need a dose of Inspiration, watch our students’ Transformations\", \"Now a little unimportant information that you might ask\"",
+    "suggested_fix": "Keep one <h1> as the page's main heading and demote the others to <h2>."
+  },
+  {
+    "metric": "skipped_heading_level",
+    "page": "https://www.ccbp.in/careers",
+    "severity": "info",
+    "evidence": "Heading levels jump from <h3> to <h6> with no <h4> in between.",
+    "suggested_fix": "Insert an <h4> or promote the <h6> so the outline is contiguous."
+  },
+  {
+    "metric": "thin_content",
+    "page": "https://www.ccbp.in/contact-us",
+    "severity": "info",
+    "evidence": "The page has 73 words of visible text, below the 150-word threshold used here.",
+    "suggested_fix": "Confirm this page has enough substance to rank. Short utility pages such as contact or login pages are often legitimately brief."
+  },
+  {
+    "metric": "meta_description_too_short",
+    "page": "https://www.ccbp.in/contact-us",
+    "severity": "info",
+    "evidence": "Meta description is only 55 characters: \"For any queries, please mail us at support@nxtwave.tech\"",
+    "suggested_fix": "Expand the description towards 160 characters."
+  },
+  {
+    "metric": "skipped_heading_level",
+    "page": "https://www.ccbp.in/hire",
+    "severity": "info",
+    "evidence": "Heading levels jump from <h4> to <h6> with no <h5> in between.",
+    "suggested_fix": "Insert an <h5> or promote the <h6> so the outline is contiguous."
+  },
+  {
+    "metric": "skipped_heading_level",
+    "page": "https://www.ccbp.in/intensive",
+    "severity": "info",
+    "evidence": "Heading levels jump from <h3> to <h6> with no <h4> in between.",
+    "suggested_fix": "Insert an <h4> or promote the <h6> so the outline is contiguous."
+  },
+  {
+    "metric": "skipped_heading_level",
+    "page": "https://www.ccbp.in/intensive/backend-developer-course",
+    "severity": "info",
+    "evidence": "Heading levels jump from <h4> to <h6> with no <h5> in between.",
+    "suggested_fix": "Insert an <h5> or promote the <h6> so the outline is contiguous."
+  },
+  {
+    "metric": "missing_open_graph",
+    "page": "https://www.ccbp.in/intensive/backend-developer-course",
+    "severity": "info",
+    "evidence": "Open Graph tags absent from <head>: og:image.",
+    "suggested_fix": "Add the missing og: meta tags so shared links render a title, summary and image."
+  },
+  {
+    "metric": "skipped_heading_level",
+    "page": "https://www.ccbp.in/intensive/react-js-training-in-hyderabad",
+    "severity": "info",
+    "evidence": "Heading levels jump from <h4> to <h6> with no <h5> in between.",
+    "suggested_fix": "Insert an <h5> or promote the <h6> so the outline is contiguous."
+  },
+  {
+    "metric": "missing_open_graph",
+    "page": "https://www.ccbp.in/intensive/react-js-training-in-hyderabad",
+    "severity": "info",
+    "evidence": "Open Graph tags absent from <head>: og:image.",
+    "suggested_fix": "Add the missing og: meta tags so shared links render a title, summary and image."
+  },
+  {
+    "metric": "skipped_heading_level",
+    "page": "https://www.ccbp.in/intensive/spring-boot-course",
+    "severity": "info",
+    "evidence": "Heading levels jump from <h4> to <h6> with no <h5> in between.",
+    "suggested_fix": "Insert an <h5> or promote the <h6> so the outline is contiguous."
+  },
+  {
+    "metric": "missing_open_graph",
+    "page": "https://www.ccbp.in/intensive/spring-boot-course",
+    "severity": "info",
+    "evidence": "Open Graph tags absent from <head>: og:image.",
+    "suggested_fix": "Add the missing og: meta tags so shared links render a title, summary and image."
+  },
+  {
+    "metric": "skipped_heading_level",
+    "page": "https://www.ccbp.in/intensive/web-development-course-in-chennai",
+    "severity": "info",
+    "evidence": "Heading levels jump from <h4> to <h6> with no <h5> in between.",
+    "suggested_fix": "Insert an <h5> or promote the <h6> so the outline is contiguous."
+  },
+  {
+    "metric": "missing_open_graph",
+    "page": "https://www.ccbp.in/intensive/web-development-course-in-chennai",
+    "severity": "info",
+    "evidence": "Open Graph tags absent from <head>: og:image.",
+    "suggested_fix": "Add the missing og: meta tags so shared links render a title, summary and image."
+  },
+  {
+    "metric": "skipped_heading_level",
+    "page": "https://www.ccbp.in/intensive/web-development-course-in-jaipur",
+    "severity": "info",
+    "evidence": "Heading levels jump from <h4> to <h6> with no <h5> in between.",
+    "suggested_fix": "Insert an <h5> or promote the <h6> so the outline is contiguous."
+  },
+  {
+    "metric": "missing_open_graph",
+    "page": "https://www.ccbp.in/intensive/web-development-course-in-jaipur",
+    "severity": "info",
+    "evidence": "Open Graph tags absent from <head>: og:image.",
+    "suggested_fix": "Add the missing og: meta tags so shared links render a title, summary and image."
+  },
+  {
+    "metric": "skipped_heading_level",
+    "page": "https://www.ccbp.in/intensive/web-development-course-in-kolkata",
+    "severity": "info",
+    "evidence": "Heading levels jump from <h4> to <h6> with no <h5> in between.",
+    "suggested_fix": "Insert an <h5> or promote the <h6> so the outline is contiguous."
+  },
+  {
+    "metric": "missing_open_graph",
+    "page": "https://www.ccbp.in/intensive/web-development-course-in-kolkata",
+    "severity": "info",
+    "evidence": "Open Graph tags absent from <head>: og:image.",
+    "suggested_fix": "Add the missing og: meta tags so shared links render a title, summary and image."
+  },
+  {
+    "metric": "skipped_heading_level",
+    "page": "https://www.ccbp.in/intensive/web-development-course-in-pune",
+    "severity": "info",
+    "evidence": "Heading levels jump from <h4> to <h6> with no <h5> in between.",
+    "suggested_fix": "Insert an <h5> or promote the <h6> so the outline is contiguous."
+  },
+  {
+    "metric": "missing_open_graph",
+    "page": "https://www.ccbp.in/intensive/web-development-course-in-pune",
+    "severity": "info",
+    "evidence": "Open Graph tags absent from <head>: og:image.",
+    "suggested_fix": "Add the missing og: meta tags so shared links render a title, summary and image."
+  },
+  {
+    "metric": "skipped_heading_level",
+    "page": "https://www.ccbp.in/reviews",
+    "severity": "info",
+    "evidence": "Heading levels jump from <h2> to <h6> with no <h3> in between.",
+    "suggested_fix": "Insert an <h3> or promote the <h6> so the outline is contiguous."
+  },
+  {
+    "metric": "title_too_short",
+    "page": "https://www.ccbp.in/reviews",
+    "severity": "info",
+    "evidence": "<title> is only 26 characters: \"CCBP 4.0 Reviews | NxtWave\"",
+    "suggested_fix": "Expand the title towards 30-60 characters with distinguishing detail."
+  }
+]

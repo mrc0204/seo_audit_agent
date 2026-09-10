@@ -1,0 +1,443 @@
+[
+  {
+    "metric": "duplicate_title",
+    "page": "https://www.niatindia.com/",
+    "severity": "warning",
+    "evidence": "This page's <title> \"NIAT\" is also used on 7 other page(s): https://www.niatindia.com/assessment-test, https://www.niatindia.com/student-internships, https://www.niatindia.com/student-achievements",
+    "suggested_fix": "Give each page a distinct title describing its own content."
+  },
+  {
+    "metric": "duplicate_meta_description",
+    "page": "https://www.niatindia.com/",
+    "severity": "warning",
+    "evidence": "This page's meta description \"Build your future in emerging technologies. NIAT is offering its industry-aligned upskilling programs at 35+ universities across India.\" is also used on 7 other page(s): https://www.niatindia.com/assessment-test, https://www.niatindia.com/student-internships, https://www.niatindia.com/student-achievements",
+    "suggested_fix": "Write a distinct meta description for each page."
+  },
+  {
+    "metric": "image_missing_alt",
+    "page": "https://www.niatindia.com/",
+    "severity": "warning",
+    "evidence": "9 of 806 <img> elements have no alt attribute: https://i.ytimg.com/vi_webp/uZSceh1Yobo/hqdefault.webp, https://framerusercontent.com/images/YZyN2pN3E8qxIrerOUc1Niafrs.png?height=719&width=404, https://framerusercontent.com/images/9IuuU9YRxTkEwtCqzJIeI2h9uHI.png?height=719&width=403, https://framerusercontent.com/images/elwBFyPty3SXrXKMihmtrnjeCcU.png?height=1510&width=848, https://framerusercontent.com/images/IrniLoG9K1BkWtN70SbsplWDHQs.png?height=1510&width=848 and 4 more",
+    "suggested_fix": "Add descriptive alt text to each image, or alt=\"\" if it is purely decorative."
+  },
+  {
+    "metric": "duplicate_meta_description",
+    "page": "https://www.niatindia.com/ai-bootcamp",
+    "severity": "warning",
+    "evidence": "This page's meta description \"AI Bootcamp is a weekly event where Class 12 students build AI Projects, learn study hacks, and earn exciting rewards. Register now and join this weekend's session to become college ready.\" is also used on 1 other page(s): https://www.niatindia.com/niat-challenge",
+    "suggested_fix": "Write a distinct meta description for each page."
+  },
+  {
+    "metric": "duplicate_title",
+    "page": "https://www.niatindia.com/assessment-test",
+    "severity": "warning",
+    "evidence": "This page's <title> \"NIAT\" is also used on 7 other page(s): https://www.niatindia.com/, https://www.niatindia.com/student-internships, https://www.niatindia.com/student-achievements",
+    "suggested_fix": "Give each page a distinct title describing its own content."
+  },
+  {
+    "metric": "duplicate_meta_description",
+    "page": "https://www.niatindia.com/assessment-test",
+    "severity": "warning",
+    "evidence": "This page's meta description \"Build your future in emerging technologies. NIAT is offering its industry-aligned upskilling programs at 35+ universities across India.\" is also used on 7 other page(s): https://www.niatindia.com/, https://www.niatindia.com/student-internships, https://www.niatindia.com/student-achievements",
+    "suggested_fix": "Write a distinct meta description for each page."
+  },
+  {
+    "metric": "duplicate_title",
+    "page": "https://www.niatindia.com/campus",
+    "severity": "warning",
+    "evidence": "This page's <title> \"NIAT\" is also used on 7 other page(s): https://www.niatindia.com/, https://www.niatindia.com/assessment-test, https://www.niatindia.com/student-internships",
+    "suggested_fix": "Give each page a distinct title describing its own content."
+  },
+  {
+    "metric": "duplicate_meta_description",
+    "page": "https://www.niatindia.com/campus",
+    "severity": "warning",
+    "evidence": "This page's meta description \"Build your future in emerging technologies. NIAT is offering its industry-aligned upskilling programs at 35+ universities across India.\" is also used on 7 other page(s): https://www.niatindia.com/, https://www.niatindia.com/assessment-test, https://www.niatindia.com/student-internships",
+    "suggested_fix": "Write a distinct meta description for each page."
+  },
+  {
+    "metric": "duplicate_title",
+    "page": "https://www.niatindia.com/club",
+    "severity": "warning",
+    "evidence": "This page's <title> \"NIAT\" is also used on 7 other page(s): https://www.niatindia.com/, https://www.niatindia.com/assessment-test, https://www.niatindia.com/student-internships",
+    "suggested_fix": "Give each page a distinct title describing its own content."
+  },
+  {
+    "metric": "duplicate_meta_description",
+    "page": "https://www.niatindia.com/club",
+    "severity": "warning",
+    "evidence": "This page's meta description \"Build your future in emerging technologies. NIAT is offering its industry-aligned upskilling programs at 35+ universities across India.\" is also used on 7 other page(s): https://www.niatindia.com/, https://www.niatindia.com/assessment-test, https://www.niatindia.com/student-internships",
+    "suggested_fix": "Write a distinct meta description for each page."
+  },
+  {
+    "metric": "duplicate_meta_description",
+    "page": "https://www.niatindia.com/niat-challenge",
+    "severity": "warning",
+    "evidence": "This page's meta description \"AI Bootcamp is a weekly event where Class 12 students build AI Projects, learn study hacks, and earn exciting rewards. Register now and join this weekend's session to become college ready.\" is also used on 1 other page(s): https://www.niatindia.com/ai-bootcamp",
+    "suggested_fix": "Write a distinct meta description for each page."
+  },
+  {
+    "metric": "duplicate_title",
+    "page": "https://www.niatindia.com/niat-edge",
+    "severity": "warning",
+    "evidence": "This page's <title> \"NIAT\" is also used on 7 other page(s): https://www.niatindia.com/, https://www.niatindia.com/assessment-test, https://www.niatindia.com/student-internships",
+    "suggested_fix": "Give each page a distinct title describing its own content."
+  },
+  {
+    "metric": "duplicate_meta_description",
+    "page": "https://www.niatindia.com/niat-edge",
+    "severity": "warning",
+    "evidence": "This page's meta description \"Build your future in emerging technologies. NIAT is offering its industry-aligned upskilling programs at 35+ universities across India.\" is also used on 7 other page(s): https://www.niatindia.com/, https://www.niatindia.com/assessment-test, https://www.niatindia.com/student-internships",
+    "suggested_fix": "Write a distinct meta description for each page."
+  },
+  {
+    "metric": "duplicate_title",
+    "page": "https://www.niatindia.com/skillmap",
+    "severity": "warning",
+    "evidence": "This page's <title> \"NIAT\" is also used on 7 other page(s): https://www.niatindia.com/, https://www.niatindia.com/assessment-test, https://www.niatindia.com/student-internships",
+    "suggested_fix": "Give each page a distinct title describing its own content."
+  },
+  {
+    "metric": "duplicate_meta_description",
+    "page": "https://www.niatindia.com/skillmap",
+    "severity": "warning",
+    "evidence": "This page's meta description \"Build your future in emerging technologies. NIAT is offering its industry-aligned upskilling programs at 35+ universities across India.\" is also used on 7 other page(s): https://www.niatindia.com/, https://www.niatindia.com/assessment-test, https://www.niatindia.com/student-internships",
+    "suggested_fix": "Write a distinct meta description for each page."
+  },
+  {
+    "metric": "duplicate_title",
+    "page": "https://www.niatindia.com/student-achievements",
+    "severity": "warning",
+    "evidence": "This page's <title> \"NIAT\" is also used on 7 other page(s): https://www.niatindia.com/, https://www.niatindia.com/assessment-test, https://www.niatindia.com/student-internships",
+    "suggested_fix": "Give each page a distinct title describing its own content."
+  },
+  {
+    "metric": "duplicate_meta_description",
+    "page": "https://www.niatindia.com/student-achievements",
+    "severity": "warning",
+    "evidence": "This page's meta description \"Build your future in emerging technologies. NIAT is offering its industry-aligned upskilling programs at 35+ universities across India.\" is also used on 7 other page(s): https://www.niatindia.com/, https://www.niatindia.com/assessment-test, https://www.niatindia.com/student-internships",
+    "suggested_fix": "Write a distinct meta description for each page."
+  },
+  {
+    "metric": "duplicate_title",
+    "page": "https://www.niatindia.com/student-internships",
+    "severity": "warning",
+    "evidence": "This page's <title> \"NIAT\" is also used on 7 other page(s): https://www.niatindia.com/, https://www.niatindia.com/assessment-test, https://www.niatindia.com/student-achievements",
+    "suggested_fix": "Give each page a distinct title describing its own content."
+  },
+  {
+    "metric": "duplicate_meta_description",
+    "page": "https://www.niatindia.com/student-internships",
+    "severity": "warning",
+    "evidence": "This page's meta description \"Build your future in emerging technologies. NIAT is offering its industry-aligned upskilling programs at 35+ universities across India.\" is also used on 7 other page(s): https://www.niatindia.com/, https://www.niatindia.com/assessment-test, https://www.niatindia.com/student-achievements",
+    "suggested_fix": "Write a distinct meta description for each page."
+  },
+  {
+    "metric": "multiple_h1",
+    "page": "https://www.niatindia.com/",
+    "severity": "info",
+    "evidence": "The page contains 51 <h1> elements: \"AI/ML\", \"AI/ML\", \"Robotics\", \"Robotics\"",
+    "suggested_fix": "Keep one <h1> as the page's main heading and demote the others to <h2>."
+  },
+  {
+    "metric": "title_too_short",
+    "page": "https://www.niatindia.com/",
+    "severity": "info",
+    "evidence": "<title> is only 4 characters: \"NIAT\"",
+    "suggested_fix": "Expand the title towards 30-60 characters with distinguishing detail."
+  },
+  {
+    "metric": "multiple_h1",
+    "page": "https://www.niatindia.com/ai-bootcamp",
+    "severity": "info",
+    "evidence": "The page contains 28 <h1> elements: \"AI BOOTCAMP\", \"AI BOOTCAMP\", \"AI BOOTCAMP\", \"Upgrade Your Future with AI\"",
+    "suggested_fix": "Keep one <h1> as the page's main heading and demote the others to <h2>."
+  },
+  {
+    "metric": "skipped_heading_level",
+    "page": "https://www.niatindia.com/ai-bootcamp",
+    "severity": "info",
+    "evidence": "Heading levels jump from <h2> to <h4> with no <h3> in between.",
+    "suggested_fix": "Insert an <h3> or promote the <h4> so the outline is contiguous."
+  },
+  {
+    "metric": "meta_description_too_long",
+    "page": "https://www.niatindia.com/ai-bootcamp",
+    "severity": "info",
+    "evidence": "Meta description is 188 characters, over the 160-character display limit: \"AI Bootcamp is a weekly event where Class 12 students build AI Projects, learn study hacks, and earn exciting rewards. Register now and join this weekend's session to become college ready.\"",
+    "suggested_fix": "Trim the description to 160 characters or fewer."
+  },
+  {
+    "metric": "title_too_short",
+    "page": "https://www.niatindia.com/ai-bootcamp",
+    "severity": "info",
+    "evidence": "<title> is only 18 characters: \"AI Bootcamp | NIAT\"",
+    "suggested_fix": "Expand the title towards 30-60 characters with distinguishing detail."
+  },
+  {
+    "metric": "missing_h1",
+    "page": "https://www.niatindia.com/assessment-test",
+    "severity": "info",
+    "evidence": "The page contains no <h1> element.",
+    "suggested_fix": "Add a single <h1> naming the page's main topic."
+  },
+  {
+    "metric": "skipped_heading_level",
+    "page": "https://www.niatindia.com/assessment-test",
+    "severity": "info",
+    "evidence": "Heading levels jump from <h3> to <h5> with no <h4> in between.",
+    "suggested_fix": "Insert an <h4> or promote the <h5> so the outline is contiguous."
+  },
+  {
+    "metric": "title_too_short",
+    "page": "https://www.niatindia.com/assessment-test",
+    "severity": "info",
+    "evidence": "<title> is only 4 characters: \"NIAT\"",
+    "suggested_fix": "Expand the title towards 30-60 characters with distinguishing detail."
+  },
+  {
+    "metric": "missing_h1",
+    "page": "https://www.niatindia.com/campus",
+    "severity": "info",
+    "evidence": "The page contains no <h1> element.",
+    "suggested_fix": "Add a single <h1> naming the page's main topic."
+  },
+  {
+    "metric": "title_too_short",
+    "page": "https://www.niatindia.com/campus",
+    "severity": "info",
+    "evidence": "<title> is only 4 characters: \"NIAT\"",
+    "suggested_fix": "Expand the title towards 30-60 characters with distinguishing detail."
+  },
+  {
+    "metric": "multiple_h1",
+    "page": "https://www.niatindia.com/club",
+    "severity": "info",
+    "evidence": "The page contains 3 <h1> elements: \"Clubs started & run by NIATians.\", \"Clubs started & run by NIATians.\", \"Clubs started & run by NIATians.\"",
+    "suggested_fix": "Keep one <h1> as the page's main heading and demote the others to <h2>."
+  },
+  {
+    "metric": "skipped_heading_level",
+    "page": "https://www.niatindia.com/club",
+    "severity": "info",
+    "evidence": "Heading levels jump from <h2> to <h6> with no <h3> in between.",
+    "suggested_fix": "Insert an <h3> or promote the <h6> so the outline is contiguous."
+  },
+  {
+    "metric": "title_too_short",
+    "page": "https://www.niatindia.com/club",
+    "severity": "info",
+    "evidence": "<title> is only 4 characters: \"NIAT\"",
+    "suggested_fix": "Expand the title towards 30-60 characters with distinguishing detail."
+  },
+  {
+    "metric": "multiple_h1",
+    "page": "https://www.niatindia.com/masterclass-ashwinkumar",
+    "severity": "info",
+    "evidence": "The page contains 66 <h1> elements: \"How to Train a Multimodal Gen AI: Leveraging LLMs to Fuse Text, Speech, and Visuals\", \"Generative AI could replace 300 million jobs: Goldman Sachs report\", \"AI could replace 80% of jobs 'in the next few years: expert\", \"U.S. Lost Over 60 Million Jobs—Now Robots, Tech, And Artificial Intelligence Will Take Millions More\"",
+    "suggested_fix": "Keep one <h1> as the page's main heading and demote the others to <h2>."
+  },
+  {
+    "metric": "skipped_heading_level",
+    "page": "https://www.niatindia.com/masterclass-ashwinkumar",
+    "severity": "info",
+    "evidence": "Heading levels jump from <h2> to <h4> with no <h3> in between.",
+    "suggested_fix": "Insert an <h3> or promote the <h4> so the outline is contiguous."
+  },
+  {
+    "metric": "meta_description_too_long",
+    "page": "https://www.niatindia.com/masterclass-ashwinkumar",
+    "severity": "info",
+    "evidence": "Meta description is 192 characters, over the 160-character display limit: \"Join Ashwin, Applied Scientist at Amazon, to build cutting-edge multimodal AI systems. Learn fusion architectures, pretraining, fine-tuning, knowledge distillation, and hands-on pipeline labs.\"",
+    "suggested_fix": "Trim the description to 160 characters or fewer."
+  },
+  {
+    "metric": "title_too_long",
+    "page": "https://www.niatindia.com/masterclass-ashwinkumar",
+    "severity": "info",
+    "evidence": "<title> is 64 characters, over the 60-character display limit: \"Train Multimodal AI | Text, Speech & Image Masterclass by Ashwin\"",
+    "suggested_fix": "Shorten the title to 60 characters or fewer so it is not truncated in search results."
+  },
+  {
+    "metric": "multiple_h1",
+    "page": "https://www.niatindia.com/masterclass-rini-sharon",
+    "severity": "info",
+    "evidence": "The page contains 77 <h1> elements: \"LLMs Meet Speech: The Future of Voice Recognition Unveiled\", \"It’s Where Real Builders Gather\", \"What You'll Learn\", \"Brought to You By ‘Technology Pioneer’\"",
+    "suggested_fix": "Keep one <h1> as the page's main heading and demote the others to <h2>."
+  },
+  {
+    "metric": "skipped_heading_level",
+    "page": "https://www.niatindia.com/masterclass-rini-sharon",
+    "severity": "info",
+    "evidence": "Heading levels jump from <h2> to <h4> with no <h3> in between.",
+    "suggested_fix": "Insert an <h3> or promote the <h4> so the outline is contiguous."
+  },
+  {
+    "metric": "meta_description_too_long",
+    "page": "https://www.niatindia.com/masterclass-rini-sharon",
+    "severity": "info",
+    "evidence": "Meta description is 189 characters, over the 160-character display limit: \"Join Rini Sharon, Applied Scientist at Amazon, to explore the future of voice recognition with LLM-powered STT/TTS pipelines, RAG agents, fine-tuning techniques, and ethical best practices.\"",
+    "suggested_fix": "Trim the description to 160 characters or fewer."
+  },
+  {
+    "metric": "title_too_long",
+    "page": "https://www.niatindia.com/masterclass-rini-sharon",
+    "severity": "info",
+    "evidence": "<title> is 63 characters, over the 60-character display limit: \"LLMs Meet Speech | Voice Recognition Masterclass by Rini Sharon\"",
+    "suggested_fix": "Shorten the title to 60 characters or fewer so it is not truncated in search results."
+  },
+  {
+    "metric": "multiple_h1",
+    "page": "https://www.niatindia.com/masterclass-shreyas-pandey",
+    "severity": "info",
+    "evidence": "The page contains 66 <h1> elements: \"Building AI Agents: Designing Next-Gen Autonomous Workflows\", \"Generative AI could replace 300 million jobs: Goldman Sachs report\", \"AI could replace 80% of jobs 'in the next few years: expert\", \"U.S. Lost Over 60 Million Jobs—Now Robots, Tech, And Artificial Intelligence Will Take Millions More\"",
+    "suggested_fix": "Keep one <h1> as the page's main heading and demote the others to <h2>."
+  },
+  {
+    "metric": "skipped_heading_level",
+    "page": "https://www.niatindia.com/masterclass-shreyas-pandey",
+    "severity": "info",
+    "evidence": "Heading levels jump from <h2> to <h4> with no <h3> in between.",
+    "suggested_fix": "Insert an <h3> or promote the <h4> so the outline is contiguous."
+  },
+  {
+    "metric": "meta_description_too_long",
+    "page": "https://www.niatindia.com/masterclass-shreyas-pandey",
+    "severity": "info",
+    "evidence": "Meta description is 192 characters, over the 160-character display limit: \"Join Shreyas Pandey, Senior ML Engineer at Microsoft, to master autonomous AI agent design—covering memory, tools, RAG pipelines, multi-agent orchestration, and production-ready observability.\"",
+    "suggested_fix": "Trim the description to 160 characters or fewer."
+  },
+  {
+    "metric": "title_too_long",
+    "page": "https://www.niatindia.com/masterclass-shreyas-pandey",
+    "severity": "info",
+    "evidence": "<title> is 66 characters, over the 60-character display limit: \"Build AI Agents | Next-Gen Workflows Masterclass by Shreyas Pandey\"",
+    "suggested_fix": "Shorten the title to 60 characters or fewer so it is not truncated in search results."
+  },
+  {
+    "metric": "multiple_h1",
+    "page": "https://www.niatindia.com/masterclass-tushar-semwal",
+    "severity": "info",
+    "evidence": "The page contains 65 <h1> elements: \"Generative AI could replace 300 million jobs: Goldman Sachs report\", \"AI could replace 80% of jobs 'in the next few years: expert\", \"U.S. Lost Over 60 Million Jobs—Now Robots, Tech, And Artificial Intelligence Will Take Millions More\", \"IBM Plans To Replace Nearly 8,000 Jobs With AI — These Jobs Are First to Go\"",
+    "suggested_fix": "Keep one <h1> as the page's main heading and demote the others to <h2>."
+  },
+  {
+    "metric": "skipped_heading_level",
+    "page": "https://www.niatindia.com/masterclass-tushar-semwal",
+    "severity": "info",
+    "evidence": "Heading levels jump from <h2> to <h4> with no <h3> in between.",
+    "suggested_fix": "Insert an <h3> or promote the <h4> so the outline is contiguous."
+  },
+  {
+    "metric": "meta_description_too_long",
+    "page": "https://www.niatindia.com/masterclass-tushar-semwal",
+    "severity": "info",
+    "evidence": "Meta description is 168 characters, over the 160-character display limit: \"Join the NIAT Masterclass on Training Multimodal Gen AI! Learn to fine-tune AI models with text, speech & visuals—ideal for IT pros, data scientists & tech enthusiasts.\"",
+    "suggested_fix": "Trim the description to 160 characters or fewer."
+  },
+  {
+    "metric": "title_too_long",
+    "page": "https://www.niatindia.com/masterclass-tushar-semwal",
+    "severity": "info",
+    "evidence": "<title> is 64 characters, over the 60-character display limit: \"NIAT Masterclass | Learn to Train Multimodal Gen AI from Scratch\"",
+    "suggested_fix": "Shorten the title to 60 characters or fewer so it is not truncated in search results."
+  },
+  {
+    "metric": "multiple_h1",
+    "page": "https://www.niatindia.com/niat-challenge",
+    "severity": "info",
+    "evidence": "The page contains 40 <h1> elements: \"AI Challenge\", \"AI Challenge\", \"AI Challenge\", \"Every Weekend a New Chance to Surprise Yourself\"",
+    "suggested_fix": "Keep one <h1> as the page's main heading and demote the others to <h2>."
+  },
+  {
+    "metric": "meta_description_too_long",
+    "page": "https://www.niatindia.com/niat-challenge",
+    "severity": "info",
+    "evidence": "Meta description is 188 characters, over the 160-character display limit: \"AI Bootcamp is a weekly event where Class 12 students build AI Projects, learn study hacks, and earn exciting rewards. Register now and join this weekend's session to become college ready.\"",
+    "suggested_fix": "Trim the description to 160 characters or fewer."
+  },
+  {
+    "metric": "title_too_short",
+    "page": "https://www.niatindia.com/niat-challenge",
+    "severity": "info",
+    "evidence": "<title> is only 19 characters: \"AI Challenge | NIAT\"",
+    "suggested_fix": "Expand the title towards 30-60 characters with distinguishing detail."
+  },
+  {
+    "metric": "multiple_h1",
+    "page": "https://www.niatindia.com/niat-edge",
+    "severity": "info",
+    "evidence": "The page contains 11 <h1> elements: \"How Students Benefit From NIAT's Upskilling Program\", \"How Students Benefit From NIAT's Upskilling Program\", \"How Students Benefit From NIAT's Upskilling Program\", \"Curriculum\"",
+    "suggested_fix": "Keep one <h1> as the page's main heading and demote the others to <h2>."
+  },
+  {
+    "metric": "skipped_heading_level",
+    "page": "https://www.niatindia.com/niat-edge",
+    "severity": "info",
+    "evidence": "Heading levels jump from <h3> to <h5> with no <h4> in between.",
+    "suggested_fix": "Insert an <h4> or promote the <h5> so the outline is contiguous."
+  },
+  {
+    "metric": "title_too_short",
+    "page": "https://www.niatindia.com/niat-edge",
+    "severity": "info",
+    "evidence": "<title> is only 4 characters: \"NIAT\"",
+    "suggested_fix": "Expand the title towards 30-60 characters with distinguishing detail."
+  },
+  {
+    "metric": "missing_h1",
+    "page": "https://www.niatindia.com/skillmap",
+    "severity": "info",
+    "evidence": "The page contains no <h1> element.",
+    "suggested_fix": "Add a single <h1> naming the page's main topic."
+  },
+  {
+    "metric": "skipped_heading_level",
+    "page": "https://www.niatindia.com/skillmap",
+    "severity": "info",
+    "evidence": "Heading levels jump from <h2> to <h5> with no <h3> in between.",
+    "suggested_fix": "Insert an <h3> or promote the <h5> so the outline is contiguous."
+  },
+  {
+    "metric": "title_too_short",
+    "page": "https://www.niatindia.com/skillmap",
+    "severity": "info",
+    "evidence": "<title> is only 4 characters: \"NIAT\"",
+    "suggested_fix": "Expand the title towards 30-60 characters with distinguishing detail."
+  },
+  {
+    "metric": "missing_h1",
+    "page": "https://www.niatindia.com/student-achievements",
+    "severity": "info",
+    "evidence": "The page contains no <h1> element.",
+    "suggested_fix": "Add a single <h1> naming the page's main topic."
+  },
+  {
+    "metric": "skipped_heading_level",
+    "page": "https://www.niatindia.com/student-achievements",
+    "severity": "info",
+    "evidence": "Heading levels jump from <h2> to <h4> with no <h3> in between.",
+    "suggested_fix": "Insert an <h3> or promote the <h4> so the outline is contiguous."
+  },
+  {
+    "metric": "title_too_short",
+    "page": "https://www.niatindia.com/student-achievements",
+    "severity": "info",
+    "evidence": "<title> is only 4 characters: \"NIAT\"",
+    "suggested_fix": "Expand the title towards 30-60 characters with distinguishing detail."
+  },
+  {
+    "metric": "missing_h1",
+    "page": "https://www.niatindia.com/student-internships",
+    "severity": "info",
+    "evidence": "The page contains no <h1> element.",
+    "suggested_fix": "Add a single <h1> naming the page's main topic."
+  },
+  {
+    "metric": "title_too_short",
+    "page": "https://www.niatindia.com/student-internships",
+    "severity": "info",
+    "evidence": "<title> is only 4 characters: \"NIAT\"",
+    "suggested_fix": "Expand the title towards 30-60 characters with distinguishing detail."
+  }
+]

@@ -1,0 +1,233 @@
+[
+  {
+    "metric": "duplicate_title",
+    "page": "https://www.thehudsonkitchen.com/events-collection/bootcamp-info-session-0106",
+    "severity": "warning",
+    "evidence": "This page's <title> \"Info Session: Food Business Bootcamp Startup Accelerator | Hudson Kitchen\" is also used on 1 other page(s): https://www.thehudsonkitchen.com/events-collection/bootcamp-info-session-1216",
+    "suggested_fix": "Give each page a distinct title describing its own content."
+  },
+  {
+    "metric": "duplicate_title",
+    "page": "https://www.thehudsonkitchen.com/events-collection/bootcamp-info-session-1216",
+    "severity": "warning",
+    "evidence": "This page's <title> \"Info Session: Food Business Bootcamp Startup Accelerator | Hudson Kitchen\" is also used on 1 other page(s): https://www.thehudsonkitchen.com/events-collection/bootcamp-info-session-0106",
+    "suggested_fix": "Give each page a distinct title describing its own content."
+  },
+  {
+    "metric": "duplicate_title",
+    "page": "https://www.thehudsonkitchen.com/events-collection/food-business-bootcamp-0225",
+    "severity": "warning",
+    "evidence": "This page's <title> \"Food Business Bootcamp: The Proven How-to Course for Startup Success | Hudson Kitchen\" is also used on 2 other page(s): https://www.thehudsonkitchen.com/events-collection/food-business-bootcamp-0625, https://www.thehudsonkitchen.com/events-collection/food-business-bootcamp-1024",
+    "suggested_fix": "Give each page a distinct title describing its own content."
+  },
+  {
+    "metric": "duplicate_title",
+    "page": "https://www.thehudsonkitchen.com/events-collection/food-business-bootcamp-0625",
+    "severity": "warning",
+    "evidence": "This page's <title> \"Food Business Bootcamp: The Proven How-to Course for Startup Success | Hudson Kitchen\" is also used on 2 other page(s): https://www.thehudsonkitchen.com/events-collection/food-business-bootcamp-0225, https://www.thehudsonkitchen.com/events-collection/food-business-bootcamp-1024",
+    "suggested_fix": "Give each page a distinct title describing its own content."
+  },
+  {
+    "metric": "duplicate_title",
+    "page": "https://www.thehudsonkitchen.com/events-collection/food-business-bootcamp-1024",
+    "severity": "warning",
+    "evidence": "This page's <title> \"Food Business Bootcamp: The Proven How-to Course for Startup Success | Hudson Kitchen\" is also used on 2 other page(s): https://www.thehudsonkitchen.com/events-collection/food-business-bootcamp-0625, https://www.thehudsonkitchen.com/events-collection/food-business-bootcamp-0225",
+    "suggested_fix": "Give each page a distinct title describing its own content."
+  },
+  {
+    "metric": "duplicate_title",
+    "page": "https://www.thehudsonkitchen.com/events-collection/info-session-070826",
+    "severity": "warning",
+    "evidence": "This page's <title> \"Bootcamp Info Session | Hudson Kitchen\" is also used on 1 other page(s): https://www.thehudsonkitchen.com/events-collection/info-session-080526",
+    "suggested_fix": "Give each page a distinct title describing its own content."
+  },
+  {
+    "metric": "duplicate_title",
+    "page": "https://www.thehudsonkitchen.com/events-collection/info-session-080526",
+    "severity": "warning",
+    "evidence": "This page's <title> \"Bootcamp Info Session | Hudson Kitchen\" is also used on 1 other page(s): https://www.thehudsonkitchen.com/events-collection/info-session-070826",
+    "suggested_fix": "Give each page a distinct title describing its own content."
+  },
+  {
+    "metric": "duplicate_title",
+    "page": "https://www.thehudsonkitchen.com/events-collection/starting-your-food-business-in-new-jersey",
+    "severity": "warning",
+    "evidence": "This page's <title> \"10 Steps to Starting Your Food Business in New Jersey | Hudson Kitchen\" is also used on 1 other page(s): https://www.thehudsonkitchen.com/events-collection/starting-your-food-business-in-new-jersey-092525",
+    "suggested_fix": "Give each page a distinct title describing its own content."
+  },
+  {
+    "metric": "duplicate_title",
+    "page": "https://www.thehudsonkitchen.com/events-collection/starting-your-food-business-in-new-jersey-092525",
+    "severity": "warning",
+    "evidence": "This page's <title> \"10 Steps to Starting Your Food Business in New Jersey | Hudson Kitchen\" is also used on 1 other page(s): https://www.thehudsonkitchen.com/events-collection/starting-your-food-business-in-new-jersey",
+    "suggested_fix": "Give each page a distinct title describing its own content."
+  },
+  {
+    "metric": "multiple_h1",
+    "page": "https://www.thehudsonkitchen.com/events-collection",
+    "severity": "info",
+    "evidence": "The page contains 27 <h1> elements: \"Upcoming Events\", \"Bootcamp Info Session\", \"Bootcamp Info Session\", \"Info Session: Food Business Bootcamp Startup Accelerator\"",
+    "suggested_fix": "Keep one <h1> as the page's main heading and demote the others to <h2>."
+  },
+  {
+    "metric": "empty_meta_description",
+    "page": "https://www.thehudsonkitchen.com/events-collection",
+    "severity": "info",
+    "evidence": "A <meta name=\"description\"> element is present but its content is empty.",
+    "suggested_fix": "Write a description summarising this page's content."
+  },
+  {
+    "metric": "missing_open_graph",
+    "page": "https://www.thehudsonkitchen.com/events-collection",
+    "severity": "info",
+    "evidence": "Open Graph tags absent from <head>: og:description.",
+    "suggested_fix": "Add the missing og: meta tags so shared links render a title, summary and image."
+  },
+  {
+    "metric": "empty_meta_description",
+    "page": "https://www.thehudsonkitchen.com/events-collection/bootcamp-info-session-0106",
+    "severity": "info",
+    "evidence": "A <meta name=\"description\"> element is present but its content is empty.",
+    "suggested_fix": "Write a description summarising this page's content."
+  },
+  {
+    "metric": "title_too_long",
+    "page": "https://www.thehudsonkitchen.com/events-collection/bootcamp-info-session-0106",
+    "severity": "info",
+    "evidence": "<title> is 73 characters, over the 60-character display limit: \"Info Session: Food Business Bootcamp Startup Accelerator | Hudson Kitchen\"",
+    "suggested_fix": "Shorten the title to 60 characters or fewer so it is not truncated in search results."
+  },
+  {
+    "metric": "empty_meta_description",
+    "page": "https://www.thehudsonkitchen.com/events-collection/bootcamp-info-session-1216",
+    "severity": "info",
+    "evidence": "A <meta name=\"description\"> element is present but its content is empty.",
+    "suggested_fix": "Write a description summarising this page's content."
+  },
+  {
+    "metric": "title_too_long",
+    "page": "https://www.thehudsonkitchen.com/events-collection/bootcamp-info-session-1216",
+    "severity": "info",
+    "evidence": "<title> is 73 characters, over the 60-character display limit: \"Info Session: Food Business Bootcamp Startup Accelerator | Hudson Kitchen\"",
+    "suggested_fix": "Shorten the title to 60 characters or fewer so it is not truncated in search results."
+  },
+  {
+    "metric": "empty_meta_description",
+    "page": "https://www.thehudsonkitchen.com/events-collection/cpg-founder-meetup-111125",
+    "severity": "info",
+    "evidence": "A <meta name=\"description\"> element is present but its content is empty.",
+    "suggested_fix": "Write a description summarising this page's content."
+  },
+  {
+    "metric": "empty_meta_description",
+    "page": "https://www.thehudsonkitchen.com/events-collection/food-business-bootcamp-0225",
+    "severity": "info",
+    "evidence": "A <meta name=\"description\"> element is present but its content is empty.",
+    "suggested_fix": "Write a description summarising this page's content."
+  },
+  {
+    "metric": "title_too_long",
+    "page": "https://www.thehudsonkitchen.com/events-collection/food-business-bootcamp-0225",
+    "severity": "info",
+    "evidence": "<title> is 85 characters, over the 60-character display limit: \"Food Business Bootcamp: The Proven How-to Course for Startup Success | Hudson Kitchen\"",
+    "suggested_fix": "Shorten the title to 60 characters or fewer so it is not truncated in search results."
+  },
+  {
+    "metric": "empty_meta_description",
+    "page": "https://www.thehudsonkitchen.com/events-collection/food-business-bootcamp-0625",
+    "severity": "info",
+    "evidence": "A <meta name=\"description\"> element is present but its content is empty.",
+    "suggested_fix": "Write a description summarising this page's content."
+  },
+  {
+    "metric": "title_too_long",
+    "page": "https://www.thehudsonkitchen.com/events-collection/food-business-bootcamp-0625",
+    "severity": "info",
+    "evidence": "<title> is 85 characters, over the 60-character display limit: \"Food Business Bootcamp: The Proven How-to Course for Startup Success | Hudson Kitchen\"",
+    "suggested_fix": "Shorten the title to 60 characters or fewer so it is not truncated in search results."
+  },
+  {
+    "metric": "empty_meta_description",
+    "page": "https://www.thehudsonkitchen.com/events-collection/food-business-bootcamp-1024",
+    "severity": "info",
+    "evidence": "A <meta name=\"description\"> element is present but its content is empty.",
+    "suggested_fix": "Write a description summarising this page's content."
+  },
+  {
+    "metric": "title_too_long",
+    "page": "https://www.thehudsonkitchen.com/events-collection/food-business-bootcamp-1024",
+    "severity": "info",
+    "evidence": "<title> is 85 characters, over the 60-character display limit: \"Food Business Bootcamp: The Proven How-to Course for Startup Success | Hudson Kitchen\"",
+    "suggested_fix": "Shorten the title to 60 characters or fewer so it is not truncated in search results."
+  },
+  {
+    "metric": "empty_meta_description",
+    "page": "https://www.thehudsonkitchen.com/events-collection/food-business-bootcamp-kickoff",
+    "severity": "info",
+    "evidence": "A <meta name=\"description\"> element is present but its content is empty.",
+    "suggested_fix": "Write a description summarising this page's content."
+  },
+  {
+    "metric": "title_too_long",
+    "page": "https://www.thehudsonkitchen.com/events-collection/food-business-bootcamp-kickoff",
+    "severity": "info",
+    "evidence": "<title> is 72 characters, over the 60-character display limit: \"Food Business Bootcamp: Course Preview & Kick Off Event | Hudson Kitchen\"",
+    "suggested_fix": "Shorten the title to 60 characters or fewer so it is not truncated in search results."
+  },
+  {
+    "metric": "empty_meta_description",
+    "page": "https://www.thehudsonkitchen.com/events-collection/info-session-070826",
+    "severity": "info",
+    "evidence": "A <meta name=\"description\"> element is present but its content is empty.",
+    "suggested_fix": "Write a description summarising this page's content."
+  },
+  {
+    "metric": "empty_meta_description",
+    "page": "https://www.thehudsonkitchen.com/events-collection/info-session-080526",
+    "severity": "info",
+    "evidence": "A <meta name=\"description\"> element is present but its content is empty.",
+    "suggested_fix": "Write a description summarising this page's content."
+  },
+  {
+    "metric": "empty_meta_description",
+    "page": "https://www.thehudsonkitchen.com/events-collection/passport-innovation-tour",
+    "severity": "info",
+    "evidence": "A <meta name=\"description\"> element is present but its content is empty.",
+    "suggested_fix": "Write a description summarising this page's content."
+  },
+  {
+    "metric": "empty_meta_description",
+    "page": "https://www.thehudsonkitchen.com/events-collection/speed-mentoring",
+    "severity": "info",
+    "evidence": "A <meta name=\"description\"> element is present but its content is empty.",
+    "suggested_fix": "Write a description summarising this page's content."
+  },
+  {
+    "metric": "empty_meta_description",
+    "page": "https://www.thehudsonkitchen.com/events-collection/starting-your-food-business-in-new-jersey",
+    "severity": "info",
+    "evidence": "A <meta name=\"description\"> element is present but its content is empty.",
+    "suggested_fix": "Write a description summarising this page's content."
+  },
+  {
+    "metric": "title_too_long",
+    "page": "https://www.thehudsonkitchen.com/events-collection/starting-your-food-business-in-new-jersey",
+    "severity": "info",
+    "evidence": "<title> is 70 characters, over the 60-character display limit: \"10 Steps to Starting Your Food Business in New Jersey | Hudson Kitchen\"",
+    "suggested_fix": "Shorten the title to 60 characters or fewer so it is not truncated in search results."
+  },
+  {
+    "metric": "empty_meta_description",
+    "page": "https://www.thehudsonkitchen.com/events-collection/starting-your-food-business-in-new-jersey-092525",
+    "severity": "info",
+    "evidence": "A <meta name=\"description\"> element is present but its content is empty.",
+    "suggested_fix": "Write a description summarising this page's content."
+  },
+  {
+    "metric": "title_too_long",
+    "page": "https://www.thehudsonkitchen.com/events-collection/starting-your-food-business-in-new-jersey-092525",
+    "severity": "info",
+    "evidence": "<title> is 70 characters, over the 60-character display limit: \"10 Steps to Starting Your Food Business in New Jersey | Hudson Kitchen\"",
+    "suggested_fix": "Shorten the title to 60 characters or fewer so it is not truncated in search results."
+  }
+]

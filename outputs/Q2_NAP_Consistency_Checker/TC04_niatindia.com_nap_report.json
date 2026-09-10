@@ -1,0 +1,62 @@
+[
+  {
+    "field": "name",
+    "pages_compared": [
+      "https://www.niatindia.com/",
+      "https://www.niatindia.com/masterclass-ashwinkumar",
+      "https://www.niatindia.com/masterclass-shreyas-pandey",
+      "https://www.niatindia.com/masterclass-tushar-semwal",
+      "https://www.niatindia.com/masterclass-rini-sharon",
+      "https://www.niatindia.com/ai-bootcamp",
+      "https://www.niatindia.com/niat-challenge",
+      "https://www.niatindia.com/assessment-test",
+      "https://www.niatindia.com/student-internships",
+      "https://www.niatindia.com/student-achievements",
+      "https://www.niatindia.com/skillmap",
+      "https://www.niatindia.com/campus",
+      "https://www.niatindia.com/club",
+      "https://www.niatindia.com/niat-edge"
+    ],
+    "values": [
+      "NxtWave of Innovation in Advanced Technologies"
+    ],
+    "normalized_values": [
+      "nxtwave of innovation in advanced technologies"
+    ],
+    "confidence": 1.0,
+    "verdict": "consistent"
+  },
+  {
+    "field": "address",
+    "pages_compared": [],
+    "values": [],
+    "normalized_values": [],
+    "confidence": 0.0,
+    "verdict": "insufficient_data"
+  },
+  {
+    "field": "phone",
+    "pages_compared": [
+      "https://www.niatindia.com/",
+      "https://www.niatindia.com/masterclass-ashwinkumar",
+      "https://www.niatindia.com/masterclass-shreyas-pandey",
+      "https://www.niatindia.com/masterclass-tushar-semwal",
+      "https://www.niatindia.com/masterclass-rini-sharon",
+      "https://www.niatindia.com/assessment-test",
+      "https://www.niatindia.com/student-internships",
+      "https://www.niatindia.com/student-achievements",
+      "https://www.niatindia.com/skillmap",
+      "https://www.niatindia.com/campus",
+      "https://www.niatindia.com/club",
+      "https://www.niatindia.com/niat-edge"
+    ],
+    "values": [
+      "+91 8008 9009 08"
+    ],
+    "normalized_values": [
+      "8008900908"
+    ],
+    "confidence": 1.0,
+    "verdict": "consistent"
+  }
+]

@@ -1,96 +1,94 @@
 =========================================================================================
-                 EVIDENCE-GROUNDED SEO AUDIT AGENT — BATCH TEST INPUTS
-=========================================================================================
-Summary of all input parameters tested independently for Q1 (SEO Audit), Q2 (NAP Check),
-and Q3 (Grounded QA).
+                    EVIDENCE-GROUNDED SEO AUDIT AGENT — TEST INPUTS
 =========================================================================================
 
 Test ID       : TC01
 Category      : Q3 (Grounded QA)
 Target URL    : https://webflow.com/
-Question (Q3) : Can webflow is used for website development?
-Crawl Limits  : Max Pages = 10, Max Depth = 2, Timeout = 12s
-LLM Provider  : NVIDIA
+User Question : Can webflow is used for website development?
 Description   : Verify webflow website development capabilities in QA agent.
 -----------------------------------------------------------------------------------------
 
 Test ID       : TC02
 Category      : Q3 (Grounded QA)
 Target URL    : https://www.python.org
-Question (Q3) : What is python?
-Crawl Limits  : Max Pages = 10, Max Depth = 2, Timeout = 12s
-LLM Provider  : NVIDIA
+User Question : What is python?
 Description   : Verify general definition/overview answering for python.org.
 -----------------------------------------------------------------------------------------
 
 Test ID       : TC03
 Category      : Q2 (NAP Consistency)
 Target URL    : https://ccbp.in/
-Question (Q3) : N/A (Audit / NAP check only)
-Crawl Limits  : Max Pages = 10, Max Depth = 2, Timeout = 12s
-LLM Provider  : NVIDIA
+User Question : N/A (Crawl/Audit Only)
 Description   : Check Name, Address, Phone (NAP) consistency across ccbp.in pages.
 -----------------------------------------------------------------------------------------
 
 Test ID       : TC04
 Category      : Q2 (NAP Consistency)
 Target URL    : https://www.niatindia.com/
-Question (Q3) : N/A (Audit / NAP check only)
-Crawl Limits  : Max Pages = 10, Max Depth = 2, Timeout = 12s
-LLM Provider  : NVIDIA
+User Question : N/A (Crawl/Audit Only)
 Description   : Check Name, Address, Phone (NAP) consistency across niatindia.com pages.
 -----------------------------------------------------------------------------------------
 
 Test ID       : TC05
 Category      : Q2 (NAP Consistency)
 Target URL    : https://www.thehudsonkitchen.com/
-Question (Q3) : N/A (Audit / NAP check only)
-Crawl Limits  : Max Pages = 10, Max Depth = 2, Timeout = 12s
-LLM Provider  : NVIDIA
+User Question : N/A (Crawl/Audit Only)
 Description   : Check Name, Address, Phone (NAP) consistency across local business pages of Hudson Kitchen.
 -----------------------------------------------------------------------------------------
 
 Test ID       : TC06
 Category      : Q3 (Grounded QA)
 Target URL    : https://ccbp.in/
-Question (Q3) : What is this domain for?
-Crawl Limits  : Max Pages = 10, Max Depth = 2, Timeout = 12s
-LLM Provider  : NVIDIA
+User Question : What is this domain for?
 Description   : Extract evidence and explain core purpose of ccbp.in domain.
 -----------------------------------------------------------------------------------------
 
 Test ID       : TC07
 Category      : Q3 (Grounded QA)
 Target URL    : https://www.niatindia.com/
-Question (Q3) : What programs or courses are offered by NIAT?
-Crawl Limits  : Max Pages = 10, Max Depth = 2, Timeout = 12s
-LLM Provider  : NVIDIA
+User Question : What programs or courses are offered by NIAT?
 Description   : Extract course/program offerings with grounded citations from NIAT India.
 -----------------------------------------------------------------------------------------
 
 Test ID       : TC08
 Category      : Q3 (Grounded QA)
 Target URL    : https://www.thehudsonkitchen.com/
-Question (Q3) : Where is Hudson Kitchen located and what services do they provide?
-Crawl Limits  : Max Pages = 10, Max Depth = 2, Timeout = 12s
-LLM Provider  : NVIDIA
+User Question : Where is Hudson Kitchen located and what services do they provide?
 Description   : Answer location and service details for Hudson Kitchen using extracted page text.
 -----------------------------------------------------------------------------------------
 
 Test ID       : TC09
 Category      : Q1 (SEO Audit Findings)
 Target URL    : https://webflow.com/
-Question (Q3) : N/A (Audit / NAP check only)
-Crawl Limits  : Max Pages = 10, Max Depth = 2, Timeout = 12s
-LLM Provider  : NVIDIA
+User Question : N/A (Crawl/Audit Only)
 Description   : Run technical & on-page SEO audit findings against webflow.com homepage & subpages.
 -----------------------------------------------------------------------------------------
 
 Test ID       : TC10
 Category      : Q1 (SEO Audit Findings)
 Target URL    : https://www.python.org
-Question (Q3) : N/A (Audit / NAP check only)
-Crawl Limits  : Max Pages = 10, Max Depth = 2, Timeout = 12s
-LLM Provider  : NVIDIA
+User Question : N/A (Crawl/Audit Only)
 Description   : Run technical & on-page SEO audit findings against python.org.
+-----------------------------------------------------------------------------------------
+
+Test ID       : TC11
+Category      : Q1 (SEO Audit Findings)
+Target URL    : https://ccbp.in/
+User Question : N/A (Crawl/Audit Only)
+Description   : Run technical & on-page SEO audit findings against ccbp.in.
+-----------------------------------------------------------------------------------------
+
+Test ID       : TC12
+Category      : Q1 (SEO Audit Findings)
+Target URL    : https://www.niatindia.com/
+User Question : N/A (Crawl/Audit Only)
+Description   : Run technical & on-page SEO audit findings against niatindia.com.
+-----------------------------------------------------------------------------------------
+
+Test ID       : TC13
+Category      : Q1 (SEO Audit Findings)
+Target URL    : https://www.thehudsonkitchen.com/
+User Question : N/A (Crawl/Audit Only)
+Description   : Run technical & on-page SEO audit findings against thehudsonkitchen.com.
 -----------------------------------------------------------------------------------------

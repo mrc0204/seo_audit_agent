@@ -1,0 +1,86 @@
+[
+  {
+    "field": "name",
+    "pages_compared": [
+      "https://www.thehudsonkitchen.com/",
+      "https://www.thehudsonkitchen.com/events-collection",
+      "https://www.thehudsonkitchen.com/events-collection/info-session-080526",
+      "https://www.thehudsonkitchen.com/events-collection/info-session-070826",
+      "https://www.thehudsonkitchen.com/events-collection/bootcamp-info-session-0106",
+      "https://www.thehudsonkitchen.com/events-collection/bootcamp-info-session-1216",
+      "https://www.thehudsonkitchen.com/events-collection/cpg-founder-meetup-111125",
+      "https://www.thehudsonkitchen.com/events-collection/starting-your-food-business-in-new-jersey-092525",
+      "https://www.thehudsonkitchen.com/events-collection/speed-mentoring",
+      "https://www.thehudsonkitchen.com/events-collection/starting-your-food-business-in-new-jersey",
+      "https://www.thehudsonkitchen.com/events-collection/food-business-bootcamp-0625",
+      "https://www.thehudsonkitchen.com/events-collection/passport-innovation-tour",
+      "https://www.thehudsonkitchen.com/events-collection/food-business-bootcamp-0225",
+      "https://www.thehudsonkitchen.com/events-collection/food-business-bootcamp-kickoff",
+      "https://www.thehudsonkitchen.com/events-collection/food-business-bootcamp-1024"
+    ],
+    "values": [
+      "Hudson Kitchen"
+    ],
+    "normalized_values": [
+      "hudson kitchen"
+    ],
+    "confidence": 1.0,
+    "verdict": "consistent"
+  },
+  {
+    "field": "address",
+    "pages_compared": [
+      "https://www.thehudsonkitchen.com/",
+      "https://www.thehudsonkitchen.com/events-collection",
+      "https://www.thehudsonkitchen.com/events-collection/info-session-080526",
+      "https://www.thehudsonkitchen.com/events-collection/info-session-070826",
+      "https://www.thehudsonkitchen.com/events-collection/bootcamp-info-session-0106",
+      "https://www.thehudsonkitchen.com/events-collection/bootcamp-info-session-1216",
+      "https://www.thehudsonkitchen.com/events-collection/cpg-founder-meetup-111125",
+      "https://www.thehudsonkitchen.com/events-collection/starting-your-food-business-in-new-jersey-092525",
+      "https://www.thehudsonkitchen.com/events-collection/speed-mentoring",
+      "https://www.thehudsonkitchen.com/events-collection/starting-your-food-business-in-new-jersey",
+      "https://www.thehudsonkitchen.com/events-collection/food-business-bootcamp-0625",
+      "https://www.thehudsonkitchen.com/events-collection/passport-innovation-tour",
+      "https://www.thehudsonkitchen.com/events-collection/food-business-bootcamp-0225",
+      "https://www.thehudsonkitchen.com/events-collection/food-business-bootcamp-kickoff",
+      "https://www.thehudsonkitchen.com/events-collection/food-business-bootcamp-1024"
+    ],
+    "values": [
+      "9 Basin Drive Kearny, NJ, 07032 United States"
+    ],
+    "normalized_values": [
+      "9 basin drive kearny nj 07032 united states"
+    ],
+    "confidence": 1.0,
+    "verdict": "consistent"
+  },
+  {
+    "field": "phone",
+    "pages_compared": [
+      "https://www.thehudsonkitchen.com/",
+      "https://www.thehudsonkitchen.com/events-collection",
+      "https://www.thehudsonkitchen.com/events-collection/info-session-080526",
+      "https://www.thehudsonkitchen.com/events-collection/info-session-070826",
+      "https://www.thehudsonkitchen.com/events-collection/bootcamp-info-session-0106",
+      "https://www.thehudsonkitchen.com/events-collection/bootcamp-info-session-1216",
+      "https://www.thehudsonkitchen.com/events-collection/cpg-founder-meetup-111125",
+      "https://www.thehudsonkitchen.com/events-collection/starting-your-food-business-in-new-jersey-092525",
+      "https://www.thehudsonkitchen.com/events-collection/speed-mentoring",
+      "https://www.thehudsonkitchen.com/events-collection/starting-your-food-business-in-new-jersey",
+      "https://www.thehudsonkitchen.com/events-collection/food-business-bootcamp-0625",
+      "https://www.thehudsonkitchen.com/events-collection/passport-innovation-tour",
+      "https://www.thehudsonkitchen.com/events-collection/food-business-bootcamp-0225",
+      "https://www.thehudsonkitchen.com/events-collection/food-business-bootcamp-kickoff",
+      "https://www.thehudsonkitchen.com/events-collection/food-business-bootcamp-1024"
+    ],
+    "values": [
+      "(862) 231-6584"
+    ],
+    "normalized_values": [
+      "8622316584"
+    ],
+    "confidence": 1.0,
+    "verdict": "consistent"
+  }
+]

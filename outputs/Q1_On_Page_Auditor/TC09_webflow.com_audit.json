@@ -1,0 +1,198 @@
+[
+  {
+    "metric": "noindex_directive",
+    "page": "https://webflow.com/@jacksonbailey",
+    "severity": "critical",
+    "evidence": "Robots meta directives on this page are: noindex, follow. \"noindex\" excludes it from search results.",
+    "suggested_fix": "Confirm this page is meant to be hidden from search. If it should be indexed, remove \"noindex\" from the robots meta tag."
+  },
+  {
+    "metric": "multiple_h1",
+    "page": "https://webflow.com/",
+    "severity": "info",
+    "evidence": "The page contains 2 <h1> elements: \"Build for what’s next\", \"#MadeinWebflow\"",
+    "suggested_fix": "Keep one <h1> as the page's main heading and demote the others to <h2>."
+  },
+  {
+    "metric": "meta_description_too_short",
+    "page": "https://webflow.com/@balipton1",
+    "severity": "info",
+    "evidence": "Meta description is only 56 characters: \"Brendan Lipton (balipton1) | service provider on Webflow\"",
+    "suggested_fix": "Expand the description towards 160 characters."
+  },
+  {
+    "metric": "title_too_short",
+    "page": "https://webflow.com/@balipton1",
+    "severity": "info",
+    "evidence": "<title> is only 24 characters: \"Brendan Lipton - Webflow\"",
+    "suggested_fix": "Expand the title towards 30-60 characters with distinguishing detail."
+  },
+  {
+    "metric": "meta_description_too_short",
+    "page": "https://webflow.com/@creativeconceptsto",
+    "severity": "info",
+    "evidence": "Meta description is only 65 characters: \"Daniel Persaud (creativeconceptsto) | service provider on Webflow\"",
+    "suggested_fix": "Expand the description towards 160 characters."
+  },
+  {
+    "metric": "title_too_short",
+    "page": "https://webflow.com/@creativeconceptsto",
+    "severity": "info",
+    "evidence": "<title> is only 24 characters: \"Daniel Persaud - Webflow\"",
+    "suggested_fix": "Expand the title towards 30-60 characters with distinguishing detail."
+  },
+  {
+    "metric": "meta_description_too_long",
+    "page": "https://webflow.com/@digital-derez",
+    "severity": "info",
+    "evidence": "Meta description is 237 characters, over the 160-character display limit: \"Digital Derez (digital-derez) | service provider from Los Angeles, United States on Webflow. Providing full professional services from web development, graphic design, augmented reality, and more. Vis...\"",
+    "suggested_fix": "Trim the description to 160 characters or fewer."
+  },
+  {
+    "metric": "title_too_short",
+    "page": "https://webflow.com/@digital-derez",
+    "severity": "info",
+    "evidence": "<title> is only 23 characters: \"Digital Derez - Webflow\"",
+    "suggested_fix": "Expand the title towards 30-60 characters with distinguishing detail."
+  },
+  {
+    "metric": "title_too_short",
+    "page": "https://webflow.com/@dmdesigns",
+    "severity": "info",
+    "evidence": "<title> is only 20 characters: \"DMD Studio - Webflow\"",
+    "suggested_fix": "Expand the title towards 30-60 characters with distinguishing detail."
+  },
+  {
+    "metric": "thin_content",
+    "page": "https://webflow.com/@dmitryeremin",
+    "severity": "info",
+    "evidence": "The page has 147 words of visible text, below the 150-word threshold used here.",
+    "suggested_fix": "Confirm this page has enough substance to rank. Short utility pages such as contact or login pages are often legitimately brief."
+  },
+  {
+    "metric": "title_too_short",
+    "page": "https://webflow.com/@dmitryeremin",
+    "severity": "info",
+    "evidence": "<title> is only 23 characters: \"Dmitry Eremin - Webflow\"",
+    "suggested_fix": "Expand the title towards 30-60 characters with distinguishing detail."
+  },
+  {
+    "metric": "meta_description_too_long",
+    "page": "https://webflow.com/@hartmanagency",
+    "severity": "info",
+    "evidence": "Meta description is 345 characters, over the 160-character display limit: \"HARTMAN AGENCY (hartmanagency) | service provider from Stockholm, Sweden on Webflow. Hartman Agency is a Stockholm-based agency specialising in creating brands, animations and websites. Our passionate...\"",
+    "suggested_fix": "Trim the description to 160 characters or fewer."
+  },
+  {
+    "metric": "title_too_short",
+    "page": "https://webflow.com/@hartmanagency",
+    "severity": "info",
+    "evidence": "<title> is only 24 characters: \"HARTMAN AGENCY - Webflow\"",
+    "suggested_fix": "Expand the title towards 30-60 characters with distinguishing detail."
+  },
+  {
+    "metric": "title_too_short",
+    "page": "https://webflow.com/@jacksonbailey",
+    "severity": "info",
+    "evidence": "<title> is only 24 characters: \"Jackson Bailey - Webflow\"",
+    "suggested_fix": "Expand the title towards 30-60 characters with distinguishing detail."
+  },
+  {
+    "metric": "meta_description_too_long",
+    "page": "https://webflow.com/@meiuca-design",
+    "severity": "info",
+    "evidence": "Meta description is 280 characters, over the 160-character display limit: \"Meiuca (meiuca-design) | service provider from São Paulo, Brazil on Webflow. We’re a digital product studio, recognized as a reference in Design Systems. We’re Design System pioneers in Brazil, with w...\"",
+    "suggested_fix": "Trim the description to 160 characters or fewer."
+  },
+  {
+    "metric": "title_too_short",
+    "page": "https://webflow.com/@meiuca-design",
+    "severity": "info",
+    "evidence": "<title> is only 16 characters: \"Meiuca - Webflow\"",
+    "suggested_fix": "Expand the title towards 30-60 characters with distinguishing detail."
+  },
+  {
+    "metric": "meta_description_too_long",
+    "page": "https://webflow.com/@nagendrax0",
+    "severity": "info",
+    "evidence": "Meta description is 207 characters, over the 160-character display limit: \"Nagendra Shekhawat (nagendrax0) | service provider from Bangalore, India on Webflow. Independent B2B SaaS designer working with founders end-to-end on websites — strategy, design, and development in W...\"",
+    "suggested_fix": "Trim the description to 160 characters or fewer."
+  },
+  {
+    "metric": "title_too_short",
+    "page": "https://webflow.com/@nagendrax0",
+    "severity": "info",
+    "evidence": "<title> is only 28 characters: \"Nagendra Shekhawat - Webflow\"",
+    "suggested_fix": "Expand the title towards 30-60 characters with distinguishing detail."
+  },
+  {
+    "metric": "meta_description_too_short",
+    "page": "https://webflow.com/@nipunaw12",
+    "severity": "info",
+    "evidence": "Meta description is only 61 characters: \"Nipuna Weerapperuma (nipunaw12) | service provider on Webflow\"",
+    "suggested_fix": "Expand the description towards 160 characters."
+  },
+  {
+    "metric": "title_too_short",
+    "page": "https://webflow.com/@nipunaw12",
+    "severity": "info",
+    "evidence": "<title> is only 29 characters: \"Nipuna Weerapperuma - Webflow\"",
+    "suggested_fix": "Expand the title towards 30-60 characters with distinguishing detail."
+  },
+  {
+    "metric": "meta_description_too_short",
+    "page": "https://webflow.com/@rabiah",
+    "severity": "info",
+    "evidence": "Meta description is only 52 characters: \"Rabiah Sutton (rabiah) | service provider on Webflow\"",
+    "suggested_fix": "Expand the description towards 160 characters."
+  },
+  {
+    "metric": "title_too_short",
+    "page": "https://webflow.com/@rabiah",
+    "severity": "info",
+    "evidence": "<title> is only 23 characters: \"Rabiah Sutton - Webflow\"",
+    "suggested_fix": "Expand the title towards 30-60 characters with distinguishing detail."
+  },
+  {
+    "metric": "meta_description_too_long",
+    "page": "https://webflow.com/@raviklaassens",
+    "severity": "info",
+    "evidence": "Meta description is 176 characters, over the 160-character display limit: \"Ravi Klaassens (raviklaassens) | service provider from Enschede, Netherlands on Webflow. Ravi Klaassens is a Award-winning freelance digital designer & developer from Enschede.\"",
+    "suggested_fix": "Trim the description to 160 characters or fewer."
+  },
+  {
+    "metric": "title_too_short",
+    "page": "https://webflow.com/@raviklaassens",
+    "severity": "info",
+    "evidence": "<title> is only 24 characters: \"Ravi Klaassens - Webflow\"",
+    "suggested_fix": "Expand the title towards 30-60 characters with distinguishing detail."
+  },
+  {
+    "metric": "meta_description_too_long",
+    "page": "https://webflow.com/@scalability",
+    "severity": "info",
+    "evidence": "Meta description is 730 characters, over the 160-character display limit: \"Scalability Inc. (scalability) | service provider from New York, United States on Webflow. We help companies, big and small, discover what makes them unique and channel it into a memorable experience ...\"",
+    "suggested_fix": "Trim the description to 160 characters or fewer."
+  },
+  {
+    "metric": "title_too_short",
+    "page": "https://webflow.com/@scalability",
+    "severity": "info",
+    "evidence": "<title> is only 26 characters: \"Scalability Inc. - Webflow\"",
+    "suggested_fix": "Expand the title towards 30-60 characters with distinguishing detail."
+  },
+  {
+    "metric": "meta_description_too_short",
+    "page": "https://webflow.com/@webflow121662",
+    "severity": "info",
+    "evidence": "Meta description is only 61 characters: \"Arman Arakelyan (webflow121662) | service provider on Webflow\"",
+    "suggested_fix": "Expand the description towards 160 characters."
+  },
+  {
+    "metric": "title_too_short",
+    "page": "https://webflow.com/@webflow121662",
+    "severity": "info",
+    "evidence": "<title> is only 25 characters: \"Arman Arakelyan - Webflow\"",
+    "suggested_fix": "Expand the title towards 30-60 characters with distinguishing detail."
+  }
+]

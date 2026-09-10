@@ -1,0 +1,67 @@
+[
+  {
+    "field": "name",
+    "pages_compared": [
+      "https://www.ccbp.in/",
+      "https://www.ccbp.in/intensive/backend-developer-course",
+      "https://www.ccbp.in/intensive/react-js-training-in-hyderabad",
+      "https://www.ccbp.in/intensive/web-development-course-in-jaipur",
+      "https://www.ccbp.in/intensive/web-development-course-in-kolkata",
+      "https://www.ccbp.in/intensive/web-development-course-in-chennai",
+      "https://www.ccbp.in/intensive/web-development-course-in-pune",
+      "https://www.ccbp.in/intensive/spring-boot-course"
+    ],
+    "values": [
+      "NxtWave"
+    ],
+    "normalized_values": [
+      "nxtwave"
+    ],
+    "confidence": 1.0,
+    "verdict": "consistent"
+  },
+  {
+    "field": "address",
+    "pages_compared": [
+      "https://www.ccbp.in/intensive"
+    ],
+    "values": [
+      "1051 Waltair Main Road"
+    ],
+    "normalized_values": [
+      "1051 waltair main road"
+    ],
+    "confidence": 1.0,
+    "verdict": "consistent"
+  },
+  {
+    "field": "phone",
+    "pages_compared": [
+      "https://www.ccbp.in/",
+      "https://www.ccbp.in/academy",
+      "https://www.ccbp.in/intensive",
+      "https://www.ccbp.in/reviews",
+      "https://www.ccbp.in/hire",
+      "https://www.ccbp.in/about-us",
+      "https://www.ccbp.in/contact-us",
+      "https://www.ccbp.in/careers",
+      "https://www.ccbp.in/intensive/backend-developer-course",
+      "https://www.ccbp.in/intensive/react-js-training-in-hyderabad",
+      "https://www.ccbp.in/intensive/web-development-course-in-jaipur",
+      "https://www.ccbp.in/intensive/web-development-course-in-kolkata",
+      "https://www.ccbp.in/intensive/web-development-course-in-chennai",
+      "https://www.ccbp.in/intensive/web-development-course-in-pune",
+      "https://www.ccbp.in/intensive/spring-boot-course"
+    ],
+    "values": [
+      "+919390111761",
+      "+918008919090"
+    ],
+    "normalized_values": [
+      "9390111761",
+      "8008919090"
+    ],
+    "confidence": 0.9333,
+    "verdict": "inconsistent"
+  }
+]

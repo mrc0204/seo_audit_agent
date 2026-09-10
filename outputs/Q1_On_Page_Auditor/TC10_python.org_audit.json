@@ -1,0 +1,471 @@
+[
+  {
+    "metric": "duplicate_meta_description",
+    "page": "https://www.python.org/",
+    "severity": "warning",
+    "evidence": "This page's meta description \"The official home of the Python Programming Language\" is also used on 14 other page(s): https://www.python.org/psf-landing/, https://www.python.org/jobs/, https://www.python.org/community/",
+    "suggested_fix": "Write a distinct meta description for each page."
+  },
+  {
+    "metric": "duplicate_meta_description",
+    "page": "https://www.python.org/about/",
+    "severity": "warning",
+    "evidence": "This page's meta description \"The official home of the Python Programming Language\" is also used on 14 other page(s): https://www.python.org/, https://www.python.org/psf-landing/, https://www.python.org/jobs/",
+    "suggested_fix": "Write a distinct meta description for each page."
+  },
+  {
+    "metric": "duplicate_meta_description",
+    "page": "https://www.python.org/about/apps/",
+    "severity": "warning",
+    "evidence": "This page's meta description \"The official home of the Python Programming Language\" is also used on 14 other page(s): https://www.python.org/, https://www.python.org/psf-landing/, https://www.python.org/jobs/",
+    "suggested_fix": "Write a distinct meta description for each page."
+  },
+  {
+    "metric": "duplicate_meta_description",
+    "page": "https://www.python.org/about/gettingstarted/",
+    "severity": "warning",
+    "evidence": "This page's meta description \"The official home of the Python Programming Language\" is also used on 14 other page(s): https://www.python.org/, https://www.python.org/psf-landing/, https://www.python.org/jobs/",
+    "suggested_fix": "Write a distinct meta description for each page."
+  },
+  {
+    "metric": "duplicate_meta_description",
+    "page": "https://www.python.org/about/help/",
+    "severity": "warning",
+    "evidence": "This page's meta description \"The official home of the Python Programming Language\" is also used on 14 other page(s): https://www.python.org/, https://www.python.org/psf-landing/, https://www.python.org/jobs/",
+    "suggested_fix": "Write a distinct meta description for each page."
+  },
+  {
+    "metric": "duplicate_meta_description",
+    "page": "https://www.python.org/about/quotes/",
+    "severity": "warning",
+    "evidence": "This page's meta description \"The official home of the Python Programming Language\" is also used on 14 other page(s): https://www.python.org/, https://www.python.org/psf-landing/, https://www.python.org/jobs/",
+    "suggested_fix": "Write a distinct meta description for each page."
+  },
+  {
+    "metric": "duplicate_meta_description",
+    "page": "https://www.python.org/community/",
+    "severity": "warning",
+    "evidence": "This page's meta description \"The official home of the Python Programming Language\" is also used on 14 other page(s): https://www.python.org/, https://www.python.org/psf-landing/, https://www.python.org/jobs/",
+    "suggested_fix": "Write a distinct meta description for each page."
+  },
+  {
+    "metric": "duplicate_meta_description",
+    "page": "https://www.python.org/community/irc/",
+    "severity": "warning",
+    "evidence": "This page's meta description \"The official home of the Python Programming Language\" is also used on 14 other page(s): https://www.python.org/, https://www.python.org/psf-landing/, https://www.python.org/jobs/",
+    "suggested_fix": "Write a distinct meta description for each page."
+  },
+  {
+    "metric": "duplicate_meta_description",
+    "page": "https://www.python.org/downloads/",
+    "severity": "warning",
+    "evidence": "This page's meta description \"The official home of the Python Programming Language\" is also used on 14 other page(s): https://www.python.org/, https://www.python.org/psf-landing/, https://www.python.org/jobs/",
+    "suggested_fix": "Write a distinct meta description for each page."
+  },
+  {
+    "metric": "duplicate_meta_description",
+    "page": "https://www.python.org/downloads/android/",
+    "severity": "warning",
+    "evidence": "This page's meta description \"The official home of the Python Programming Language\" is also used on 14 other page(s): https://www.python.org/, https://www.python.org/psf-landing/, https://www.python.org/jobs/",
+    "suggested_fix": "Write a distinct meta description for each page."
+  },
+  {
+    "metric": "duplicate_meta_description",
+    "page": "https://www.python.org/downloads/macos/",
+    "severity": "warning",
+    "evidence": "This page's meta description \"The official home of the Python Programming Language\" is also used on 14 other page(s): https://www.python.org/, https://www.python.org/psf-landing/, https://www.python.org/jobs/",
+    "suggested_fix": "Write a distinct meta description for each page."
+  },
+  {
+    "metric": "duplicate_meta_description",
+    "page": "https://www.python.org/downloads/source/",
+    "severity": "warning",
+    "evidence": "This page's meta description \"The official home of the Python Programming Language\" is also used on 14 other page(s): https://www.python.org/, https://www.python.org/psf-landing/, https://www.python.org/jobs/",
+    "suggested_fix": "Write a distinct meta description for each page."
+  },
+  {
+    "metric": "duplicate_meta_description",
+    "page": "https://www.python.org/downloads/windows/",
+    "severity": "warning",
+    "evidence": "This page's meta description \"The official home of the Python Programming Language\" is also used on 14 other page(s): https://www.python.org/, https://www.python.org/psf-landing/, https://www.python.org/jobs/",
+    "suggested_fix": "Write a distinct meta description for each page."
+  },
+  {
+    "metric": "duplicate_meta_description",
+    "page": "https://www.python.org/jobs/",
+    "severity": "warning",
+    "evidence": "This page's meta description \"The official home of the Python Programming Language\" is also used on 14 other page(s): https://www.python.org/, https://www.python.org/psf-landing/, https://www.python.org/community/",
+    "suggested_fix": "Write a distinct meta description for each page."
+  },
+  {
+    "metric": "duplicate_meta_description",
+    "page": "https://www.python.org/psf-landing/",
+    "severity": "warning",
+    "evidence": "This page's meta description \"The official home of the Python Programming Language\" is also used on 14 other page(s): https://www.python.org/, https://www.python.org/jobs/, https://www.python.org/community/",
+    "suggested_fix": "Write a distinct meta description for each page."
+  },
+  {
+    "metric": "missing_canonical",
+    "page": "https://www.python.org/",
+    "severity": "info",
+    "evidence": "No <link rel=\"canonical\"> element is present in the document <head>.",
+    "suggested_fix": "Add a self-referencing canonical link to consolidate duplicate URLs."
+  },
+  {
+    "metric": "multiple_h1",
+    "page": "https://www.python.org/",
+    "severity": "info",
+    "evidence": "The page contains 5 <h1> elements: \"Intuitive Interpretation\", \"Compound Data Types\", \"All the Flow You’d Expect\", \"Functions Defined\"",
+    "suggested_fix": "Keep one <h1> as the page's main heading and demote the others to <h2>."
+  },
+  {
+    "metric": "meta_description_too_short",
+    "page": "https://www.python.org/",
+    "severity": "info",
+    "evidence": "Meta description is only 52 characters: \"The official home of the Python Programming Language\"",
+    "suggested_fix": "Expand the description towards 160 characters."
+  },
+  {
+    "metric": "title_too_short",
+    "page": "https://www.python.org/",
+    "severity": "info",
+    "evidence": "<title> is only 21 characters: \"Welcome to Python.org\"",
+    "suggested_fix": "Expand the title towards 30-60 characters with distinguishing detail."
+  },
+  {
+    "metric": "missing_canonical",
+    "page": "https://www.python.org/about/",
+    "severity": "info",
+    "evidence": "No <link rel=\"canonical\"> element is present in the document <head>.",
+    "suggested_fix": "Add a self-referencing canonical link to consolidate duplicate URLs."
+  },
+  {
+    "metric": "meta_description_too_short",
+    "page": "https://www.python.org/about/",
+    "severity": "info",
+    "evidence": "Meta description is only 52 characters: \"The official home of the Python Programming Language\"",
+    "suggested_fix": "Expand the description towards 160 characters."
+  },
+  {
+    "metric": "title_too_short",
+    "page": "https://www.python.org/about/",
+    "severity": "info",
+    "evidence": "<title> is only 26 characters: \"About Python™ | Python.org\"",
+    "suggested_fix": "Expand the title towards 30-60 characters with distinguishing detail."
+  },
+  {
+    "metric": "missing_canonical",
+    "page": "https://www.python.org/about/apps/",
+    "severity": "info",
+    "evidence": "No <link rel=\"canonical\"> element is present in the document <head>.",
+    "suggested_fix": "Add a self-referencing canonical link to consolidate duplicate URLs."
+  },
+  {
+    "metric": "multiple_h1",
+    "page": "https://www.python.org/about/apps/",
+    "severity": "info",
+    "evidence": "The page contains 7 <h1> elements: \"Applications for Python\", \"Web and Internet Development\", \"Scientific and Numeric\", \"Education\"",
+    "suggested_fix": "Keep one <h1> as the page's main heading and demote the others to <h2>."
+  },
+  {
+    "metric": "skipped_heading_level",
+    "page": "https://www.python.org/about/apps/",
+    "severity": "info",
+    "evidence": "Heading levels jump from <h1> to <h3> with no <h2> in between.",
+    "suggested_fix": "Insert an <h2> or promote the <h3> so the outline is contiguous."
+  },
+  {
+    "metric": "meta_description_too_short",
+    "page": "https://www.python.org/about/apps/",
+    "severity": "info",
+    "evidence": "Meta description is only 52 characters: \"The official home of the Python Programming Language\"",
+    "suggested_fix": "Expand the description towards 160 characters."
+  },
+  {
+    "metric": "missing_canonical",
+    "page": "https://www.python.org/about/gettingstarted/",
+    "severity": "info",
+    "evidence": "No <link rel=\"canonical\"> element is present in the document <head>.",
+    "suggested_fix": "Add a self-referencing canonical link to consolidate duplicate URLs."
+  },
+  {
+    "metric": "multiple_h1",
+    "page": "https://www.python.org/about/gettingstarted/",
+    "severity": "info",
+    "evidence": "The page contains 6 <h1> elements: \"Python For Beginners\", \"Installing\", \"Learning\", \"Looking for Something Specific?\"",
+    "suggested_fix": "Keep one <h1> as the page's main heading and demote the others to <h2>."
+  },
+  {
+    "metric": "skipped_heading_level",
+    "page": "https://www.python.org/about/gettingstarted/",
+    "severity": "info",
+    "evidence": "Heading levels jump from <h1> to <h3> with no <h2> in between.",
+    "suggested_fix": "Insert an <h2> or promote the <h3> so the outline is contiguous."
+  },
+  {
+    "metric": "meta_description_too_short",
+    "page": "https://www.python.org/about/gettingstarted/",
+    "severity": "info",
+    "evidence": "Meta description is only 52 characters: \"The official home of the Python Programming Language\"",
+    "suggested_fix": "Expand the description towards 160 characters."
+  },
+  {
+    "metric": "missing_canonical",
+    "page": "https://www.python.org/about/help/",
+    "severity": "info",
+    "evidence": "No <link rel=\"canonical\"> element is present in the document <head>.",
+    "suggested_fix": "Add a self-referencing canonical link to consolidate duplicate URLs."
+  },
+  {
+    "metric": "multiple_h1",
+    "page": "https://www.python.org/about/help/",
+    "severity": "info",
+    "evidence": "The page contains 10 <h1> elements: \"Help\", \"New to programming and to Python?\", \"New to Python?\", \"Looking for code?\"",
+    "suggested_fix": "Keep one <h1> as the page's main heading and demote the others to <h2>."
+  },
+  {
+    "metric": "skipped_heading_level",
+    "page": "https://www.python.org/about/help/",
+    "severity": "info",
+    "evidence": "Heading levels jump from <h1> to <h3> with no <h2> in between.",
+    "suggested_fix": "Insert an <h2> or promote the <h3> so the outline is contiguous."
+  },
+  {
+    "metric": "meta_description_too_short",
+    "page": "https://www.python.org/about/help/",
+    "severity": "info",
+    "evidence": "Meta description is only 52 characters: \"The official home of the Python Programming Language\"",
+    "suggested_fix": "Expand the description towards 160 characters."
+  },
+  {
+    "metric": "title_too_short",
+    "page": "https://www.python.org/about/help/",
+    "severity": "info",
+    "evidence": "<title> is only 17 characters: \"Help | Python.org\"",
+    "suggested_fix": "Expand the title towards 30-60 characters with distinguishing detail."
+  },
+  {
+    "metric": "missing_canonical",
+    "page": "https://www.python.org/about/quotes/",
+    "severity": "info",
+    "evidence": "No <link rel=\"canonical\"> element is present in the document <head>.",
+    "suggested_fix": "Add a self-referencing canonical link to consolidate duplicate URLs."
+  },
+  {
+    "metric": "multiple_h1",
+    "page": "https://www.python.org/about/quotes/",
+    "severity": "info",
+    "evidence": "The page contains 13 <h1> elements: \"Quotes about Python\", \"YouTube.com\", \"Industrial Light & Magic\", \"Google\"",
+    "suggested_fix": "Keep one <h1> as the page's main heading and demote the others to <h2>."
+  },
+  {
+    "metric": "skipped_heading_level",
+    "page": "https://www.python.org/about/quotes/",
+    "severity": "info",
+    "evidence": "Heading levels jump from <h1> to <h3> with no <h2> in between.",
+    "suggested_fix": "Insert an <h2> or promote the <h3> so the outline is contiguous."
+  },
+  {
+    "metric": "meta_description_too_short",
+    "page": "https://www.python.org/about/quotes/",
+    "severity": "info",
+    "evidence": "Meta description is only 52 characters: \"The official home of the Python Programming Language\"",
+    "suggested_fix": "Expand the description towards 160 characters."
+  },
+  {
+    "metric": "missing_canonical",
+    "page": "https://www.python.org/community/",
+    "severity": "info",
+    "evidence": "No <link rel=\"canonical\"> element is present in the document <head>.",
+    "suggested_fix": "Add a self-referencing canonical link to consolidate duplicate URLs."
+  },
+  {
+    "metric": "skipped_heading_level",
+    "page": "https://www.python.org/community/",
+    "severity": "info",
+    "evidence": "Heading levels jump from <h2> to <h4> with no <h3> in between.",
+    "suggested_fix": "Insert an <h3> or promote the <h4> so the outline is contiguous."
+  },
+  {
+    "metric": "meta_description_too_short",
+    "page": "https://www.python.org/community/",
+    "severity": "info",
+    "evidence": "Meta description is only 52 characters: \"The official home of the Python Programming Language\"",
+    "suggested_fix": "Expand the description towards 160 characters."
+  },
+  {
+    "metric": "title_too_short",
+    "page": "https://www.python.org/community/",
+    "severity": "info",
+    "evidence": "<title> is only 26 characters: \"Our Community | Python.org\"",
+    "suggested_fix": "Expand the title towards 30-60 characters with distinguishing detail."
+  },
+  {
+    "metric": "missing_canonical",
+    "page": "https://www.python.org/community/irc/",
+    "severity": "info",
+    "evidence": "No <link rel=\"canonical\"> element is present in the document <head>.",
+    "suggested_fix": "Add a self-referencing canonical link to consolidate duplicate URLs."
+  },
+  {
+    "metric": "multiple_h1",
+    "page": "https://www.python.org/community/irc/",
+    "severity": "info",
+    "evidence": "The page contains 3 <h1> elements: \"Internet Relay Chat\", \"Other Channels\", \"Other Sites\"",
+    "suggested_fix": "Keep one <h1> as the page's main heading and demote the others to <h2>."
+  },
+  {
+    "metric": "skipped_heading_level",
+    "page": "https://www.python.org/community/irc/",
+    "severity": "info",
+    "evidence": "Heading levels jump from <h1> to <h3> with no <h2> in between.",
+    "suggested_fix": "Insert an <h2> or promote the <h3> so the outline is contiguous."
+  },
+  {
+    "metric": "meta_description_too_short",
+    "page": "https://www.python.org/community/irc/",
+    "severity": "info",
+    "evidence": "Meta description is only 52 characters: \"The official home of the Python Programming Language\"",
+    "suggested_fix": "Expand the description towards 160 characters."
+  },
+  {
+    "metric": "missing_canonical",
+    "page": "https://www.python.org/downloads/",
+    "severity": "info",
+    "evidence": "No <link rel=\"canonical\"> element is present in the document <head>.",
+    "suggested_fix": "Add a self-referencing canonical link to consolidate duplicate URLs."
+  },
+  {
+    "metric": "multiple_h1",
+    "page": "https://www.python.org/downloads/",
+    "severity": "info",
+    "evidence": "The page contains 6 <h1> elements: \"Download the latest version for Android\", \"Download the latest source release\", \"Download the latest version for Windows\", \"Download the latest version for iOS\"",
+    "suggested_fix": "Keep one <h1> as the page's main heading and demote the others to <h2>."
+  },
+  {
+    "metric": "skipped_heading_level",
+    "page": "https://www.python.org/downloads/",
+    "severity": "info",
+    "evidence": "Heading levels jump from <h2> to <h4> with no <h3> in between.",
+    "suggested_fix": "Insert an <h3> or promote the <h4> so the outline is contiguous."
+  },
+  {
+    "metric": "meta_description_too_short",
+    "page": "https://www.python.org/downloads/",
+    "severity": "info",
+    "evidence": "Meta description is only 52 characters: \"The official home of the Python Programming Language\"",
+    "suggested_fix": "Expand the description towards 160 characters."
+  },
+  {
+    "metric": "title_too_short",
+    "page": "https://www.python.org/downloads/",
+    "severity": "info",
+    "evidence": "<title> is only 28 characters: \"Download Python | Python.org\"",
+    "suggested_fix": "Expand the title towards 30-60 characters with distinguishing detail."
+  },
+  {
+    "metric": "missing_canonical",
+    "page": "https://www.python.org/downloads/android/",
+    "severity": "info",
+    "evidence": "No <link rel=\"canonical\"> element is present in the document <head>.",
+    "suggested_fix": "Add a self-referencing canonical link to consolidate duplicate URLs."
+  },
+  {
+    "metric": "meta_description_too_short",
+    "page": "https://www.python.org/downloads/android/",
+    "severity": "info",
+    "evidence": "Meta description is only 52 characters: \"The official home of the Python Programming Language\"",
+    "suggested_fix": "Expand the description towards 160 characters."
+  },
+  {
+    "metric": "missing_canonical",
+    "page": "https://www.python.org/downloads/macos/",
+    "severity": "info",
+    "evidence": "No <link rel=\"canonical\"> element is present in the document <head>.",
+    "suggested_fix": "Add a self-referencing canonical link to consolidate duplicate URLs."
+  },
+  {
+    "metric": "meta_description_too_short",
+    "page": "https://www.python.org/downloads/macos/",
+    "severity": "info",
+    "evidence": "Meta description is only 52 characters: \"The official home of the Python Programming Language\"",
+    "suggested_fix": "Expand the description towards 160 characters."
+  },
+  {
+    "metric": "missing_canonical",
+    "page": "https://www.python.org/downloads/source/",
+    "severity": "info",
+    "evidence": "No <link rel=\"canonical\"> element is present in the document <head>.",
+    "suggested_fix": "Add a self-referencing canonical link to consolidate duplicate URLs."
+  },
+  {
+    "metric": "meta_description_too_short",
+    "page": "https://www.python.org/downloads/source/",
+    "severity": "info",
+    "evidence": "Meta description is only 52 characters: \"The official home of the Python Programming Language\"",
+    "suggested_fix": "Expand the description towards 160 characters."
+  },
+  {
+    "metric": "missing_canonical",
+    "page": "https://www.python.org/downloads/windows/",
+    "severity": "info",
+    "evidence": "No <link rel=\"canonical\"> element is present in the document <head>.",
+    "suggested_fix": "Add a self-referencing canonical link to consolidate duplicate URLs."
+  },
+  {
+    "metric": "meta_description_too_short",
+    "page": "https://www.python.org/downloads/windows/",
+    "severity": "info",
+    "evidence": "Meta description is only 52 characters: \"The official home of the Python Programming Language\"",
+    "suggested_fix": "Expand the description towards 160 characters."
+  },
+  {
+    "metric": "missing_canonical",
+    "page": "https://www.python.org/jobs/",
+    "severity": "info",
+    "evidence": "No <link rel=\"canonical\"> element is present in the document <head>.",
+    "suggested_fix": "Add a self-referencing canonical link to consolidate duplicate URLs."
+  },
+  {
+    "metric": "meta_description_too_short",
+    "page": "https://www.python.org/jobs/",
+    "severity": "info",
+    "evidence": "Meta description is only 52 characters: \"The official home of the Python Programming Language\"",
+    "suggested_fix": "Expand the description towards 160 characters."
+  },
+  {
+    "metric": "title_too_short",
+    "page": "https://www.python.org/jobs/",
+    "severity": "info",
+    "evidence": "<title> is only 29 characters: \"Python Job Board | Python.org\"",
+    "suggested_fix": "Expand the title towards 30-60 characters with distinguishing detail."
+  },
+  {
+    "metric": "missing_canonical",
+    "page": "https://www.python.org/psf-landing/",
+    "severity": "info",
+    "evidence": "No <link rel=\"canonical\"> element is present in the document <head>.",
+    "suggested_fix": "Add a self-referencing canonical link to consolidate duplicate URLs."
+  },
+  {
+    "metric": "multiple_h1",
+    "page": "https://www.python.org/psf-landing/",
+    "severity": "info",
+    "evidence": "The page contains 5 <h1> elements: \"The Python Software Foundation is the charitable organization behind the Python programming language.\", \"We support the Python Community through...\", \"Grants\", \"Infrastructure\"",
+    "suggested_fix": "Keep one <h1> as the page's main heading and demote the others to <h2>."
+  },
+  {
+    "metric": "meta_description_too_short",
+    "page": "https://www.python.org/psf-landing/",
+    "severity": "info",
+    "evidence": "Meta description is only 52 characters: \"The official home of the Python Programming Language\"",
+    "suggested_fix": "Expand the description towards 160 characters."
+  },
+  {
+    "metric": "title_too_short",
+    "page": "https://www.python.org/psf-landing/",
+    "severity": "info",
+    "evidence": "<title> is only 26 characters: \"Python Software Foundation\"",
+    "suggested_fix": "Expand the title towards 30-60 characters with distinguishing detail."
+  }
+]
